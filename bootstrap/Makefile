@@ -41,7 +41,9 @@ BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 .PHONY:$(PACKAGES) chumby openembedded
 
 # Install packages all at once
-all:
+all: packages openembedded chumby bitbake
+
+packages:
 	sudo aptitude install $(PACKAGES)
 
 # Install packages one at a time
