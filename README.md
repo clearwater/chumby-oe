@@ -20,7 +20,7 @@ Here's the process from the beginning:
 
  - You will need a github login.  If you don't have one already, sign up for one now.
  - Download the ISO file for the netinst from [http://www.debian.org/CD/netinst/].  I used bittorrent.
- - Create a new VirtualBox image under OS X and boot from the Debian ISO.  I used the defaults for RAM and disk size (NOT BIG ENOUGH!).  I named my image "debian" and VirtualBox recognized it as a Debian install - neat trick.
+ - Create a new VirtualBox image under OS X and boot from the Debian ISO.  The default disk size (8Gb) is NOT big enough.  I used 40Gb.  I named my image "debian" and VirtualBox recognized it as a Debian install - neat trick.
  - Select only the minimum required packages, plus the SSH server.
  - Follow the installer prompts to complete the installation and reboot.
  - Set the network to "bridged" mode so you can ssh into the virtual box over your network.
@@ -53,8 +53,8 @@ Now login to your user account and perform the following:
 
 3) Install the correct version of bitbake (as root)
 
-    su
     cd ~/chumby-oe/bootstrap/bitbake-1.12.0 
+    su
     python setup.py install
     exit
 
