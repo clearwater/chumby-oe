@@ -18,6 +18,7 @@ it was intended.
 
 Here's the process from the beginning:
 
+ - You will need a github login.  If you don't have one already, sign up for one now.
  - Download the ISO file for the netinst from [http://www.debian.org/CD/netinst/].  I used bittorrent.
  - Create a new VirtualBox image under OS X and boot from the Debian ISO.  I used the defaults for RAM and disk size (NOT BIG ENOUGH!).  I named my image "debian" and VirtualBox recognized it as a Debian install - neat trick.
  - Select only the minimum required packages, plus the SSH server.
@@ -36,15 +37,18 @@ Give yourself access to aptitude through sudo, and turn off dash (OE bitches if 
 
 Now login to your user account and perform the following:
 
+0) Create a ssh key for github access, and add it to your github account's list of authorized keys.
+ 
+    ssh-keygen -t rsa -C "your_email@youremail.com"
+    cat ~/.ssh/id_rsa.pub
+
 1) Download the bootstrap tools:
 
-    mkdir chumby-oe
-    cd chumby-oe
-    git checkout git@github.com:clearwater/chumby-oe.git
+    git clone git@github.com:clearwater/chumby-oe.git
 
-2) Use the bootstrap tools to download the OE and chumby tools
+2) Use the bootstrap tools to download the OE and chumby tools.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
 
-    cd bootstrap
+    cd chumby-oe/bootstrap
     make all
 
 3) Install the correct version of bitbake (as root)
