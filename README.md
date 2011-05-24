@@ -65,6 +65,16 @@ Now login to your user account and perform the following:
     make
 
 
+Checksum Errors
+----
+
+I found it necessary to update the checksums in 
+  ./meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb
+as follows:
+  SRC_URI[md5sum] = "e4769e2f866d1f105cd7ad8f9f196aad"
+  SRC_URI[sha256sum] = "11ad31a3d2487b48d9ff95df7494903d0fe109e9880a9569146f236703100a3a"
+
+
 
 	
 
