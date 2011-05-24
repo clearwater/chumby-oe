@@ -1,3 +1,5 @@
+# On debian: 
+# sudo dpkg-reconfigure dash
 
 .PHONY:	build clean
 build:
