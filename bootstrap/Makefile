@@ -42,7 +42,7 @@ BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 .PHONY:$(PACKAGES) chumby openembedded
 
 # Install packages all at once
-all: packages openembedded chumby bitbake
+all: packages openembedded bitbake
 
 packages:
 	sudo aptitude install $(PACKAGES)
@@ -56,11 +56,6 @@ $(PACKAGES):
 
 openembedded:
 	git clone git://git.openembedded.org/openembedded ../openembedded
-
-chumby:
-	$(DOWNLOAD) http://files.chumby.com/hacks/$(CHUMBY_TGZ)
-	tar -C .. -zxvf $(DOWNLOAD_DIR)/$(CHUMBY_TGZ)
-	patch ../meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb < patches/linux-falconwing_2.6.28.1.0.3454.bb.patch
 
 bitbake:
 	$(DOWNLOAD) http://download.berlios.de/bitbake/$(BITBAKE_TGZ)
