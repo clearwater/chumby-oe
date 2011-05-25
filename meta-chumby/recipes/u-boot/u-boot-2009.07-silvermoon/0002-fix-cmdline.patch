@@ -1,0 +1,24 @@
+Only in src/include/configs: .aspenite.h.swp
+diff -ur src-stock/include/configs/aspenite.h src/include/configs/aspenite.h
+--- src-stock/include/configs/aspenite.h	2010-11-17 02:05:29.808900629 +0000
++++ src/include/configs/aspenite.h	2010-11-17 02:07:15.102005694 +0000
+@@ -282,15 +282,15 @@
+     "snow draw ;"                                               \
+     " ;"                                                        \
+     /* Set up the Linux command line */                         \
+-    "setenv bootargs root=/dev/${PART} rootfstype=ext3 "        \
++    "setenv bootargs root=/dev/${PART} "                        \
+             "rootwait console=ttyS0,115200 mem=128M "           \
+-            "uart_dma init=/linuxrc sysrq_always_enabled "      \
++            "uart_dma sysrq_always_enabled "                    \
+             "brandnum=${brandnum} "                             \
+-            "ro logo.brand=${brand} ${RECOVERY} ;"              \
++            "rw logo.brand=${brand} ${RECOVERY} ;"              \
+     "echo \"Booting to ${PARTNAME}...\" ;"                      \
+     " ;"                                                        \
+     /* Load the kernel from the config area */                  \
+-    "ext2load mmc 0:${KF} ${default_load_addr} /boot/vmlinuz && cconfigload mmc 0 ${default_load_addr} ${KB};"\
++    "ext2load mmc 0:${KF} ${default_load_addr} /boot/zImage && cconfigload mmc 0 ${default_load_addr} ${KB};"\
+     "bootz ${default_load_addr} ;"                              \
+     ""
+     //"cconfigload mmc 0 ${default_load_addr} ${KERN} ;"

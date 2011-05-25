@@ -1,0 +1,14 @@
+## When the network card is connected, tell the control panel.
+ACTION=="add", KERNEL=="eth*" RUN+="/usr/chumby/scripts/signal_soft_event.sh 'NetworkStatus' 'ethernet' 'add'"
+ACTION=="remove", KERNEL=="eth*" RUN+="/usr/chumby/scripts/signal_soft_event.sh 'NetworkStatus' 'ethernet' 'remove'"
+
+
+# Shut down wpa_supplicant if the wifi card is removed.
+ACTION=="remove", KERNEL=="wlan*", RUN+="/usr/local/sbin/wpa_cli -p/var/run/wpa_supplicant -i%k terminate"
+
+
+# Print out the guid when a printer is plugged in.
+ACTION=="add", KERNEL=="lp0", ATTRS{idVendor}=="0619", ATTRS{idProduct}=="0502", RUN+="/bin/sh -c /usr/chumby/scripts/printlabel.sh"
+
+# Send an event to the control panel when a USB sound card is added or removed.
+DRIVERS=="usb", SUBSYSTEM=="sound", KERNEL=="card*", RUN+="/usr/chumby/scripts/signal_soft_event.sh USBAUDIO %E{ACTION} %k"

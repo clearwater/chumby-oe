@@ -1,0 +1,7 @@
+ATTRS{name}=="STMP3XXX touchscreen", ENV{ID_CLASS}="ts", ENV{ID_BUS}="soc", ENV{.INPUT_CLASS}="ts"
+ATTRS{name}=="stmp3xxx-rotdec", ENV{ID_BUS}="soc", ENV{ID_CLASS}="joystick"
+ATTRS{name}=="bend-sensor", ENV{ID_CLASS}="kbd", ENV{ID_BUS}="soc"
+KERNEL=="event*", ATTRS{name}=="Silvermoon Touchscreen", ENV{ID_CLASS}="ts", ENV{ID_BUS}="soc", ENV{.INPUT_CLASS}="ts"
+KERNEL=="event*", ATTRS{name}=="tsc2007", ENV{ID_CLASS}="ts", ENV{ID_BUS}="soc"
+
+ACTION=="add", SUBSYSTEM=="scsi", RUN+="/bin/touch /tmp/usbstorage_waiting"

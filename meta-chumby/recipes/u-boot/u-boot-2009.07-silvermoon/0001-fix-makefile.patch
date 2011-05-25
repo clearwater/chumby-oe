@@ -1,0 +1,62 @@
+Only in src: .config.mk.swp
+diff -ur src-stock/config.mk src/config.mk
+--- src-stock/config.mk	2010-11-17 02:02:42.575662139 +0000
++++ src/config.mk	2010-11-17 02:03:44.365657938 +0000
+@@ -43,6 +43,7 @@
+ PLATFORM_RELFLAGS =
+ PLATFORM_CPPFLAGS =
+ PLATFORM_LDFLAGS =
++LDFLAGS = 
+ 
+ #########################################################################
+ 
+@@ -62,20 +63,6 @@
+ cc-option = $(shell if $(CC) $(CFLAGS) $(1) -S -o /dev/null -xc /dev/null \
+ 		> /dev/null 2>&1; then echo "$(1)"; else echo "$(2)"; fi ;)
+ 
+-#
+-# Include the make variables (CC, etc...)
+-#
+-AS	= $(CROSS_COMPILE)as
+-LD	= $(CROSS_COMPILE)ld
+-CC	= $(CROSS_COMPILE)gcc
+-CPP	= $(CC) -E
+-AR	= $(CROSS_COMPILE)ar
+-NM	= $(CROSS_COMPILE)nm
+-LDR	= $(CROSS_COMPILE)ldr
+-STRIP	= $(CROSS_COMPILE)strip
+-OBJCOPY = $(CROSS_COMPILE)objcopy
+-OBJDUMP = $(CROSS_COMPILE)objdump
+-RANLIB	= $(CROSS_COMPILE)RANLIB
+ 
+ #########################################################################
+ 
+@@ -229,5 +216,27 @@
+ 
+ # DO NOT CHANGE this unless you understand how it works!!!
+ # Changes go in build/Makefile which generate the config
+-include $(TOPDIR)/chumby.mk
++# Generated config for $(CONFIGNAME) - do not edit, written by build/Makefile
++CHUMBY_CONFIG_FLAGS = -DCHUMBY_CONFIG_memsize=128 \
++        -DCHUMBY_CONFIG_scrheight=800 -DCHUMBY_CONFIG_scrwidth=600 \
++        -DCHUMBY_CONFIG_platform=\"silvermoon\" -DCHUMBY_CONFIG_name=\"silvermoon_a0\" \
++        -DCHUMBY_CNPLATFORM_silvermoon -DCHUMBY_CONFIG_silvermoon -DCHUMBY_CONFIG_production=1000 \
++        -DCHUMBY_CONFIGNAME_silvermoon_a0 -DCHUMBY_CONFIG_appoffset=\"0\" -DCHUMBY_CONFIG_badblock \
++        -DCHUMBY_CONFIG_k1off=0x0 -DCHUMBY_CONFIG_k2off=0x0 \
++        -DCHUMBY_CONFIG_rfs1=0 -DCHUMBY_CONFIG_rfs2=0 \
++        -DCHUMBY_CONFIG_mspoff=0x0 -DCHUMBY_CONFIG_mspoff_text=\"0\" \
++        -DCHUMBY_DOFFSET_config=\"0\" -DCHUMBY_LENGTH_config=\"0\" \
++        -DCHUMBY_DOFFSET_Chst=\"0\" -DCHUMBY_LENGTH_Chst=\"0\" \
++        -DCHUMBY_DOFFSET_ubfb=\"0\" -DCHUMBY_LENGTH_ubfb=\"0\"
++CONFIGNAME   = silvermoon_a0
++CFLAGS      += $(CHUMBY_CONFIG_FLAGS)
++CPPFLAGS    += $(CHUMBY_CONFIG_FLAGS)
++AFLAGS      += $(CHUMBY_CONFIG_FLAGS)
++OBJCFLAGS   += --remove-section=.framebuffer
++# For some reason COMPILE.S is sometimes used in a way that works using AFLAGS, and at other times using ASFLAGS
++ASFLAGS      = $(AFLAGS)
++# Required for generating ${OBJDIR}/include/autoconf.mk
++HOST_CFLAGS += ${CHUMBY_CONFIG_FLAGS}
++# end of file
++
+ 

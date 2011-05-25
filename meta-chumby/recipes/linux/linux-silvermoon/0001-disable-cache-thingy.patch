@@ -1,0 +1,12 @@
+diff -ur src-stock/arch/arm/mm/proc-mohawk.S src/arch/arm/mm/proc-mohawk.S
+--- src-stock/arch/arm/mm/proc-mohawk.S	2010-10-25 03:08:48.999612257 +0000
++++ src/arch/arm/mm/proc-mohawk.S	2010-10-25 03:09:04.753697100 +0000
+@@ -229,7 +229,7 @@
+ 	add		r0, #BAD_CACHE_LINE_OFFSET
+ 1:	cmp		r0, r1
+ 	bgt		2f
+-	mcr 	p15, 1, r0, c7, c11, 1		@ l2 clean single entry
++@	mcr 	p15, 1, r0, c7, c11, 1		@ l2 clean single entry
+ 	add		r0, #PAGE_SZ
+ 	b		1b
+ 2:
