@@ -16,10 +16,10 @@ of unknown quality.  I decided to switch tacks and use Debian running in a virtu
 using VirtualBox on Mac OSX.  That should let me use OE the way
 it was intended.
 
-Here's the process from the beginning:
+Here's the process for installing Debian and getting OE running, from the beginning:
 
  - You will need a github login.  If you don't have one already, sign up for one now.
- - Download the ISO file for the netinst from [http://www.debian.org/CD/netinst/].  I used bittorrent.
+ - Download the ISO file for the netinst from http://www.debian.org/CD/netinst/.  I used bittorrent.
  - Create a new VirtualBox image under OS X and boot from the Debian ISO.  The default disk size (8Gb) is NOT big enough.  I used 40Gb.  I named my image "debian" and VirtualBox recognized it as a Debian install - neat trick.
  - Select only the minimum required packages, plus the SSH server.
  - Follow the installer prompts to complete the installation and reboot.
@@ -27,17 +27,17 @@ Here's the process from the beginning:
 
 Once you have a Debian console, login *as root* and perform the following steps:
 
-Install sudo and git-core
+1)  Install sudo and git-core
     aptitude install sudoers git-core
 
-Give yourself access to aptitude through sudo, and turn off dash (OE bitches if you leave it on.)
+2)  Give yourself access to aptitude through sudo, and turn off dash (OE bitches if you leave it on.)
 
     echo "guy ALL = NOPASSWD: /usr/bin/aptitude" >> /etc/sudoers
     dpkg-reconfigure dash
 
 Now login to your user account and perform the following:
 
-1) Create a ssh key for github access, and add it to your github account's list of authorized keys.
+3)  Create a ssh key for github access, and add it to your github account's list of authorized keys.
  
     ssh-keygen -t rsa -C "your_email@youremail.com"
     cat ~/.ssh/id_rsa.pub
@@ -48,15 +48,16 @@ Follow the instructions on github for adding this key to the list of keys in you
     Hi guyc! You've successfully authenticated, but GitHub does not provide shell access.
     Connection to github.com closed.
 
-If your key has not been correctly installed you will see an error message instead.  See [http://help.github.com/troubleshooting-ssh/] for details.
+If your key has not been correctly installed you will see an error message instead.  See http://help.github.com/troubleshooting-ssh/ for details.
 
-2) Download the bootstrap tools:
+4) Download the bootstrap tools:
 
-    git clone git@github.com:clearwater/chumby-oe.git
+   cd ~
+   git clone git@github.com:clearwater/chumby-oe.git
 
-3) Use the bootstrap tools to install required packages, download OpenEmbedded, bitbake, and the chumby prproject files.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
+5) Use the bootstrap tools to install required packages, download OpenEmbedded, bitbake, and the chumby prproject files.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
 
-    cd chumby-oe
+    cd ~/chumby-oe
     make bootstrap
 
 The makefile incorporates a patch to the chumby recipe file to correct the checksums in this file:
@@ -70,8 +71,17 @@ the correct checksums are:
     cd ~/chumby-oe
     make
 
-Checksum Errors
-----
+Resources
+=========
+
+1.  [Chumby Hacker Boards](http://wiki.chumby.com/index.php/Chumby_hacker_board_beta)
+2.  [Buy Chumby Hacker Boards at Adafruit](http://www.adafruit.com/category/46)
+3.  [OpenEmbedded Wiki](http://www.openembedded.org/index.php/Main_Page)
+4.  [Bitbake Manual](http://bitbake.berlios.de/manual/)
+5.  [Chumby Hackers Board Forum](http://forum.chumby.com/viewforum.php?id=20)
+6.  [Chumby Building OpenEmbedded](http://wiki.chumby.com/index.php/Building_OpenEmbedded_%28Beta%29)
+7.  [Chumby Quickstarting OE](http://wiki.chumby.com/index.php/Quickstarting_OE)
+
 
 
 
