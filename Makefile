@@ -23,6 +23,9 @@ buildlog:
 test:
 	bitbake --dry-run $(CHUMBY_IMAGE)
 
+unit:
+	bitbake -b linux-falconwing_2.6.28.1.0.3454.bb 2>&1 > unit.log
+
 clean:
 	rm -rf $(OUTPUT)
 
