@@ -55,16 +55,14 @@ If your key has not been correctly installed you will see an error message inste
    cd ~
    git clone git@github.com:clearwater/chumby-oe.git
 
-5) Use the bootstrap tools to install required packages, download OpenEmbedded, bitbake, and the chumby prproject files.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
+This repository incorporates a number of fixes to the source package distributed by chumby including:
+ - fixed incorrect checksums for linux kernel source file
+ - fixed incorrect source directory for linux kernel source file
+
+5) Use the bootstrap tools to install required packages, download OpenEmbedded and bitbake.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
 
     cd ~/chumby-oe
     make bootstrap
-
-The makefile incorporates a patch to the chumby recipe file to correct the checksums in this file:
-  ./meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb
-the correct checksums are:
-  SRC_URI[md5sum] = "e4769e2f866d1f105cd7ad8f9f196aad"
-  SRC_URI[sha256sum] = "11ad31a3d2487b48d9ff95df7494903d0fe109e9880a9569146f236703100a3a"
 
 4) Use bitbake to download and build the cross-compiler toolchain and OS
 
