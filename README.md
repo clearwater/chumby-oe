@@ -37,42 +37,41 @@ Give yourself access to aptitude through sudo, and turn off dash (OE bitches if 
 
 Now login to your user account and perform the following:
 
-0) Create a ssh key for github access, and add it to your github account's list of authorized keys.
+1) Create a ssh key for github access, and add it to your github account's list of authorized keys.
  
     ssh-keygen -t rsa -C "your_email@youremail.com"
     cat ~/.ssh/id_rsa.pub
 
-1) Download the bootstrap tools:
+Follow the instructions on github for adding this key to the list of keys in your github account.  You can confirm that your key is correctly installed as follows:
+
+    > ssh git@github.com
+    Hi guyc! You've successfully authenticated, but GitHub does not provide shell access.
+    Connection to github.com closed.
+
+If your key has not been correctly installed you will see an error message instead.  See [http://help.github.com/troubleshooting-ssh/] for details.
+
+2) Download the bootstrap tools:
 
     git clone git@github.com:clearwater/chumby-oe.git
 
-2) Use the bootstrap tools to download the OE and chumby tools.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
+3) Use the bootstrap tools to install required packages, download OpenEmbedded, bitbake, and the chumby prproject files.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
 
-    cd chumby-oe/bootstrap
-    make all
+    cd chumby-oe
+    make bootstrap
 
-3) Install the correct version of bitbake (as root)
+The makefile incorporates a patch to the chumby recipe file to correct the checksums in this file:
+  ./meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb
+the correct checksums are:
+  SRC_URI[md5sum] = "e4769e2f866d1f105cd7ad8f9f196aad"
+  SRC_URI[sha256sum] = "11ad31a3d2487b48d9ff95df7494903d0fe109e9880a9569146f236703100a3a"
 
-    cd ~/chumby-oe/bootstrap/bitbake-1.12.0 
-    su
-    python setup.py install
-    exit
-
-4) Use bitbake to download and build the OE toolchain
+4) Use bitbake to download and build the cross-compiler toolchain and OS
 
     cd ~/chumby-oe
-    source setup.sh
     make
-
 
 Checksum Errors
 ----
-
-I found it necessary to update the checksums in 
-  ./meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb
-as follows:
-  SRC_URI[md5sum] = "e4769e2f866d1f105cd7ad8f9f196aad"
-  SRC_URI[sha256sum] = "11ad31a3d2487b48d9ff95df7494903d0fe109e9880a9569146f236703100a3a"
 
 
 

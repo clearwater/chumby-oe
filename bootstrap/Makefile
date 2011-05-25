@@ -36,6 +36,7 @@ CHUMBY_TGZ:=meta-chumby-1.2.tar.gz
 DOWNLOAD_DIR:=downloads
 DOWNLOAD:=wget --directory-prefix $(DOWNLOAD_DIR) --continue
 BITBAKE_VERSION:=1.12.0
+BITBAKE_PATH:=bitbake-$(BITBAKE_VERSION)
 BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 
 .PHONY:$(PACKAGES) chumby openembedded
@@ -59,10 +60,9 @@ openembedded:
 chumby:
 	$(DOWNLOAD) http://files.chumby.com/hacks/$(CHUMBY_TGZ)
 	tar -C .. -zxvf $(DOWNLOAD_DIR)/$(CHUMBY_TGZ)
+	patch --dry-run ../meta-chumby/recipes/linux/linux-falconwing_2.6.28.1.0.3454.bb < patches/linux-falconwing_2.6.28.1.0.3454.bb.patch
 
 bitbake:
 	$(DOWNLOAD) http://download.berlios.de/bitbake/$(BITBAKE_TGZ)
 	tar -zxvf $(DOWNLOAD_DIR)/$(BITBAKE_TGZ)
-	@echo "su and run the following:"
-	@echo "  cd bitbake-$(BITBAKE_VERSION)"
-	@echo "  python setup.py install"
+	ln -s -f bootstrap/$(BITBAKE_PATH) ../bitbake
