@@ -1,70 +1,43 @@
-Building a System Image for a Chumby Hackers Board
-====
+Building a Custom Firmware for the Chumby Hackers Board
+==================================================
 
-Chumby have very kindly made available a kit to build
-a custom bootable image for the Chumby Hackers board using
-OpenEmbedded.  
+Chumby has made an OpenEmbedded overlay available for building firmware for
+their products. Unfortunately the distributed source package has several issues
+which this package corrects, including:
 
-http://wiki.chumby.com/index.php/Building_OpenEmbedded_%28Beta%29
+* simplifying the installation process
+* correcting the checksum for linux kernel source file
+* correcting the source directory for linux kernel source file
 
-The OpenEmbedded tool does not run easily (at all?) under
-FreeBSD or BSD-derived OS X.  I'm very familiar with FreeBSD,
-and after spending some time trying to resolve all of the issues with OE
-under FreeBSD I decided that developing for embedded systems
-are hard enough without introducing a new variable - a toolchain
-of unknown quality.  I decided to switch tacks and use Debian running in a virtual machine 
-using VirtualBox on Mac OSX.  That should let me use OE the way
-it was intended.
+Getting Started
+===============
 
-Here's the process for installing Debian and getting OE running, from the beginning:
+* Download the ISO file for the netinst from http://www.debian.org/CD/netinst/.
+* Select only the minimum required packages, plus the SSH server.
+* Follow the installer prompts to complete the installation and reboot.
+* Set the network to "bridged" mode so you can ssh into the virtual box over your network.
 
- - You will need a github login.  If you don't have one already, sign up for one now.
- - Download the ISO file for the netinst from http://www.debian.org/CD/netinst/.  I used bittorrent.
- - Create a new VirtualBox image under OS X and boot from the Debian ISO.  The default disk size (8Gb) is NOT big enough.  I used 40Gb.  I named my image "debian" and VirtualBox recognized it as a Debian install - neat trick.
- - Select only the minimum required packages, plus the SSH server.
- - Follow the installer prompts to complete the installation and reboot.
- - Set the network to "bridged" mode so you can ssh into the virtual box over your network.
+Once you have a Debian console, perform the following:
 
-Once you have a Debian console, login *as root* and perform the following steps:
+1. Install git-core, to download this repository.
 
-1)  Install sudo and git-core
-    aptitude install sudoers git-core
+    sudo apt-get install git-core
 
-2)  Give yourself access to aptitude through sudo, and turn off dash (OE bitches if you leave it on.)
+1. Disable dash, as OpenEmbedded prefers Bash.
 
-    echo "guy ALL = NOPASSWD: /usr/bin/aptitude" >> /etc/sudoers
-    dpkg-reconfigure dash
+    sudo dpkg-reconfigure dash
 
-Now login to your user account and perform the following:
+1. Download the bootstrap tools
 
-3)  Create a ssh key for github access, and add it to your github account's list of authorized keys.
- 
-    ssh-keygen -t rsa -C "your_email@youremail.com"
-    cat ~/.ssh/id_rsa.pub
+    cd ~
+    git clone git@github.com:clearwater/chumby-oe.git
 
-Follow the instructions on github for adding this key to the list of keys in your github account.  You can confirm that your key is correctly installed as follows:
-
-    > ssh git@github.com
-    Hi guyc! You've successfully authenticated, but GitHub does not provide shell access.
-    Connection to github.com closed.
-
-If your key has not been correctly installed you will see an error message instead.  See http://help.github.com/troubleshooting-ssh/ for details.
-
-4) Download the bootstrap tools:
-
-   cd ~
-   git clone git@github.com:clearwater/chumby-oe.git
-
-This repository incorporates a number of fixes to the source package distributed by chumby including:
- - fixed incorrect checksums for linux kernel source file
- - fixed incorrect source directory for linux kernel source file
-
-5) Use the bootstrap tools to install required packages, download OpenEmbedded and bitbake.  This triggers the installation of the required packages (almost 200 of them), plus the downloading of the OpenEmbedded toolchain from github (big!) and some other downloads.  It will take a while.
+1. Use the bootstrap tools to install required packages. This triggers the installation of over 200 packages, it will take a while.
 
     cd ~/chumby-oe
     make bootstrap
 
-4) Use bitbake to download and build the cross-compiler toolchain and OS
+1. Create the firmware
 
     cd ~/chumby-oe
     make
@@ -79,9 +52,3 @@ Resources
 5.  [Chumby Hackers Board Forum](http://forum.chumby.com/viewforum.php?id=20)
 6.  [Chumby Building OpenEmbedded](http://wiki.chumby.com/index.php/Building_OpenEmbedded_%28Beta%29)
 7.  [Chumby Quickstarting OE](http://wiki.chumby.com/index.php/Quickstarting_OE)
-
-
-
-
-	
-
