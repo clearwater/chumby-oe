@@ -21,7 +21,7 @@ Once you have a Debian console, perform the following:
 
 1. Install git-core, to download this repository.
 
-    sudo apt-get install git-core
+    `sudo apt-get install git-core`
 
 1. Disable dash, as OpenEmbedded prefers Bash.
 
@@ -29,8 +29,10 @@ Once you have a Debian console, perform the following:
 
 1. Download the bootstrap tools
 
+    ```bash
     cd ~
     git clone git@github.com:clearwater/chumby-oe.git
+    ```
 
 1. Use the bootstrap tools to install required packages. This triggers the installation of over 200 packages, it will take a while.
 
