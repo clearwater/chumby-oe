@@ -1,25 +1,52 @@
 Running under FreeBSD
 =====================
 
+There are quite a few issues getting bitbake to run 
+under FreeBSD 8.  I've not gotten past all of these yet.
 
-Required Ports
+0. You must use gmake, not make, to run the makefile in this repo.
+
+1. The gnu make 3.82 is incompatible with the Makefile
+in the Linux source distrubution used by Chumby.  It fails
+with this error:
+    | NOTE: make oldconfig
+    | + make oldconfig
+    | Makefile:442: *** mixed implicit and normal rules.  Stop.
+
+2. Python must be compiled using the WITH_SEM flag.
+ 
+3. There is some bad interaction between Python 2.6.6 on FreeBSD
+and this call:
+    result = os.waitpid(-1, os.WNOHANG)
+Specifically it seems to return [0, 673983352] when the bitbake code seems
+to expect [0,0] when no process has exited.  That call also throws
+an OSError exception if there are no children running - I found it necessary
+to catch that exception in runqueue_process_waitpid.
+
+FreeBSD Ports
 --------------
 
-Need a number of gnu packages:
-TODO - which packages are required?
+TODO - list required packages
 
 Local bin Mapping
 -----------------
+
+These are now in this github repo
 
     mkdir -p ../bin
     ln -s /usr/local/bin/gmake ../bin/make
     ln -s /usr/local/bin/gmd5sum ../bin/md5sum
     ln -s /usr/local/bin/gsed ../bin/gsed
     ln -s /usr/local/bin/gpatch ../bin/patch
+    ln -s /usr/local/bin/gtar ../bin/tar
 
+
+Checking the Python Build
+-------------------------
 Need python 2.6 BUILT with these non-standard options
     SEM
     PTH
+
 you can check your options with
     
     %cat /var/db/ports/python26/options
@@ -37,5 +64,4 @@ you can check your options with
     WITHOUT_FPECTL=true
 
 
-Run makefile with gmake, not make
 
