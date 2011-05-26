@@ -25,7 +25,7 @@ Once you have a Debian console, perform the following:
 
 1. Disable dash, as OpenEmbedded prefers Bash.
 
-    sudo dpkg-reconfigure dash
+    `sudo dpkg-reconfigure dash`
 
 1. Download the bootstrap tools
 
@@ -36,13 +36,17 @@ Once you have a Debian console, perform the following:
 
 1. Use the bootstrap tools to install required packages. This triggers the installation of over 200 packages, it will take a while.
 
+    ```bash
     cd ~/chumby-oe
     make bootstrap
-
+    ```
 1. Create the firmware
 
+
+    ```bash
     cd ~/chumby-oe
     make
+    ```
 
 Resources
 =========
