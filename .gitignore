@@ -4,3 +4,4 @@ bootstrap/downloads
 openembedded
 output-angstrom-.9
 sources
+*.log
