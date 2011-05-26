@@ -18,13 +18,13 @@ build:
 	bitbake $(CHUMBY_IMAGE)
 
 buildlog:
-	bitbake $(CHUMBY_IMAGE) 2>&1 > build.log
+	bitbake $(CHUMBY_IMAGE) 2>&1 | tee build.log
 
 test:
 	bitbake --dry-run $(CHUMBY_IMAGE)
 
 unit:
-	bitbake -b linux-falconwing_2.6.28.1.0.3454.bb 2>&1 > unit.log
+	bitbake -b linux-falconwing_2.6.28.1.0.3454.bb 2>&1 | tee unit.log
 
 clean:
 	rm -rf $(OUTPUT)
