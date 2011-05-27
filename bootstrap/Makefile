@@ -39,16 +39,17 @@ BITBAKE_VERSION:=1.12.0
 BITBAKE_PATH:=bitbake-$(BITBAKE_VERSION)
 BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 
-.PHONY:$(PACKAGES) chumby openembedded
+.PHONY:$(PACKAGES) packages openembedded submodules
 
 # Install packages all at once
-all: packages openembedded bitbake
+all: packages openembedded submodules
+
+submodules:
+	git submodule init
+	git submodule update
 
 packages:
 	sudo aptitude install $(PACKAGES)
-
-# Install packages one at a time
-each_package: $(PACKAGES)
 
 # Rule used to install each package
 $(PACKAGES):
@@ -56,8 +57,3 @@ $(PACKAGES):
 
 openembedded:
 	git clone git://git.openembedded.org/openembedded ../openembedded
-
-bitbake:
-	$(DOWNLOAD) http://download.berlios.de/bitbake/$(BITBAKE_TGZ)
-	tar -zxvf $(DOWNLOAD_DIR)/$(BITBAKE_TGZ)
-	ln -s -f bootstrap/$(BITBAKE_PATH) ../bitbake
