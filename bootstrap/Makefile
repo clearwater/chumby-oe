@@ -45,8 +45,8 @@ BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 all: packages openembedded submodules
 
 submodules:
-	git submodule init
-	git submodule update
+	(cd ..; git submodule init)
+	(cd ..; git submodule update)
 
 packages:
 	sudo aptitude install $(PACKAGES)
