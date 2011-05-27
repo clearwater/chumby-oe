@@ -6,18 +6,12 @@ COMPATIBLE_MACHINE = "chumby-falconwing"
 
 PROVIDES = "virtual/kernel"
 
-SRC_URI = "http://files.chumby.com/source/falconwing/build3454/linux-2.6.28.mx233-falconwing-1.0.7.tgz \
-           file://missing-kernel-files.tar.gz \
+SRC_URI = "git://git@github.com:clearwater/linux-2.6-imx.git;tag=falconwing-1.0.7 \
            file://defconfig \
 "
+DLDIR = "src"
 
-# NOTE - changed S (unpacked source code directory) from the original 
-# distribution value of linux-2.6.28.mx233-falconwing-1.0.7
-# because the source tar file expands to this directory.  Without this change you get
-# an error in the do_configure stage of this component saying
-# make target oldconfig not found.
-#
-S = "${WORKDIR}/linux-2.6.28.mx233"
+S = "${WORKDIR}/src"
 
 # Mark archs/machines that this kernel supports
 DEFAULT_PREFERENCE = "-1"
