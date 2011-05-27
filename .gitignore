@@ -1,8 +1,5 @@
-bitbake
-bootstrap/bitbake-1.12.0/
-bootstrap/downloads
-openembedded
 output-angstrom-.9
 sources
 *.log
 *.swp
+*~

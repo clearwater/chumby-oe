@@ -39,10 +39,10 @@ BITBAKE_VERSION:=1.12.0
 BITBAKE_PATH:=bitbake-$(BITBAKE_VERSION)
 BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
 
-.PHONY:$(PACKAGES) packages openembedded submodules
+.PHONY:$(PACKAGES) packages submodules
 
 # Install packages all at once
-all: packages openembedded submodules
+all: packages submodules
 
 submodules:
 	(cd ..; git submodule init)
@@ -54,6 +54,3 @@ packages:
 # Rule used to install each package
 $(PACKAGES):
 	sudo aptitude install $@
-
-openembedded:
-	git clone git://git.openembedded.org/openembedded ../openembedded
