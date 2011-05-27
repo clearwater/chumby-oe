@@ -30,5 +30,5 @@ unit:
 clean:
 	rm -rf $(OUTPUT)
 
-bootstrap:
+setup:
 	make -C setup
