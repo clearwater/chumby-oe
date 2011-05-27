@@ -29,7 +29,7 @@ Once you have a Debian console, perform the following:
 
     `sudo dpkg-reconfigure dash`
 
-1. Download the bootstrap tools
+1. Download the setup tools
 
     ```bash
     cd ~
@@ -40,7 +40,7 @@ Once you have a Debian console, perform the following:
 
     ```bash
     cd ~/chumby-oe
-    make bootstrap
+    make setup
     ```
 1. Create the firmware
 

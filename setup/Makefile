@@ -32,13 +32,6 @@ PACKAGES = \
 	python-progressbar \
 	python-psyco
 
-CHUMBY_TGZ:=meta-chumby-1.2.tar.gz
-DOWNLOAD_DIR:=downloads
-DOWNLOAD:=wget --directory-prefix $(DOWNLOAD_DIR) --continue
-BITBAKE_VERSION:=1.12.0
-BITBAKE_PATH:=bitbake-$(BITBAKE_VERSION)
-BITBAKE_TGZ:=bitbake-$(BITBAKE_VERSION).tar.gz
-
 .PHONY:$(PACKAGES) packages submodules
 
 # Install packages all at once
@@ -50,7 +43,3 @@ submodules:
 
 packages:
 	sudo aptitude install $(PACKAGES)
-
-# Rule used to install each package
-$(PACKAGES):
-	sudo aptitude install $@
