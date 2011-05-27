@@ -1,21 +1,23 @@
-Building a Custom Firmware for the Chumby Hackers Board
-==================================================
+Building Custom Firmware for the Chumby Hackers Board
+=====================================================
 
 Chumby has made an OpenEmbedded overlay available for building firmware for
 their products. Unfortunately the distributed source package has several issues
 which this package corrects, including:
 
 * simplifying the installation process
-* correcting the checksum for linux kernel source file
+* correcting the checksum for Linux kernel source file
 * correcting the source directory for linux kernel source file
+* restoring files missing from the Linux kernel distribution
 
 Getting Started
 ===============
 
+Create a clean Debian system as follows:
+
 * Download the ISO file for the netinst from http://www.debian.org/CD/netinst/.
 * Select only the minimum required packages, plus the SSH server.
 * Follow the installer prompts to complete the installation and reboot.
-* Set the network to "bridged" mode so you can ssh into the virtual box over your network.
 
 Once you have a Debian console, perform the following:
 
@@ -41,7 +43,6 @@ Once you have a Debian console, perform the following:
     make bootstrap
     ```
 1. Create the firmware
-
 
     ```bash
     cd ~/chumby-oe
