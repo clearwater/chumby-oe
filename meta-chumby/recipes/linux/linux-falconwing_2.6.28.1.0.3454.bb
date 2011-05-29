@@ -6,12 +6,11 @@ COMPATIBLE_MACHINE = "chumby-falconwing"
 
 PROVIDES = "virtual/kernel"
 
-SRC_URI = "git://git@github.com:clearwater/linux-2.6-imx.git;tag=falconwing-1.0.7 \
+SRC_URI = "git://github.com/clearwater/linux-2.6-imx.git;tag=falconwing-1.0.7;protocol=git \
            file://defconfig \
 "
-DLDIR = "src"
 
-S = "${WORKDIR}/src"
+S = "${WORKDIR}/git"
 
 # Mark archs/machines that this kernel supports
 DEFAULT_PREFERENCE = "-1"
