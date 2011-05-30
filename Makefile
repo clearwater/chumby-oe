@@ -12,12 +12,9 @@ export DISTRO:=angstrom-2010.x
 export BB_ENV_EXTRAWHITE:=MACHINE DISTRO TOPDIR
 OUTPUT=output-angstrom-.9
 
-.PHONY:	build buildlog test clean setup
+.PHONY:	build test unit clean setup
 
 build:
-	bitbake $(CHUMBY_IMAGE)
-
-buildlog:
 	bitbake $(CHUMBY_IMAGE) 2>&1 | tee build.log
 
 test:
