@@ -117,5 +117,22 @@ The tar file contains these files:
     -rw-r--r--  0 root   root    57433 Feb  7 13:58 updates/net/bluetooth/l2cap.ko
     drwxr-xr-x  0 root   root        0 Feb  7 13:58 updates/net/rfkill/
     -rw-r--r--  0 root   root    29987 Feb  7 13:58 updates/net/rfkill/rfkill_backport.ko
- 
+
+Looking for an indication of the provenance of this set of drivers, 
+I see the following text /updates/drivers/net/wireless/rt2x00/rt2800lib.ko:
+    license=GPL
+    description=Ralink RT2800 library
+    version=2.3.0
+    author=http://rt2x00.serialmonkey.com, Bartlomiej Zolnierkiewicz
+    srcversion=82C305C2B8AEDA2E57F47CE
+    depends=rt2x00lib,mac80211,crc-ccitt
+    vermagic=2.6.28-chumby preempt mod_unload modversions ARMv5 
+
+According to what I see on the [rt2x00 project website](http://rt2x00.serialmonkey.com/wiki/index.php/Downloads) the sources are only distributed as part of the normal linux kernel source.  Looking at [this patch](http://www.spinics.net/lists/linux-wireless/msg52087.html) I see the source file is /drivers/net/wireless/rt2x00/rt2800lib.c.
+
+Looking at the kernel sources for the [falcon wing 2.8 kernel]() and the parent [imx kernel](https://github.com/clearwater/linux-2.6-imx/tree/imx_2.6.28/drivers/net/wireless/rt2x00) I believe we need an update.
+
+[This post](http://rt2x00.serialmonkey.com/pipermail/users_rt2x00.serialmonkey.com/2011-April/003531.html) suggests that it should be possible to back port the driver to 2.6.28 using the [compat-wireless package](http://linuxwireless.org/en/users/Download/hacking), and I see this update references compat-wireless.  This looks promising as a route to building this driver from source.
+
+
 
