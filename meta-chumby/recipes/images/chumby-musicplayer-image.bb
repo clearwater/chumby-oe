@@ -14,6 +14,7 @@
 # IMAGE_LINGUAS is an optional list of languages which has to be installed into the image
 #
 # task-base-extended is task-base plus wifi and bluetooth
+# task-base-wifi is task-base-extended without bluetooth
 #
 # compat-wireless-2.6-old doesn't look old - 
 # looks like the current 2011-12 version to me?
@@ -26,6 +27,10 @@
 #   [  115.330000] usb 1-1.1: configuration #1 chosen from 1 choice
 #   [  115.490000] compat: Unknown symbol led_classdev_unregister
 #   [  115.540000] compat: Unknown symbol led_classdev_unregister
+
+# DEPENDS - Specifies build-time dependencies, via a list of bitbake recipes to build prior to build the recipe. These are programs (flex-native) or libraries (libpcre) that are required in order to build the package.
+# RDEPENDS - specifies run-time dependencies, via a list of packages to install prior to installing the current package. These are programs or libraries that are required in order to run the program. Note that libraries which are dynamically linked to an application will be automatically detected and added to RDEPENDS and therefore do not need to be explicitly declared. If a library was dynamically loaded then it would need to be explicitly listed.
+# IMAGE_INSTALL - Specifies other packages to be installed along with the current one.
 #----------------------------------------------------------------------
 
 IMAGE_PREPROCESS_COMMAND = "create_etc_timestamp"
@@ -38,26 +43,27 @@ DISTRO_SSH_DAEMON ?= "dropbear"
 
 ZZAPSPLASH = ' ${@base_contains("MACHINE_FEATURES", "screen", "psplash-zap", "",d)}'
 
-DEPENDS = "task-base-extended \
-           ${SPLASH} \
-           ${ZZAPSPLASH} \
-	   config-util \
-	   regutil-${CNPLATFORM} \
-	   "
+DEPENDS = "\
+    task-base \
+    task-base-wifi \
+    ${SPLASH} \
+    ${ZZAPSPLASH} \
+    config-util \
+    regutil-${CNPLATFORM} \
+    "
 
-IMAGE_INSTALL = "task-base \
-	    task-base-wifi \
-	    ${ANGSTROM_EXTRA_INSTALL} \
-	    ${SPLASH} \
-	    ${ZZAPSPLASH} \
-	    config-util \
-	    kernel-module-led-class \
-	    compat-wireless-rt2x00 \
-	    mpd \
-	    bash \
-	    ${DISTRO_SSH_DAEMON} \
-	    regutil-${CNPLATFORM} \
-	    "
+IMAGE_INSTALL = "\
+    task-base \
+    task-base-wifi \
+    ${ANGSTROM_EXTRA_INSTALL} \
+    ${SPLASH} \
+    ${ZZAPSPLASH} \
+    config-util \
+    rt2870 \
+    mpd \
+    ${DISTRO_SSH_DAEMON} \
+    regutil-${CNPLATFORM} \
+"
 
 IMAGE_LINGUAS = ""
 
