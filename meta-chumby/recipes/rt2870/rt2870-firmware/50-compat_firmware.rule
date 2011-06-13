@@ -1,0 +1,3 @@
+# The compat-wireless drivers use a unique sybystem-name, 
+# so we need a udev rule.
+SUBSYSTEM=="compat_firmware", ACTION=="add", RUN+="firmware --firmware=$env{FIRMWARE} --devpath=$env{DEVPATH}"

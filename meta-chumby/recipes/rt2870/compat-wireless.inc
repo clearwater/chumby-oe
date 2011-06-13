@@ -1,0 +1,1 @@
+../../../openembedded/recipes/compat-wireless/compat-wireless.inc
