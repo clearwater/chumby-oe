@@ -58,6 +58,7 @@ IMAGE_INSTALL = "\
     ${ZZAPSPLASH} \
     config-util \
     rt2870 \
+    connman \
     mpd \
     ${DISTRO_SSH_DAEMON} \
     regutil-${CNPLATFORM} \

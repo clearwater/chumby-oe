@@ -2,7 +2,7 @@ DESCRIPTION = "Firmware for rt2870 based USB wifi adaptors"
 LICENSE = "closed"
 
 SRC_URI = "file://2010_0709_RT2870_Linux_STA_v2.4.0.1.tar.bz2 \
-	   file://50-compat_firmware.rules" 
+	   file://50-compat-firmware.rules" 
 
 # defaults to 2010_0709_RT2870_Linux_STA_${PV}" (no 'v')
 S = "${WORKDIR}/2010_0709_RT2870_Linux_STA_v${PV}"
@@ -20,5 +20,6 @@ do_install() {
 do_compile() {
 }
 
-FILES_${PN} = "${base_libdir}/firmware/"
+FILES_${PN} += "${base_libdir}/firmware/"
+
 PACKAGE_ARCH = "all"
