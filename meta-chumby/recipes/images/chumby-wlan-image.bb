@@ -29,6 +29,11 @@
 # it would need to be explicitly listed.
 #
 # IMAGE_INSTALL - Specifies other packages to be installed along with the current one.
+#
+# Extras added over starter image:
+#
+#  task-base-wifi, rt2870 and connman for USB wifi with RaLink rt2780 chipset
+#
 #----------------------------------------------------------------------
 
 IMAGE_PREPROCESS_COMMAND = "create_etc_timestamp"
@@ -48,7 +53,7 @@ DEPENDS = "\
     ${ZZAPSPLASH} \
     config-util \
     regutil-${CNPLATFORM} \
-    "
+"
 
 IMAGE_INSTALL = "\
     task-base \
@@ -57,8 +62,8 @@ IMAGE_INSTALL = "\
     ${SPLASH} \
     ${ZZAPSPLASH} \
     config-util \
+    connman \
     rt2870 \
-    mpd \
     ${DISTRO_SSH_DAEMON} \
     regutil-${CNPLATFORM} \
 "
