@@ -35,7 +35,7 @@ PACKAGES = \
 .PHONY:$(PACKAGES) packages submodules
 
 # Install packages all at once
-all: packages submodules
+all: packages submodules patches
 
 submodules:
 	(cd ..; git submodule init)
@@ -43,3 +43,6 @@ submodules:
 
 packages:
 	sudo aptitude install $(PACKAGES)
+
+patches:
+	patch --forward ../openembedded/recipes/binutils/binutils_2.20.1.bb binutils_2.20.1.bb.patch
