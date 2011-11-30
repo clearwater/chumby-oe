@@ -60,6 +60,7 @@ IMAGE_INSTALL = "\
     rt2870 \
     connman \
     mpd \
+    mpdhotplug \
     ${DISTRO_SSH_DAEMON} \
     regutil-${CNPLATFORM} \
 "

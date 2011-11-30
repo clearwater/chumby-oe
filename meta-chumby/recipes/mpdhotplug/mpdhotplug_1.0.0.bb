@@ -3,10 +3,8 @@ LICENSE = "GPLv2"
 
 inherit autotools
 
-DEPENDS = "\
-    libmpd
+# REVISIT - use a git release tag here once we have a working release
 
 SRC_URI = "git://github.com/clearwater/mpd-hotplug.git;tag=HEAD;protocol=git"
 
 S = "${WORKDIR}/git"
-
