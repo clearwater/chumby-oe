@@ -45,4 +45,6 @@ packages:
 	sudo aptitude install $(PACKAGES)
 
 patches:
+	(cd ../openembedded/recipes/fakeroot; patch -p1) < fakeroot.patch
 	patch --forward ../openembedded/recipes/binutils/binutils_2.20.1.bb binutils_2.20.1.bb.patch
+
