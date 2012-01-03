@@ -34,7 +34,7 @@ Once you have a Debian console, perform the following:
 
     ```
     cd ~
-    git clone https://guyc@github.com/clearwater/chumby-oe.git 
+    git clone https://github.com/clearwater/chumby-oe.git 
     ```
 
 1. Use the setup make target install required packages and other repositories. You will be prompted for the root password to invoke aptitude. This triggers the installation of over 200 packages and takes about an hour on my system.
