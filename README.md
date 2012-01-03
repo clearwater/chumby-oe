@@ -21,28 +21,30 @@ Create a clean Debian system as follows:
 
 Once you have a Debian console, perform the following:
 
-1. Install git-core, to download this repository.
+1. Install git-core, make and sudo using apt-get
 
-    `sudo apt-get install git-core`
-
-1. Disable dash, as OpenEmbedded prefers Bash.
-
-    `sudo dpkg-reconfigure dash`
+    ```
+    su -
+    apt-get install git-core make
+    dpkg-reconfigure dash   # Set to <no> when prompted
+    exit
+   ```
 
 1. Download the setup tools
 
-    ```bash
+    ```
     cd ~
-    git clone git@github.com:clearwater/chumby-oe.git
+    git clone https://guyc@github.com/clearwater/chumby-oe.git 
     ```
 
-1. Use the bootstrap tools to install required packages. This triggers the installation of over 200 packages, it will take a while.
+1. Use the bootstrap tools to install required packages. You will be prompted for the root password to invoke aptitude. This triggers the installation of over 200 packages, it will take a while.
 
-    ```bash
+    ```
     cd ~/chumby-oe
     make setup
     ```
-1. Create the firmware
+
+1. Build the firmware.  This takes a long time!
 
     ```bash
     cd ~/chumby-oe

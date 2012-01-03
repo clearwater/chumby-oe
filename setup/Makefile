@@ -35,14 +35,20 @@ PACKAGES = \
 .PHONY:$(PACKAGES) packages submodules
 
 # Install packages all at once
-all: packages submodules patches
+all: su-packages submodules patches
 
 submodules:
 	(cd ..; git submodule init)
 	(cd ..; git submodule update)
 
+# This must be run as root
+#   su -c make packages
 packages:
-	sudo aptitude install $(PACKAGES)
+	aptitude install $(PACKAGES)
+
+su-packages:
+	@echo "Enter root password to install required packages"
+	su -c "make packages"
 
 patches:
 	(cd ../openembedded/recipes/fakeroot; patch --forward -p1) < fakeroot.patch
