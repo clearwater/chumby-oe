@@ -21,7 +21,7 @@ Create a clean Debian system as follows:
 
 Once you have a Debian console, perform the following:
 
-1. Install git-core, make and sudo using apt-get
+1. Install git-core and make manually, and change the default shell from dash to bash (OpenEmbedded prefers bash).
 
     ```
     su -
@@ -30,23 +30,23 @@ Once you have a Debian console, perform the following:
     exit
    ```
 
-1. Download the setup tools
+1. Download the chumby-oe git project
 
     ```
     cd ~
     git clone https://guyc@github.com/clearwater/chumby-oe.git 
     ```
 
-1. Use the bootstrap tools to install required packages. You will be prompted for the root password to invoke aptitude. This triggers the installation of over 200 packages, it will take a while.
+1. Use the setup make target install required packages and other repositories. You will be prompted for the root password to invoke aptitude. This triggers the installation of over 200 packages, it will take a while (an hour for me).
 
     ```
     cd ~/chumby-oe
     make setup
     ```
 
-1. Build the firmware.  This takes a long time!
+1. Build the firmware.  This takes a long time (24 hours for me).
 
-    ```bash
+    ```
     cd ~/chumby-oe
     make
     ```
