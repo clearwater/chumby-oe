@@ -3,4 +3,4 @@
 	url = git://github.com/openembedded/bitbake.git
 [submodule "openembedded"]
 	path = openembedded
-	url = git://github.com/openembedded/openembedded.git
+	url = git://github.com/clearwater/openembedded.git
