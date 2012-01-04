@@ -35,7 +35,7 @@ PACKAGES = \
 .PHONY:$(PACKAGES) packages submodules
 
 # Install packages all at once
-all: su-packages submodules patches
+all: su-packages submodules
 
 submodules:
 	(cd ..; git submodule init)
@@ -49,8 +49,3 @@ packages:
 su-packages:
 	@echo "Enter root password to install required packages"
 	su -c "make packages"
-
-patches:
-	(cd ../openembedded/recipes/fakeroot; patch --forward -p1) < fakeroot.patch
-	patch --forward ../openembedded/recipes/binutils/binutils_2.20.1.bb binutils.patch
-
