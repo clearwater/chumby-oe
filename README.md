@@ -37,19 +37,27 @@ Once you have a Debian console, perform the following:
     git clone https://github.com/clearwater/chumby-oe.git 
     ```
 
-1. Use the setup make target install required packages and other repositories. You will be prompted for the root password to invoke aptitude. This triggers the installation of over 200 packages and takes about an hour on my system.
+1. Use the setup make target install required Debian packages and the git repositories for bitbake and openembedded. You will be prompted for the root password to install the packages. On a clean system this installs over 200 packages.  It takes about an hour on my test box.
 
     ```
     cd ~/chumby-oe
     make setup
     ```
 
-1. Build the firmware.  This will pull a bunch of source packages from the network and build them.  It takes a long time; about 24 hours on my build machine.
+1. Build the firmware.  This will pull source code from the net (about 1.3GB in total) to build the image, including a lot of stuff that seems unnecessary.  It takes a long time; about 24 hours on my build machine.
 
     ```
     cd ~/chumby-oe
     make
     ```
+
+Issues
+======
+
+This build depends on a whole lot of external resources.  Periodically the source files named in the recipes disappear or change, and you will get build errors.  Typically this can be solved in one of these ways:
+* Locate a copy of the original distribution file and save it to ```~chumby-oe/sources```, 
+* Update the failing recipe with new checksums.  Use ``md5 <filename>`` and ``shasum -a 256 <filename>`` to compute new checksums.
+* Update the recipe that depends on the failing recipe to use a later version for which source is available.  This may require writing new recipe files for the new version.  Obviously you risk breakage if the new version is incompatible in some way.
 
 Resources
 =========
