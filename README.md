@@ -55,7 +55,8 @@ Issues
 ======
 
 This build depends on a whole lot of external resources.  Periodically the source files named in the recipes disappear or change, and you will get build errors.  Typically this can be solved in one of these ways:
-* Locate a copy of the original distribution file and save it to ```~chumby-oe/sources```, 
+
+* Locate a copy of the original distribution file and save it to ```~/chumby-oe/sources```, 
 * Update the failing recipe with new checksums.  Use ``md5 <filename>`` and ``shasum -a 256 <filename>`` to compute new checksums.
 * Update the recipe that depends on the failing recipe to use a later version for which source is available.  This may require writing new recipe files for the new version.  Obviously you risk breakage if the new version is incompatible in some way.
 
