@@ -1,0 +1,329 @@
+Loading SD image...
+Reading 0x00000800 bytes from offset 0x0000b800 to destination 0x45a00000
+Skipping 2944 chunks
+Reading 0x00034800 bytes from offset 0x0000f800 to destination 0x40808000
+Skipping 3968 chunks
+Jumping to address 0x40808000:
+0x00000000  0f 00 a0 e1 08 00 40 e2  02 0a 40 e2 08 10 9f e5  |......@...@.....|
+0x00000010  00 00 81 e5 02 00 00 eb  25 05 00 eb 20 20 00 00  |........%...  ..|
+0x00000020  11 b1 11 c1 14 00 9f e5  14 10 9f e5 00 20 a0 e3  |............. ..|
+0x00000030  04 20 80 e4 01 00 50 e1  fc ff ff 3a 0e f0 a0 e1  |. ....P....:....|
+0x00000040  a0 13 02 00 20 15 02 00  0e f0 a0 e1 0e f0 a0 e1  |.... ...........|
+0x00000050  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0x00000060  04 b0 2d e5 00 b0 8d e2  14 d0 4d e2 64 30 9f e5  |..-.......M.d0..|
+0x00000070  00 30 93 e5 10 30 0b e5  58 20 9f e5 00 30 a0 e3  |.0...0..X ...0..|
+0x00000080  00 30 82 e5 50 30 9f e5  08 30 0b e5 4c 20 9f e5  |.0..P0...0..L ..|
+0x00000090  08 30 1b e5 3f 30 03 e2  00 30 82 e5 40 20 9f e5  |.0..?0...0..@ ..|
+0x000000a0  08 30 1b e5 23 33 a0 e1  00 30 82 e5 70 30 a0 e3  |.0..#3...0..p0..|
+0x000000b0  0c 30 0b e5 2c 20 9f e5  0c 30 1b e5 00 30 82 e5  |.0.., ...0...0..|
+0x000000c0  10 20 9f e5 10 30 1b e5  00 30 82 e5 00 d0 8b e2  |. ...0...0......|
+0x000000d0  00 08 bd e8 1e ff 2f e1  30 00 07 80 41 03 00 00  |....../.0...A...|
+0x000000e0  28 00 07 80 24 00 07 80  2c 00 07 80 00 48 2d e9  |(...$...,....H-.|
+0x000000f0  04 b0 8d e2 08 d0 4d e2  90 20 9f e5 05 36 a0 e3  |......M.. ...6..|
+0x00000100  00 30 82 e5 88 20 9f e5  0a 36 a0 e3 00 30 82 e5  |.0... ...6...0..|
+0x00000110  80 20 9f e5 00 30 a0 e3  00 30 82 e5 78 20 9f e5  |. ...0...0..x ..|
+0x00000120  00 30 a0 e3 00 30 82 e5  cc ff ff eb 6c 30 9f e5  |.0...0......l0..|
+0x00000130  00 30 93 e5 08 30 0b e5  08 30 1b e5 10 30 c3 e3  |.0...0...0...0..|
+0x00000140  08 30 0b e5 54 20 9f e5  08 30 1b e5 00 30 82 e5  |.0..T ...0...0..|
+0x00000150  4c 30 9f e5 08 30 0b e5  38 20 9f e5 08 30 1b e5  |L0...0..8 ...0..|
+0x00000160  00 30 82 e5 34 30 9f e5  00 30 93 e5 08 30 0b e5  |.0..40...0...0..|
+0x00000170  08 30 1b e5 10 30 c3 e3  08 30 0b e5 1c 20 9f e5  |.0...0...0... ..|
+0x00000180  08 30 1b e5 00 30 82 e5  04 d0 4b e2 00 88 bd e8  |.0...0....K.....|
+0x00000190  38 81 01 80 34 81 01 80  30 00 07 80 38 00 07 80  |8...4...0...8...|
+0x000001a0  2c 00 07 80 01 03 00 00  04 b0 2d e5 00 b0 8d e2  |,.........-.....|
+0x000001b0  18 30 9f e5 00 30 93 e5  80 30 03 e2 00 00 53 e3  |.0...0...0....S.|
+0x000001c0  fa ff ff 0a 00 d0 8b e2  00 08 bd e8 1e ff 2f e1  |............../.|
+0x000001d0  18 00 07 80 30 48 2d e9  0c b0 8d e2 f4 40 9f e5  |....0H-......@..|
+0x000001e0  04 40 8f e0 f0 30 9f e5  03 30 84 e0 03 00 a0 e1  |.@...0...0......|
+0x000001f0  5e 00 00 eb e4 30 9f e5  00 30 93 e5 03 00 a0 e1  |^....0...0......|
+
+Go!
+Hardware version: 0x00000009
+Screen pressed: 0
+Setting up LCD to point at 0x44844000
+Setting up LCD to point at 0x44844000
+Reading 0x00000800 bytes from offset 0x0000b800 to destination 0x45a00000
+Skipping 2944 chunks
+    Comparing block [boot] with img1...
+    Comparing block [img1] with img1... Found!
+Reading 0x00025800 bytes from offset 0x00044000 to destination 0x44844000
+Skipping 17408 chunks
+
+boot> shell
+
+
+
+Chumby bootloader console v1.0
+Booting in 2 seconds...
+Press any key to enter shell... 0
+
+boot> regutil -w HW_RTC_WATCHDOG 0x00004e20
+Setting 0x8005c050: 0xffffffff -> 0x00004e20 ok
+
+boot> regutil -w HW_RTC_CTRL_SET 0x00000010
+Setting 0x8005c004: 0x00000008 -> 0x00000018 ok
+
+boot> regutil -w HW_EMI_CTRL 0x1c444040
+Setting 0x80020000: 0x1c884040 -> 0x1c444040 ok
+
+boot> regutil -w HW_POWER_BATTMONITOR 0x01ec0414
+Setting 0x800440e0: 0x01d10614 -> 0x01ec0414 ok
+
+boot> regutil -w HW_POWER_5VCTRL_CLR 0x00000080
+Setting 0x80044018: 0x0403f193 -> 0x0403f113 ok
+
+boot> regutil -w HW_POWER_MINPWR_SET 0x00001000
+Setting 0x80044024: 0x00000040 -> 0x00001040 ok
+
+boot> regutil -w HW_PINCTRL_MUXSEL1_SET 0x03300000
+Setting 0x80018114: 0x0fffffff -> 0x0fffffff ok
+
+boot> regutil -w HW_PINCTRL_DOUT0_CLR 0x24000000
+Setting 0x80018508: 0x00000000 -> 0x00000000 ok
+
+boot> regutil -w HW_PINCTRL_DOE0_SET 0x24000000
+Setting 0x80018704: 0x00000000 -> 0x24000000 ok
+
+boot> regutil -w HW_PINCTRL_DOUT0_CLR 0x24000000
+Setting 0x80018508: 0x00000000 -> 0x00000000 ok
+
+boot> regutil -w HW_PINCTRL_DOUT0_SET 0x20000000
+Setting 0x80018504: 0x00000000 -> 0x20000000 ok
+
+boot> regutil -w HW_PINCTRL_DOUT0_SET 0x04000000
+Setting 0x80018504: 0x20000000 -> 0x24000000 ok
+
+boot> 
+    Comparing block [boot] with img2...
+    Comparing block [img1] with img2...
+    Comparing block [img2] with img2... Found!
+Reading 0x00025800 bytes from offset 0x00069800 to destination 0x44844000
+Skipping 27008 chunks
+
+boot> load krnA 0x40008000
+    Comparing block [boot] with krnA...
+    Comparing block [img1] with krnA...
+    Comparing block [img2] with krnA...
+    Comparing block [img3] with krnA...
+    Comparing block [img4] with krnA...
+    Comparing block [img5] with krnA...
+    Comparing block [krnA] with krnA... Found!
+Reading 0x00400000 bytes from offset 0x000ff800 to destination 0x40008000
+Skipping 65408 chunks
+
+boot> linux 0x40008000 "console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=** ssp1=mmc sysrq_always_enabled logo.brand=BBBBBBBBBBBB"
+Going to run linux at offset 0x40008000 with cmdline console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+Uncompressing Linux.............................................................................................................................................. done, booting the kernel.
+[    0.000000] Linux version 2.6.28-chumby (builder@stormbuild) (gcc version 4.3.2 (Sourcery G++ Lite 2008q3-72) ) #302 PREEMPT Wed Jul 28 14:40:46 PDT 2010
+[    0.000000] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5TEJ), cr=00053177
+[    0.000000] CPU: VIVT data cache, VIVT instruction cache
+[    0.000000] Machine: STMP378X
+[    0.000000] Memory policy: ECC disabled, Data cache writeback
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 16256
+[    0.000000] Kernel command line: console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+[    0.000000] Detected chumby version 9 (from str 09)
+[    0.000000] debug: sysrq always enabled.
+[    0.000000] Unknown boot option `logo.brand=chumby': ignoring
+[    0.000000] PID hash table entries: 256 (order: 8, 1024 bytes)
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [ttyAM0] enabled
+[    0.010000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+[    0.010000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.020000] Memory: 64MB = 64MB total
+[    0.030000] Memory: 59932KB available (4116K code, 699K data, 120K init)
+[    0.030000] SLUB: Genslabs=12, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.040000] Calibrating delay loop... 226.91 BogoMIPS (lpj=1134592)
+[    0.280000] Security Framework initialized
+[    0.280000] Mount-cache hash table entries: 512
+[    0.280000] CPU: Testing write buffer coherency: ok
+[    0.290000] net_namespace: 708 bytes
+[    0.300000] regulator: core version 0.5
+[    0.300000] NET: Registered protocol family 16
+[    0.320000] regulator: vddd: 800 <--> 1575 mV fast normal 
+[    0.330000] regulator: vddd_bo: 800 <--> 1575 mV fast normal 
+[    0.330000] regulator: vdda: 1500 <--> 2275 mV fast normal 
+[    0.340000] regulator: vddio: 2800 <--> 3575 mV fast normal 
+[    0.340000] regulator: overall_current: 0 <--> 2147483 mA fast normal 
+[    0.350000] regulator: stmp3xxx-fb-1: 0 <--> 2147483 mA fast normal 
+[    0.350000] regulator: stmp3xxx-bl-1: 0 <--> 2147483 mA fast normal 
+[    0.360000] regulator: stmp3xxx_ts-1: 0 <--> 2147483 mA fast normal 
+[    0.360000] regulator: stmp37xx-dbguart-1: 0 <--> 2147483 mA fast normal 
+[    0.370000] regulator: stmp3xxx_wdt-1: 0 <--> 2147483 mA fast normal 
+[    0.370000] regulator: stmp3xxx-rtc-1: 0 <--> 2147483 mA fast normal 
+[    0.380000] regulator: stmp3xxx-rotdec-1: 0 <--> 2147483 mA fast normal 
+[    0.380000] regulator: i2c_stmp-1: 0 <--> 2147483 mA fast normal 
+[    0.390000] regulator: stmp3xxx-persistent-1: 0 <--> 2147483 mA fast normal 
+[    0.390000] regulator: stmp3xxx-dcp-1: 0 <--> 2147483 mA fast normal 
+[    0.400000] regulator: stmp3xxx-battery-1: 0 <--> 2147483 mA fast normal 
+[    0.400000] regulator: mmc_ssp-1: 0 <--> 2147483 mA fast normal 
+[    0.410000] regulator: mmc_ssp-2: 0 <--> 2147483 mA fast normal 
+[    0.410000] regulator: charger-1: 0 <--> 2147483 mA fast normal 
+[    0.420000] regulator: power-test-1: 0 <--> 2147483 mA fast normal 
+[    0.420000] regulator: cpufreq-1: 0 <--> 2147483 mA fast normal 
+[    0.430000] stmp378x_devb.c - stmp378x_devb_init():388 - Adding 15 platform-specific devices
+[    0.450000] Initialized chumby GPIO IRQ router
+[    0.500000] chumbyfbfw.c - chumbyfwfb_probe():1255 - resolution 720x480, bpp 2
+[    0.510000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1382400 (720 x 480 x 16)
+[    0.510000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1382400 (320 x 240 x 16)
+[    0.520000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1658880 (720 x 576 x 16)
+[    0.520000] chumbyfbfw.c - chumbyfwfb_probe():1268 - memory to allocate for screen: 1658880
+[    0.530000] chumbyfbfw.c - chumbyfwfb_probe():1277 - allocated screen at ff600000:0x43a00000
+[    0.540000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 0: 1658880
+[    0.550000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ff795000:0x43c00000
+[    0.560000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 1: 1658880
+[    0.570000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ff92a000:0x43e00000
+[    0.580000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 2: 307200
+[    0.580000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ffabf000:0x43900000
+[    0.590000] Going to copy splash image from 44844000 (153600 bytes) to ff600000 (not 43a00000)
+[    0.600000] chumbyfbfw.c - pxp_setup():1124 - Pointing S0 at 43c00000
+[    0.610000] stmp37xx-dbguart.0: ttyAM0 at MMIO 0xf0070000 (irq = 0) is a Debug UART
+[    0.690000] NET: Registered protocol family 2
+[    0.810000] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.820000] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+[    0.820000] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.830000] TCP: Hash tables configured (established 2048 bind 2048)
+[    0.840000] TCP reno registered
+[    0.870000] NET: Registered protocol family 1
+[    0.890000] ashmem: initialized
+[    0.900000] Registering unionfs 2.5.2 (for 2.6.28.10)
+[    0.900000] NTFS driver 2.1.29 [Flags: R/O].
+[    0.910000] fuse init (API version 7.10)
+[    0.920000] msgmni has been set to 117
+[    0.930000] alg: No test for stdrng (krng)
+[    0.940000] cryptodev: driver loaded.
+[    0.940000] io scheduler noop registered (default)
+[    1.040000] logger: created 64K log 'log_main'
+[    1.050000] logger: created 256K log 'log_events'
+[    1.050000] logger: created 64K log 'log_radio'
+[    1.060000] STMP3xxx RTC driver v1.0 hardware v2.0.0
+[    1.060000] stmp3xxx-rtc stmp3xxx-rtc: rtc core: registered stmp3xxx-rtc as rtc0
+[    1.090000] ddi_bc_Init: success
+[    1.090000] stmp3xxx-battery stmp3xxx-battery.0: bc_sm_restart: no battery present
+[    1.100000] power/linux.c - bc_sm_restart():982 - Returning from sm_restart()
+[    1.430000] stmp3xxx-dcp stmp3xxx-dcp: DCP crypto enabled.!
+[    1.440000] Advanced Linux Sound Architecture Driver Version 1.0.18rc3.
+[    1.450000] ASoC version 0.13.2
+[    1.460000] STMP378X ADC/DAC Audio Codec 0.1
+[    1.460000] asoc: stmp378x adc/dac <-> stmp3xxx adc/dac mapping ok
+[    1.480000] ALSA device list:
+[    1.480000]   #0: STMP3780 Devb (stmp378x adc/dac)
+[    1.490000] oprofile: using timer interrupt.
+[    1.490000] nf_conntrack version 0.5.0 (1024 buckets, 4096 max)
+[    1.500000] CONFIG_NF_CT_ACCT is deprecated and will be removed soon. Please use
+[    1.510000] nf_conntrack.acct=1 kernel paramater, acct=1 nf_conntrack module option or
+[    1.510000] sysctl net.netfilter.nf_conntrack_acct=1 to enable it.
+[    1.530000] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    1.540000] arp_tables: (C) 2002 David S. Miller
+[    1.540000] TCP cubic registered
+[    1.540000] NET: Registered protocol family 17
+[    1.550000] mmc0: new SD card at address 0002
+[    1.560000] RPC: Registered udp transport module.
+[    1.560000] RPC: Registered tcp transport module.
+[    1.570000] mmcblk0: mmc0:0002 00000 971 MiB 
+[    1.580000]  mmcblk0: p1 p2 p3 p4 < p5 p6 >
+[    1.590000] stmp3xxx-rtc stmp3xxx-rtc: setting system clock to 1970-01-01 00:02:20 UTC (140)
+[    1.710000] EXT3-fs warning: feature flags set on rev 0 fs, running e2fsck is recommended
+[    1.720000] EXT3-fs: mounted filesystem with ordered data mode.
+[    1.730000] VFS: Mounted root (ext3 filesystem) readonly.
+[    1.730000] Freeing init memory: 120K
+[    1.740000] kjournald starting.  Commit interval 5 seconds
+/linuxrc v0.42 $Rev: 23680 $ pid=1
+Parsing /etc/init.d/linuxrc.config
+Executing scripted actions (including 11 setenv statements)
+[MOUNT] tmpfs (type tmpfs) on /tmp (mode=755)
+[MOUNT] proc (type proc) on /proc
+[MOUNT] sysfs (type sysfs) on /sys
+Scripted execution complete, 3 actions with 0 failures
+environ[0]: HOME=/
+environ[1]: TERM=linux
+environ[2]: ssp1=mmc
+Adding /psp/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/chumby/scripts
+[SETENV] PATH=/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/usr/chumby/scripts
+[SETENV] CNPLATFORM=falconwing
+[SETENV] CONFIGNAME=falconwing
+[SETENV] VIDEO_RES=320x240
+[SETENV] VIDEO_X_RES=320
+[SETENV] VIDEO_Y_RES=240
+[SETENV] HAS_CP=1
+[SETENV] LANGUAGE=en_US
+[SETENV] GST_PLUGIN_PATH=/lib/gstreamer-0.10/
+[SETENV] CAMLIBS=/lib/libgphoto2-2.4.3
+[SETENV] IOLIBS=/lib/libgphoto2_port-0.8.0
+Starting /sbin/init (cwd=/) (envcount=15)
+init started: BusyBox v1.16.0 (2010-07-28 15:14:10 PDT)
+imgtool 1.22 (built for falconwing)
+Drawing image /bitmap/320x240/chumby_logo.bin.jpg
+Opening output /dev/fb0 fmt=0
+fb handle = 4
+Displaying rows from 0 to 239 inclusive
+Closing frame buffer
+Welcome to Falconwing
+
+can't open /dev/tty0: No such file or directory
+/etc/init.d/rcS.background: line 18: can't create /psp/branding: Read-only file system
+Setting 0x8005c078: 0x80000000 -> 0x80000000 ok
+e2fsck 1.41.5 (23-Apr-2009)
+/dev/mmcblk0p5: clean, 48/256 files, 10533/124997 blocks
+[    3.290000] kjournald starting.  Commit interval 5 seconds
+[    3.310000] EXT3 FS on mmcblk0p5, internal journal
+[    3.310000] EXT3-fs: mounted filesystem with journal data mode.
+e2fsck 1.41.5 (23-Apr-2009)
+/dev/mmcblk0p6: clean, 12/37520 files, 6577/150022 blocks
+[    3.500000] kjournald starting.  Commit interval 5 seconds
+[    3.510000] EXT3 FS on mmcblk0p6, internal journal
+[    3.510000] EXT3-fs: mounted filesystem with ordered data mode.
+can't open /dev/tty0: No such file or directory
+can't open /dev/tty0: No such file or directory
+[    4.890000] Chumby bend sensor driver version 2.3-Falconwing initializing (scross@chumby.com)...
+[    4.900000] input: bend-sensor as /devices/platform/bend-sensor/input/input0
+can't open /dev/tty0: No such file or directory
+can't open /dev/tty0: No such file or directory
+can't open /dev/tty0: No such file or directory
+[    8.620000] input: STMP3XXX touchscreen as /devices/virtual/input/input1
+can't open /dev/tty0: No such file or directory
+[   10.110000] mice: PS/2 mouse device common for all mice
+Setting 0x80018508: 0x24011000 -> 0x20011000 ok
+Setting 0x80018504: 0x20011000 -> 0x24011000 ok
+[   13.300000] usbcore: registered new interface driver usbfs
+[   13.320000] usbcore: registered new interface driver hub
+[   13.340000] usbcore: registered new device driver usb
+[   13.450000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[   13.450000] fsl-ehci fsl-ehci: Freescale On-Chip EHCI Host Controller
+[   13.470000] fsl-ehci fsl-ehci: new USB bus registered, assigned bus number 1
+[   14.590000] fsl-ehci fsl-ehci: irq 11, io mem 0xf0080000
+[   14.610000] fsl-ehci fsl-ehci: USB 2.0 started, EHCI 1.00
+[   14.620000] usb usb1: configuration #1 chosen from 1 choice
+[   14.630000] hub 1-0:1.0: USB hub found
+[   14.630000] hub 1-0:1.0: 1 port detected
+[   14.950000] usb 1-1: new high speed USB device using fsl-ehci and address 2
+[   15.120000] usb 1-1: configuration #1 chosen from 1 choice
+[   15.140000] hub 1-1:1.0: USB hub found
+[   15.140000] hub 1-1:1.0: 4 ports detected
+Setting 0x80018200: 0x00000000 -> 0x00000000 ok
+Setting 0x80018210: 0x00000000 -> 0x00000000 ok
+Setting 0x80018220: 0x00000000 -> 0x00000000 ok
+Setting 0x80018230: 0x00000000 -> 0x00000000 ok
+Setting 0x80018240: 0x00000000 -> 0x00000000 ok
+Setting 0x80018250: 0x00000000 -> 0x00000000 ok
+Setting 0x80018260: 0x00000000 -> 0x00000000 ok
+Setting 0x80018270: 0x00000000 -> 0x00000000 ok
+Setting 0x80018280: 0x01111111 -> 0x00000000 ok
+Setting 0x80018290: 0x33333330 -> 0x11111110 ok
+Setting 0x800182a0: 0x33333333 -> 0x11111111 ok
+Setting 0x800182b0: 0x33300333 -> 0x11111111 ok
+Setting 0x800182c0: 0x33333333 -> 0x11111111 ok
+Setting 0x800182d0: 0x33333333 -> 0x11111111 ok
+Setting 0x800182e0: 0x00333333 -> 0x00111111 ok
+[   22.210000] i2c /dev entries driver
+FATAL: Module snd_soc_stmp3780_devb not found.
+[   23.020000] Chumby timerx[2] driver version 3.0-Falconwing initializing (bunnie@chumby.com)... show me your jiffies!!!
+[   25.970000] input: stmp3xxx-rotdec as /devices/virtual/input/input2
+[   27.320000] NET: Registered protocol family 10
+Starting chumbhowld service
+Started chumbhowld 
+Adobe FlashLite 3.1.7 Release (Version 9,1,122,0)- Chumby Industries (version 9 build 112-3320 [GCC 4.3.2])
+Portions copyright (C) 2005-2010 Chumby Industries, Inc.
+Built for: falconwing; Features: Video ALSA ARM-optimizations
+Build time: Wed 28Jul2010 1454
+GetRegisteredInstancePid(/var/run/chumbyflashplayer.pid) returned 0 - no other instance is running
+rcS completed at Wed Dec 31 16:02:48 PST 1969

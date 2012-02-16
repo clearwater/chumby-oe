@@ -9,9 +9,7 @@
   <meta name="author" content="Guy">
 
   
-  <meta name="description" content="Insert the microSD in the SD adaptor and insert it into the SD
-slot on your Mac. You will get a popup warning saying The disk you
-inserted was not &hellip;">
+  <meta name="description" content="This is the boot log from the very first boot of the 2.6.28 kernel created by merging the Falconwing source as released by Chumby with the subsequent &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +64,1061 @@ inserted was not &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/">OpenEmbedded 2.6.28 Boot Log</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-16T16:19:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This is the boot log from the very first boot of the 2.6.28 kernel created by merging the Falconwing source as released by Chumby with the subsequent changes to the 2.6.28 source tree as provided by Freescale.</p>
+
+<p>This code was built using <a href="https://github.com/clearwater/chumby-linux/tree/767e8235a616106a4b4142dbe8abd3a57a98bfea">SHA 767e8235a616106a4b4142dbe8abd3a57a98bfea</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+<span class='line-number'>214</span>
+<span class='line-number'>215</span>
+<span class='line-number'>216</span>
+<span class='line-number'>217</span>
+<span class='line-number'>218</span>
+<span class='line-number'>219</span>
+<span class='line-number'>220</span>
+<span class='line-number'>221</span>
+<span class='line-number'>222</span>
+<span class='line-number'>223</span>
+<span class='line-number'>224</span>
+<span class='line-number'>225</span>
+<span class='line-number'>226</span>
+<span class='line-number'>227</span>
+<span class='line-number'>228</span>
+<span class='line-number'>229</span>
+<span class='line-number'>230</span>
+<span class='line-number'>231</span>
+<span class='line-number'>232</span>
+<span class='line-number'>233</span>
+<span class='line-number'>234</span>
+<span class='line-number'>235</span>
+<span class='line-number'>236</span>
+<span class='line-number'>237</span>
+<span class='line-number'>238</span>
+<span class='line-number'>239</span>
+<span class='line-number'>240</span>
+<span class='line-number'>241</span>
+<span class='line-number'>242</span>
+<span class='line-number'>243</span>
+<span class='line-number'>244</span>
+<span class='line-number'>245</span>
+<span class='line-number'>246</span>
+<span class='line-number'>247</span>
+<span class='line-number'>248</span>
+<span class='line-number'>249</span>
+<span class='line-number'>250</span>
+<span class='line-number'>251</span>
+<span class='line-number'>252</span>
+<span class='line-number'>253</span>
+<span class='line-number'>254</span>
+<span class='line-number'>255</span>
+<span class='line-number'>256</span>
+<span class='line-number'>257</span>
+<span class='line-number'>258</span>
+<span class='line-number'>259</span>
+<span class='line-number'>260</span>
+<span class='line-number'>261</span>
+<span class='line-number'>262</span>
+<span class='line-number'>263</span>
+<span class='line-number'>264</span>
+<span class='line-number'>265</span>
+<span class='line-number'>266</span>
+<span class='line-number'>267</span>
+<span class='line-number'>268</span>
+<span class='line-number'>269</span>
+<span class='line-number'>270</span>
+<span class='line-number'>271</span>
+<span class='line-number'>272</span>
+<span class='line-number'>273</span>
+<span class='line-number'>274</span>
+<span class='line-number'>275</span>
+<span class='line-number'>276</span>
+<span class='line-number'>277</span>
+<span class='line-number'>278</span>
+<span class='line-number'>279</span>
+<span class='line-number'>280</span>
+<span class='line-number'>281</span>
+<span class='line-number'>282</span>
+<span class='line-number'>283</span>
+<span class='line-number'>284</span>
+<span class='line-number'>285</span>
+<span class='line-number'>286</span>
+<span class='line-number'>287</span>
+<span class='line-number'>288</span>
+<span class='line-number'>289</span>
+<span class='line-number'>290</span>
+<span class='line-number'>291</span>
+<span class='line-number'>292</span>
+<span class='line-number'>293</span>
+<span class='line-number'>294</span>
+<span class='line-number'>295</span>
+<span class='line-number'>296</span>
+<span class='line-number'>297</span>
+<span class='line-number'>298</span>
+<span class='line-number'>299</span>
+<span class='line-number'>300</span>
+<span class='line-number'>301</span>
+<span class='line-number'>302</span>
+<span class='line-number'>303</span>
+<span class='line-number'>304</span>
+<span class='line-number'>305</span>
+<span class='line-number'>306</span>
+<span class='line-number'>307</span>
+<span class='line-number'>308</span>
+<span class='line-number'>309</span>
+<span class='line-number'>310</span>
+<span class='line-number'>311</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>�Loading SD image...
+</span><span class='line'>Reading 0x00000800 bytes from offset 0x0000b800 to destination 0x45a00000
+</span><span class='line'>Skipping 2944 chunks
+</span><span class='line'>Reading 0x00034800 bytes from offset 0x0000f800 to destination 0x40808000
+</span><span class='line'>Skipping 3968 chunks
+</span><span class='line'>Jumping to address 0x40808000:
+</span><span class='line'>0x00000000  0f 00 a0 e1 08 00 40 e2  02 0a 40 e2 08 10 9f e5  |......@...@.....|
+</span><span class='line'>0x00000010  00 00 81 e5 02 00 00 eb  d8 04 00 eb 20 80 80 40  |............ ..@|
+</span><span class='line'>0x00000020  11 b1 11 c1 14 00 9f e5  14 10 9f e5 00 20 a0 e3  |............. ..|
+</span><span class='line'>0x00000030  04 20 80 e4 01 00 50 e1  fc ff ff 3a 0e f0 a0 e1  |. ....P....:....|
+</span><span class='line'>0x00000040  c0 6d 82 40 20 6e 82 40  0e f0 a0 e1 0e f0 a0 e1  |.m.@ n.@........|
+</span><span class='line'>0x00000050  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+</span><span class='line'>0x00000060  04 b0 2d e5 00 b0 8d e2  14 d0 4d e2 64 30 9f e5  |..-.......M.d0..|
+</span><span class='line'>0x00000070  00 30 93 e5 08 30 0b e5  58 30 9f e5 00 20 a0 e3  |.0...0..X0... ..|
+</span><span class='line'>0x00000080  00 20 83 e5 50 30 9f e5  0c 30 0b e5 4c 30 9f e5  |. ..P0...0..L0..|
+</span><span class='line'>0x00000090  0c 20 1b e5 3f 20 02 e2  00 20 83 e5 40 30 9f e5  |. ..? ... ..@0..|
+</span><span class='line'>0x000000a0  0c 20 1b e5 22 23 a0 e1  00 20 83 e5 70 30 a0 e3  |. .."#... ..p0..|
+</span><span class='line'>0x000000b0  10 30 0b e5 2c 30 9f e5  10 20 1b e5 00 20 83 e5  |.0..,0... ... ..|
+</span><span class='line'>0x000000c0  10 30 9f e5 08 20 1b e5  00 20 83 e5 00 d0 8b e2  |.0... ... ......|
+</span><span class='line'>0x000000d0  00 08 bd e8 1e ff 2f e1  30 00 07 80 41 03 00 00  |....../.0...A...|
+</span><span class='line'>0x000000e0  28 00 07 80 24 00 07 80  2c 00 07 80 00 48 2d e9  |(...$...,....H-.|
+</span><span class='line'>0x000000f0  04 b0 8d e2 08 d0 4d e2  90 30 9f e5 05 26 a0 e3  |......M..0...&..|
+</span><span class='line'>0x00000100  00 20 83 e5 88 30 9f e5  0a 26 a0 e3 00 20 83 e5  |. ...0...&... ..|
+</span><span class='line'>0x00000110  80 30 9f e5 00 20 a0 e3  00 20 83 e5 78 30 9f e5  |.0... ... ..x0..|
+</span><span class='line'>0x00000120  00 20 a0 e3 00 20 83 e5  cc ff ff eb 6c 30 9f e5  |. ... ......l0..|
+</span><span class='line'>0x00000130  00 30 93 e5 08 30 0b e5  08 30 1b e5 10 30 c3 e3  |.0...0...0...0..|
+</span><span class='line'>0x00000140  08 30 0b e5 54 30 9f e5  08 20 1b e5 00 20 83 e5  |.0..T0... ... ..|
+</span><span class='line'>0x00000150  4c 30 9f e5 08 30 0b e5  38 30 9f e5 08 20 1b e5  |L0...0..80... ..|
+</span><span class='line'>0x00000160  00 20 83 e5 34 30 9f e5  00 30 93 e5 08 30 0b e5  |. ..40...0...0..|
+</span><span class='line'>0x00000170  08 30 1b e5 10 30 c3 e3  08 30 0b e5 1c 30 9f e5  |.0...0...0...0..|
+</span><span class='line'>0x00000180  08 20 1b e5 00 20 83 e5  04 d0 4b e2 00 88 bd e8  |. ... ....K.....|
+</span><span class='line'>0x00000190  38 81 01 80 34 81 01 80  30 00 07 80 38 00 07 80  |8...4...0...8...|
+</span><span class='line'>0x000001a0  2c 00 07 80 01 03 00 00  04 b0 2d e5 00 b0 8d e2  |,.........-.....|
+</span><span class='line'>0x000001b0  00 00 a0 e1 18 30 9f e5  00 30 93 e5 80 30 03 e2  |.....0...0...0..|
+</span><span class='line'>0x000001c0  00 00 53 e3 fa ff ff 0a  00 d0 8b e2 00 08 bd e8  |..S.............|
+</span><span class='line'>0x000001d0  1e ff 2f e1 18 00 07 80  00 48 2d e9 04 b0 8d e2  |../......H-.....|
+</span><span class='line'>0x000001e0  ec 30 9f e5 03 30 8f e0  03 00 a0 e1 5e 00 00 eb  |.0...0......^...|
+</span><span class='line'>0x000001f0  e0 30 9f e5 00 30 93 e5  03 00 a0 e1 bd 00 00 eb  |.0...0..........|
+</span><span class='line'>
+</span><span class='line'>Go!
+</span><span class='line'>Hardware version: 0x00000009
+</span><span class='line'>Screen pressed: 0
+</span><span class='line'>Setting up LCD to point at 0x44844000
+</span><span class='line'>Setting up LCD to point at 0x44844000
+</span><span class='line'>Reading 0x00000800 bytes from offset 0x0000b800 to destination 0x45a00000
+</span><span class='line'>Skipping 2944 chunks
+</span><span class='line'>Read 0 chunks.  Trying again...
+</span><span class='line'>    Comparing block [boot] with img1...
+</span><span class='line'>    Comparing block [img1] with img1... Found!
+</span><span class='line'>Reading 0x00025800 bytes from offset 0x00044000 to destination 0x44844000
+</span><span class='line'>Skipping 17408 chunks
+</span><span class='line'>Read 0 chunks.  Trying again...
+</span><span class='line'>
+</span><span class='line'>boot&gt; shell
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Chumby bootloader console v1.0
+</span><span class='line'>Booting in 2 seconds...
+</span><span class='line'>Press any key to enter shell... 0
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_EMI_CTRL 0x1c574040
+</span><span class='line'>Setting 0x80020000: 0x1c884040 -&gt; 0x1c574040 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_POWER_BATTMONITOR 0x01ec0414
+</span><span class='line'>Setting 0x800440e0: 0x01c30600 -&gt; 0x01ec0414 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_POWER_5VCTRL_CLR 0x00000080
+</span><span class='line'>Setting 0x80044018: 0x0403f193 -&gt; 0x0403f113 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_POWER_MINPWR_SET 0x00001000
+</span><span class='line'>Setting 0x80044024: 0x00000040 -&gt; 0x00001040 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_MUXSEL1_SET 0x03300000
+</span><span class='line'>Setting 0x80018114: 0x0fffffff -&gt; 0x0fffffff ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_DOUT0_CLR 0x24000000
+</span><span class='line'>Setting 0x80018508: 0x00000000 -&gt; 0x00000000 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_DOE0_SET 0x24000000
+</span><span class='line'>Setting 0x80018704: 0x00000000 -&gt; 0x24000000 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_DOUT0_CLR 0x24000000
+</span><span class='line'>Setting 0x80018508: 0x00000000 -&gt; 0x00000000 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_DOUT0_SET 0x20000000
+</span><span class='line'>Setting 0x80018504: 0x00000000 -&gt; 0x20000000 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; regutil -w HW_PINCTRL_DOUT0_SET 0x04000000
+</span><span class='line'>Setting 0x80018504: 0x20000000 -&gt; 0x24000000 ok
+</span><span class='line'>
+</span><span class='line'>boot&gt; 
+</span><span class='line'>    Comparing block [boot] with img2...
+</span><span class='line'>    Comparing block [img1] with img2...
+</span><span class='line'>    Comparing block [img2] with img2... Found!
+</span><span class='line'>Reading 0x00025800 bytes from offset 0x00069800 to destination 0x44844000
+</span><span class='line'>Skipping 27008 chunks
+</span><span class='line'>Read 0 chunks.  Trying again...
+</span><span class='line'>
+</span><span class='line'>boot&gt; load krnA 0x40008000
+</span><span class='line'>    Comparing block [boot] with krnA...
+</span><span class='line'>    Comparing block [img1] with krnA...
+</span><span class='line'>    Comparing block [img2] with krnA...
+</span><span class='line'>    Comparing block [img3] with krnA...
+</span><span class='line'>    Comparing block [img4] with krnA...
+</span><span class='line'>    Comparing block [img5] with krnA...
+</span><span class='line'>    Comparing block [krnA] with krnA... Found!
+</span><span class='line'>Reading 0x00400000 bytes from offset 0x000ff800 to destination 0x40008000
+</span><span class='line'>Skipping 65408 chunks
+</span><span class='line'>Read 0 chunks.  Trying again...
+</span><span class='line'>
+</span><span class='line'>boot&gt; linux 0x40008000 "console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=** ssp1=mmc sysrq_always_enabled logo.brand=BBBBBBBBBBBB"
+</span><span class='line'>Going to run linux at offset 0x40008000 with cmdline console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+</span><span class='line'>Uncompressing Linux................................................................................................................................................. done, booting the kernel.
+</span><span class='line'>[    0.000000] Linux version 2.6.28-chumby (guy@vdebian) (gcc version 4.5.3 20110311 (prerelease) (GCC) ) #4 PREEMPT Thu Feb 16 22:31:05 EST 2012
+</span><span class='line'>[    0.000000] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5TEJ), cr=00053177
+</span><span class='line'>[    0.000000] CPU: VIVT data cache, VIVT instruction cache
+</span><span class='line'>[    0.000000] Machine: STMP378X
+</span><span class='line'>[    0.000000] Memory policy: ECC disabled, Data cache writeback
+</span><span class='line'>[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 16256
+</span><span class='line'>[    0.000000] Kernel command line: console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+</span><span class='line'>[    0.000000] Detected chumby version 9 (from str 09)
+</span><span class='line'>[    0.000000] debug: sysrq always enabled.
+</span><span class='line'>[    0.000000] Unknown boot option `logo.brand=chumby': ignoring
+</span><span class='line'>[    0.000000] PID hash table entries: 256 (order: 8, 1024 bytes)
+</span><span class='line'>[    0.000000] Console: colour dummy device 80x30
+</span><span class='line'>[    0.000000] console [ttyAM0] enabled
+</span><span class='line'>[    0.010000] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+</span><span class='line'>[    0.010000] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+</span><span class='line'>[    0.020000] Memory: 64MB = 64MB total
+</span><span class='line'>[    0.030000] Memory: 59820KB available (4220K code, 704K data, 116K init)
+</span><span class='line'>[    0.030000] SLUB: Genslabs=12, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+</span><span class='line'>[    0.040000] Calibrating delay loop... 226.91 BogoMIPS (lpj=1134592)
+</span><span class='line'>[    0.280000] Security Framework initialized
+</span><span class='line'>[    0.280000] Mount-cache hash table entries: 512
+</span><span class='line'>[    0.280000] CPU: Testing write buffer coherency: ok
+</span><span class='line'>[    0.290000] net_namespace: 708 bytes
+</span><span class='line'>[    0.300000] regulator: core version 0.5
+</span><span class='line'>[    0.300000] NET: Registered protocol family 16
+</span><span class='line'>[    0.310000] regulator: vddd: 800 &lt;--&gt; 1575 mV fast normal 
+</span><span class='line'>[    0.310000] regulator: vddd_bo: 800 &lt;--&gt; 1575 mV fast normal 
+</span><span class='line'>[    0.320000] regulator: vdda: 1500 &lt;--&gt; 2275 mV fast normal 
+</span><span class='line'>[    0.320000] regulator: vddio: 2800 &lt;--&gt; 3575 mV fast normal 
+</span><span class='line'>[    0.330000] regulator: overall_current: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.330000] regulator: stmp3xxx-fb-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.340000] regulator: stmp3xxx-bl-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.340000] regulator: stmp3xxx_ts-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.350000] regulator: stmp37xx-dbguart-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.350000] regulator: stmp3xxx_wdt-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.360000] regulator: stmp3xxx-rtc-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.360000] regulator: stmp3xxx-rotdec-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.370000] regulator: i2c_stmp-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.370000] regulator: stmp3xxx-persistent-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.380000] regulator: stmp3xxx-dcp-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.380000] regulator: stmp3xxx-battery-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.390000] regulator: mmc_ssp-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.390000] regulator: mmc_ssp-2: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.400000] regulator: charger-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.400000] regulator: power-test-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.410000] regulator: cpufreq-1: 0 &lt;--&gt; 2147483 mA fast normal 
+</span><span class='line'>[    0.410000] stmp378x_devb.c - stmp378x_devb_init():353 - Adding 13 platform-specific devices
+</span><span class='line'>[    0.420000] Initialized chumby GPIO IRQ router
+</span><span class='line'>[    0.430000] chumbyfbfw.c - chumbyfwfb_probe():1255 - resolution 720x480, bpp 2
+</span><span class='line'>[    0.440000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1382400 (720 x 480 x 16)
+</span><span class='line'>[    0.440000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1382400 (320 x 240 x 16)
+</span><span class='line'>[    0.450000] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1658880 (720 x 576 x 16)
+</span><span class='line'>[    0.450000] chumbyfbfw.c - chumbyfwfb_probe():1268 - memory to allocate for screen: 1658880
+</span><span class='line'>[    0.460000] chumbyfbfw.c - chumbyfwfb_probe():1277 - allocated screen at ff600000:0x43a00000
+</span><span class='line'>[    0.470000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 0: 1658880
+</span><span class='line'>[    0.480000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ff795000:0x43c00000
+</span><span class='line'>[    0.490000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 1: 1658880
+</span><span class='line'>[    0.500000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ff92a000:0x43e00000
+</span><span class='line'>[    0.510000] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 2: 307200
+</span><span class='line'>[    0.510000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ffabf000:0x43880000
+</span><span class='line'>[    0.520000] Going to copy splash image from 44844000 (153600 bytes) to ff600000 (not 43a00000)
+</span><span class='line'>[    0.530000] chumbyfbfw.c - pxp_setup():1124 - Pointing S0 at 43c00000
+</span><span class='line'>[    0.540000] stmp37xx-dbguart.0: ttyAM0 at MMIO 0xf0070000 (irq = 0) is a Debug UART
+</span><span class='line'>[    0.550000] usbcore: registered new interface driver usbfs
+</span><span class='line'>[    0.550000] usbcore: registered new interface driver hub
+</span><span class='line'>[    0.560000] usbcore: registered new device driver usb
+</span><span class='line'>[    0.600000] NET: Registered protocol family 2
+</span><span class='line'>[    0.690000] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+</span><span class='line'>[    0.700000] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+</span><span class='line'>[    0.700000] TCP bind hash table entries: 2048 (order: 1, 8192 bytes)
+</span><span class='line'>[    0.710000] TCP: Hash tables configured (established 2048 bind 2048)
+</span><span class='line'>[    0.720000] TCP reno registered
+</span><span class='line'>[    0.750000] NET: Registered protocol family 1
+</span><span class='line'>[    0.750000] usb: DR gadget (utmi) registered
+</span><span class='line'>[    0.770000] ashmem: initialized
+</span><span class='line'>[    0.770000] Registering unionfs 2.5.2 (for 2.6.28.10)
+</span><span class='line'>[    0.780000] NTFS driver 2.1.29 [Flags: R/O].
+</span><span class='line'>[    0.780000] fuse init (API version 7.10)
+</span><span class='line'>[    0.790000] msgmni has been set to 116
+</span><span class='line'>[    0.800000] alg: No test for stdrng (krng)
+</span><span class='line'>[    0.810000] cryptodev: driver loaded.
+</span><span class='line'>[    0.810000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+</span><span class='line'>[    0.820000] io scheduler noop registered (default)
+</span><span class='line'>[    0.850000] logger: created 64K log 'log_main'
+</span><span class='line'>[    0.850000] logger: created 256K log 'log_events'
+</span><span class='line'>[    0.860000] logger: created 64K log 'log_radio'
+</span><span class='line'>[    0.870000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+</span><span class='line'>[    0.870000] fsl-ehci fsl-ehci.0: Freescale On-Chip EHCI Host Controller
+</span><span class='line'>[    0.880000] fsl-ehci fsl-ehci.0: new USB bus registered, assigned bus number 1
+</span><span class='line'>[    2.010000] fsl-ehci fsl-ehci.0: irq 11, io mem 0x80080000
+</span><span class='line'>[    2.030000] fsl-ehci fsl-ehci.0: USB 2.0 started, EHCI 1.00
+</span><span class='line'>[    2.030000] usb usb1: configuration #1 chosen from 1 choice
+</span><span class='line'>[    2.040000] hub 1-0:1.0: USB hub found
+</span><span class='line'>[    2.040000] hub 1-0:1.0: 1 port detected
+</span><span class='line'>[    2.050000] Chumby bend sensor driver version 2.3-Falconwing initializing (scross@chumby.com)...
+</span><span class='line'>[    2.060000] input: bend-sensor as /devices/platform/bend-sensor/input/input0
+</span><span class='line'>[    2.100000] input: STMP3XXX touchscreen as /devices/virtual/input/input1
+</span><span class='line'>[    2.100000] input: stmp3xxx-rotdec as /devices/virtual/input/input2
+</span><span class='line'>[    2.110000] STMP3xxx RTC driver v1.0 hardware v2.0.0
+</span><span class='line'>[    2.120000] stmp3xxx-rtc stmp3xxx-rtc: rtc core: registered stmp3xxx-rtc as rtc0
+</span><span class='line'>[    2.120000] i2c /dev entries driver
+</span><span class='line'>[    2.140000] ddi_bc_Init: success
+</span><span class='line'>[    2.150000] stmp3xxx-battery stmp3xxx-battery.0: bc_sm_restart: no battery present
+</span><span class='line'>[    2.150000] power/linux.c - bc_sm_restart():987 - Returning from sm_restart()
+</span><span class='line'>[    2.280000] stmp3xxx-dcp stmp3xxx-dcp: DCP crypto enabled.!
+</span><span class='line'>[    2.280000] Advanced Linux Sound Architecture Driver Version 1.0.18rc3.
+</span><span class='line'>[    2.290000] ASoC version 0.13.2
+</span><span class='line'>[    2.290000] STMP378X ADC/DAC Audio Codec 0.1
+</span><span class='line'>[    2.300000] asoc: stmp378x adc/dac &lt;-&gt; stmp3xxx adc/dac mapping ok
+</span><span class='line'>[    2.310000] ALSA device list:
+</span><span class='line'>[    2.320000]   #0: STMP3780 Devb (stmp378x adc/dac)
+</span><span class='line'>[    2.320000] oprofile: using timer interrupt.
+</span><span class='line'>[    2.330000] nf_conntrack version 0.5.0 (1024 buckets, 4096 max)
+</span><span class='line'>[    2.330000] CONFIG_NF_CT_ACCT is deprecated and will be removed soon. Please use
+</span><span class='line'>[    2.340000] nf_conntrack.acct=1 kernel paramater, acct=1 nf_conntrack module option or
+</span><span class='line'>[    2.350000] sysctl net.netfilter.nf_conntrack_acct=1 to enable it.
+</span><span class='line'>[    2.360000] ip_tables: (C) 2000-2006 Netfilter Core Team
+</span><span class='line'>[    2.370000] arp_tables: (C) 2002 David S. Miller
+</span><span class='line'>[    2.370000] TCP cubic registered
+</span><span class='line'>[    2.380000] NET: Registered protocol family 17
+</span><span class='line'>[    2.380000] RPC: Registered udp transport module.
+</span><span class='line'>[    2.390000] RPC: Registered tcp transport module.
+</span><span class='line'>[    2.390000] stmp3xxx-rtc stmp3xxx-rtc: setting system clock to 1970-01-01 00:00:13 UTC (13)
+</span><span class='line'>[    2.400000] Waiting for root device /dev/mmcblk0p2...
+</span><span class='line'>[    2.430000] mmc0: new SD card at address 0002
+</span><span class='line'>[    2.440000] usb 1-1: new high speed USB device using fsl-ehci and address 2
+</span><span class='line'>[    2.440000] mmcblk0: mmc0:0002 00000 971 MiB 
+</span><span class='line'>[    2.450000]  mmcblk0: p1 p2
+</span><span class='line'>[    2.520000] NILFS: Can't find nilfs on dev mmcblk0p2.
+</span><span class='line'>[    2.520000] EXT3-fs warning: feature flags set on rev 0 fs, running e2fsck is recommended
+</span><span class='line'>[    2.540000] kjournald starting.  Commit interval 5 seconds
+</span><span class='line'>[    2.540000] EXT3-fs warning (device mmcblk0p2): ext3_update_dynamic_rev: updating to rev 1 because of new feature flag, running e2fsck is recommended
+</span><span class='line'>[    2.590000] usb 1-1: configuration #1 chosen from 1 choice
+</span><span class='line'>[    2.590000] EXT3 FS on mmcblk0p2, internal journal
+</span><span class='line'>[    2.600000] EXT3-fs: mounted filesystem with ordered data mode.
+</span><span class='line'>[    2.600000] VFS: Mounted root (ext3 filesystem).
+</span><span class='line'>[    2.610000] Freeing init memory: 116K
+</span><span class='line'>[    2.610000] hub 1-1:1.0: USB hub found
+</span><span class='line'>[    2.620000] hub 1-1:1.0: config failed, hub has too many ports! (err -19)
+</span><span class='line'>INIT: version 2.86 booting
+</span><span class='line'>Please wait: booting...
+</span><span class='line'>Starting udev
+</span><span class='line'>[    6.160000] mice: PS/2 mouse device common for all mice
+</span><span class='line'>Remounting root file system...
+</span><span class='line'>Caching udev devnodes
+</span><span class='line'>Populating dev cache
+</span><span class='line'>ALSA: Restoring mixer settings...
+</span><span class='line'>No state is present for card Devb
+</span><span class='line'>/usr/sbin/alsactl: parse:1655: Unable to open file '/usr/share/alsa/init/00main': No such file or directory
+</span><span class='line'>No state is present for card Devb
+</span><span class='line'>Configuring update-modules.
+</span><span class='line'>Configuring ppp.
+</span><span class='line'>Configuring ppp-dialin.
+</span><span class='line'>Configuring e2fsprogs.
+</span><span class='line'>update-alternatives: Error: cannot register alternative chattr to /usr/bin/chattr since it is already registered to /bin/chattr
+</span><span class='line'>update-alternatives: Linking //sbin/uuidd to uuidd.util-linux-ng
+</span><span class='line'>Configuring dbus.
+</span><span class='line'> Adding system startup for /etc/init.d/dbus-1.
+</span><span class='line'>Configuring angstrom-libc-fixup-hack.
+</span><span class='line'>Configuring libnss-mdns.
+</span><span class='line'>Configuring avahi-daemon.
+</span><span class='line'> Adding system startup for /etc/init.d/avahi-daemon.
+</span><span class='line'>Configuring avahi-autoipd.
+</span><span class='line'>[   17.610000] NET: Registered protocol family 10
+</span><span class='line'>Configuring network interfaces... ifconfig: SIOCGIFFLAGS: No such device
+</span><span class='line'>done.
+</span><span class='line'>Starting portmap daemon: portmap.
+</span><span class='line'>net.ipv4.conf.default.rp_filter = 1
+</span><span class='line'>net.ipv4.conf.all.rp_filter = 1
+</span><span class='line'>Thu Feb 16 23:57:00 UTC 2012
+</span><span class='line'>INIT: Entering runlevel: 5
+</span><span class='line'>Starting system message bus: dbus.
+</span><span class='line'>Creating Dropbear SSH server RSA host key.
+</span><span class='line'>Will output 1024 bit rsa secret key to '/etc/dropbear/dropbear_rsa_host_key'
+</span><span class='line'>Generating key, this may take a while...
+</span><span class='line'>Public key portion is:
+</span><span class='line'>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgwDMAHLVuprK4TDNbqQwmR5TX2J9gTzW+6m9M+hEDqzihheHcmhiNi9lRdj2SRqg3OXMIFwdboT9RtJt2rxFtjJsA4GuSPOzGHa5sDq4uH2KfVtbnVlyHilF0HgpiGaN0UFbm72A/ocra3HmJf/MIJj7ImTuLihUV6zlet3GfSi9I7tX root@chumby-falconwing
+</span><span class='line'>Fingerprint: md5 83:9c:8d:c8:c5:fa:d5:c9:ee:92:78:21:9c:2e:e7:40
+</span><span class='line'>Starting Dropbear SSH server: dropbear.
+</span><span class='line'>Starting syslogd/klogd: done
+</span><span class='line'> * Starting Avahi mDNS/DNS-SD Daemon: avahi-daemon
+</span><span class='line'>   ...done.
+</span><span class='line'>
+</span><span class='line'>.---O---.                                           
+</span><span class='line'>|       |                  .-.           o o        
+</span><span class='line'>|   |   |-----.-----.-----.| |   .----..-----.-----.
+</span><span class='line'>|       |     | __  |  ---'| '--.|  .-'|     |     |
+</span><span class='line'>|   |   |  |  |     |---  ||  --'|  |  |  '  | | | |
+</span><span class='line'>'---'---'--'--'--.  |-----''----''--'  '-----'-'-'-'
+</span><span class='line'>                -'  |
+</span><span class='line'>                '---'
+</span><span class='line'>
+</span><span class='line'>The Angstrom Distribution chumby-falconwing ttyAM0
+</span><span class='line'>
+</span><span class='line'>Angstrom v20120216 chumby-falconwing ttyAM0
+</span><span class='line'>
+</span><span class='line'>chumby-falconwing login: </span></code></pre></td></tr></table></div></figure>
+
+
+<p>To help identify the differences between this kernel and the stock Chumby
+kernel, here is the boot log diffed against the stock boot log.</p>
+
+<div><script src='https://gist.github.com/1842712.js?file='></script>
+<noscript><pre><code>--- bootlog.stock.tmp   2012-02-16 16:54:44.000000000 +1000
++++ bootlog.2.6.28.tmp  2012-02-16 16:54:44.000000000 +1000
+@@ -5,37 +5,37 @@
+ Skipping 3968 chunks
+ Jumping to address 0x40808000:
+ 0x00000000  0f 00 a0 e1 08 00 40 e2  02 0a 40 e2 08 10 9f e5  |......@...@.....|
+-0x00000010  00 00 81 e5 02 00 00 eb  25 05 00 eb 20 20 00 00  |........%...  ..|
++0x00000010  00 00 81 e5 02 00 00 eb  d8 04 00 eb 20 80 80 40  |............ ..@|
+ 0x00000020  11 b1 11 c1 14 00 9f e5  14 10 9f e5 00 20 a0 e3  |............. ..|
+ 0x00000030  04 20 80 e4 01 00 50 e1  fc ff ff 3a 0e f0 a0 e1  |. ....P....:....|
+-0x00000040  a0 13 02 00 20 15 02 00  0e f0 a0 e1 0e f0 a0 e1  |.... ...........|
++0x00000040  c0 6d 82 40 20 6e 82 40  0e f0 a0 e1 0e f0 a0 e1  |.m.@ n.@........|
+ 0x00000050  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+ 0x00000060  04 b0 2d e5 00 b0 8d e2  14 d0 4d e2 64 30 9f e5  |..-.......M.d0..|
+-0x00000070  00 30 93 e5 10 30 0b e5  58 20 9f e5 00 30 a0 e3  |.0...0..X ...0..|
+-0x00000080  00 30 82 e5 50 30 9f e5  08 30 0b e5 4c 20 9f e5  |.0..P0...0..L ..|
+-0x00000090  08 30 1b e5 3f 30 03 e2  00 30 82 e5 40 20 9f e5  |.0..?0...0..@ ..|
+-0x000000a0  08 30 1b e5 23 33 a0 e1  00 30 82 e5 70 30 a0 e3  |.0..#3...0..p0..|
+-0x000000b0  0c 30 0b e5 2c 20 9f e5  0c 30 1b e5 00 30 82 e5  |.0.., ...0...0..|
+-0x000000c0  10 20 9f e5 10 30 1b e5  00 30 82 e5 00 d0 8b e2  |. ...0...0......|
++0x00000070  00 30 93 e5 08 30 0b e5  58 30 9f e5 00 20 a0 e3  |.0...0..X0... ..|
++0x00000080  00 20 83 e5 50 30 9f e5  0c 30 0b e5 4c 30 9f e5  |. ..P0...0..L0..|
++0x00000090  0c 20 1b e5 3f 20 02 e2  00 20 83 e5 40 30 9f e5  |. ..? ... ..@0..|
++0x000000a0  0c 20 1b e5 22 23 a0 e1  00 20 83 e5 70 30 a0 e3  |. ..&quot;#... ..p0..|
++0x000000b0  10 30 0b e5 2c 30 9f e5  10 20 1b e5 00 20 83 e5  |.0..,0... ... ..|
++0x000000c0  10 30 9f e5 08 20 1b e5  00 20 83 e5 00 d0 8b e2  |.0... ... ......|
+ 0x000000d0  00 08 bd e8 1e ff 2f e1  30 00 07 80 41 03 00 00  |....../.0...A...|
+ 0x000000e0  28 00 07 80 24 00 07 80  2c 00 07 80 00 48 2d e9  |(...$...,....H-.|
+-0x000000f0  04 b0 8d e2 08 d0 4d e2  90 20 9f e5 05 36 a0 e3  |......M.. ...6..|
+-0x00000100  00 30 82 e5 88 20 9f e5  0a 36 a0 e3 00 30 82 e5  |.0... ...6...0..|
+-0x00000110  80 20 9f e5 00 30 a0 e3  00 30 82 e5 78 20 9f e5  |. ...0...0..x ..|
+-0x00000120  00 30 a0 e3 00 30 82 e5  cc ff ff eb 6c 30 9f e5  |.0...0......l0..|
++0x000000f0  04 b0 8d e2 08 d0 4d e2  90 30 9f e5 05 26 a0 e3  |......M..0...&amp;..|
++0x00000100  00 20 83 e5 88 30 9f e5  0a 26 a0 e3 00 20 83 e5  |. ...0...&amp;... ..|
++0x00000110  80 30 9f e5 00 20 a0 e3  00 20 83 e5 78 30 9f e5  |.0... ... ..x0..|
++0x00000120  00 20 a0 e3 00 20 83 e5  cc ff ff eb 6c 30 9f e5  |. ... ......l0..|
+ 0x00000130  00 30 93 e5 08 30 0b e5  08 30 1b e5 10 30 c3 e3  |.0...0...0...0..|
+-0x00000140  08 30 0b e5 54 20 9f e5  08 30 1b e5 00 30 82 e5  |.0..T ...0...0..|
+-0x00000150  4c 30 9f e5 08 30 0b e5  38 20 9f e5 08 30 1b e5  |L0...0..8 ...0..|
+-0x00000160  00 30 82 e5 34 30 9f e5  00 30 93 e5 08 30 0b e5  |.0..40...0...0..|
+-0x00000170  08 30 1b e5 10 30 c3 e3  08 30 0b e5 1c 20 9f e5  |.0...0...0... ..|
+-0x00000180  08 30 1b e5 00 30 82 e5  04 d0 4b e2 00 88 bd e8  |.0...0....K.....|
++0x00000140  08 30 0b e5 54 30 9f e5  08 20 1b e5 00 20 83 e5  |.0..T0... ... ..|
++0x00000150  4c 30 9f e5 08 30 0b e5  38 30 9f e5 08 20 1b e5  |L0...0..80... ..|
++0x00000160  00 20 83 e5 34 30 9f e5  00 30 93 e5 08 30 0b e5  |. ..40...0...0..|
++0x00000170  08 30 1b e5 10 30 c3 e3  08 30 0b e5 1c 30 9f e5  |.0...0...0...0..|
++0x00000180  08 20 1b e5 00 20 83 e5  04 d0 4b e2 00 88 bd e8  |. ... ....K.....|
+ 0x00000190  38 81 01 80 34 81 01 80  30 00 07 80 38 00 07 80  |8...4...0...8...|
+ 0x000001a0  2c 00 07 80 01 03 00 00  04 b0 2d e5 00 b0 8d e2  |,.........-.....|
+-0x000001b0  18 30 9f e5 00 30 93 e5  80 30 03 e2 00 00 53 e3  |.0...0...0....S.|
+-0x000001c0  fa ff ff 0a 00 d0 8b e2  00 08 bd e8 1e ff 2f e1  |............../.|
+-0x000001d0  18 00 07 80 30 48 2d e9  0c b0 8d e2 f4 40 9f e5  |....0H-......@..|
+-0x000001e0  04 40 8f e0 f0 30 9f e5  03 30 84 e0 03 00 a0 e1  |.@...0...0......|
+-0x000001f0  5e 00 00 eb e4 30 9f e5  00 30 93 e5 03 00 a0 e1  |^....0...0......|
++0x000001b0  00 00 a0 e1 18 30 9f e5  00 30 93 e5 80 30 03 e2  |.....0...0...0..|
++0x000001c0  00 00 53 e3 fa ff ff 0a  00 d0 8b e2 00 08 bd e8  |..S.............|
++0x000001d0  1e ff 2f e1 18 00 07 80  00 48 2d e9 04 b0 8d e2  |../......H-.....|
++0x000001e0  ec 30 9f e5 03 30 8f e0  03 00 a0 e1 5e 00 00 eb  |.0...0......^...|
++0x000001f0  e0 30 9f e5 00 30 93 e5  03 00 a0 e1 bd 00 00 eb  |.0...0..........|
+ 
+ Go!
+ Hardware version: 0x00000009
+@@ -44,10 +44,12 @@
+ Setting up LCD to point at 0x44844000
+ Reading 0x00000800 bytes from offset 0x0000b800 to destination 0x45a00000
+ Skipping 2944 chunks
++Read 0 chunks.  Trying again...
+     Comparing block [boot] with img1...
+     Comparing block [img1] with img1... Found!
+ Reading 0x00025800 bytes from offset 0x00044000 to destination 0x44844000
+ Skipping 17408 chunks
++Read 0 chunks.  Trying again...
+ 
+ boot&gt; shell
+ 
+@@ -57,17 +59,11 @@
+ Booting in 2 seconds...
+ Press any key to enter shell... 0
+ 
+-boot&gt; regutil -w HW_RTC_WATCHDOG 0x00004e20
+-Setting 0x8005c050: 0xffffffff -&gt; 0x00004e20 ok
+-
+-boot&gt; regutil -w HW_RTC_CTRL_SET 0x00000010
+-Setting 0x8005c004: 0x00000008 -&gt; 0x00000018 ok
+-
+-boot&gt; regutil -w HW_EMI_CTRL 0x1c444040
+-Setting 0x80020000: 0x1c884040 -&gt; 0x1c444040 ok
++boot&gt; regutil -w HW_EMI_CTRL 0x1c574040
++Setting 0x80020000: 0x1c884040 -&gt; 0x1c574040 ok
+ 
+ boot&gt; regutil -w HW_POWER_BATTMONITOR 0x01ec0414
+-Setting 0x800440e0: 0x01d10614 -&gt; 0x01ec0414 ok
++Setting 0x800440e0: 0x01c30600 -&gt; 0x01ec0414 ok
+ 
+ boot&gt; regutil -w HW_POWER_5VCTRL_CLR 0x00000080
+ Setting 0x80044018: 0x0403f193 -&gt; 0x0403f113 ok
+@@ -99,6 +95,7 @@
+     Comparing block [img2] with img2... Found!
+ Reading 0x00025800 bytes from offset 0x00069800 to destination 0x44844000
+ Skipping 27008 chunks
++Read 0 chunks.  Trying again...
+ 
+ boot&gt; load krnA 0x40008000
+     Comparing block [boot] with krnA...
+@@ -110,17 +107,18 @@
+     Comparing block [krnA] with krnA... Found!
+ Reading 0x00400000 bytes from offset 0x000ff800 to destination 0x40008000
+ Skipping 65408 chunks
++Read 0 chunks.  Trying again...
+ 
+-boot&gt; linux 0x40008000 &quot;console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=** ssp1=mmc sysrq_always_enabled logo.brand=BBBBBBBBBBBB&quot;
+-Going to run linux at offset 0x40008000 with cmdline console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+-Uncompressing Linux.............................................................................................................................................. done, booting the kernel.
+-[            ] Linux version 2.6.28-chumby (builder@stormbuild) (gcc version 4.3.2 (Sourcery G++ Lite 2008q3-72) ) #302 PREEMPT Wed Jul 28 14:40:46 PDT 2010
++boot&gt; linux 0x40008000 &quot;console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=** ssp1=mmc sysrq_always_enabled logo.brand=BBBBBBBBBBBB&quot;
++Going to run linux at offset 0x40008000 with cmdline console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
++Uncompressing Linux................................................................................................................................................. done, booting the kernel.
++[            ] Linux version 2.6.28-chumby (guy@vdebian) (gcc version 4.5.3 20110311 (prerelease) (GCC) ) #4 PREEMPT Thu Feb 16 22:31:05 EST 2012
+ [            ] CPU: ARM926EJ-S [41069265] revision 5 (ARMv5TEJ), cr=00053177
+ [            ] CPU: VIVT data cache, VIVT instruction cache
+ [            ] Machine: STMP378X
+ [            ] Memory policy: ECC disabled, Data cache writeback
+ [            ] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 16256
+-[            ] Kernel command line: console=ttyAM0,115200 init=/linuxrc root=/dev/mmcblk0p2 rootfstype=ext3 ro rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
++[            ] Kernel command line: console=ttyAM0,115200 root=/dev/mmcblk0p2 rw rootwait chumbyrev=09 ssp1=mmc sysrq_always_enabled logo.brand=chumby
+ [            ] Detected chumby version 9 (from str 09)
+ [            ] debug: sysrq always enabled.
+ [            ] Unknown boot option `logo.brand=chumby': ignoring
+@@ -130,7 +128,7 @@
+ [            ] Dentry cache hash table entries: 8192 (order: 3, 32768 bytes)
+ [            ] Inode-cache hash table entries: 4096 (order: 2, 16384 bytes)
+ [            ] Memory: 64MB = 64MB total
+-[            ] Memory: 59932KB available (4116K code, 699K data, 120K init)
++[            ] Memory: 59820KB available (4220K code, 704K data, 116K init)
+ [            ] SLUB: Genslabs=12, HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+ [            ] Calibrating delay loop... 226.91 BogoMIPS (lpj=1134592)
+ [            ] Security Framework initialized
+@@ -160,7 +158,7 @@
+ [            ] regulator: charger-1: 0 &lt;--&gt; 2147483 mA fast normal 
+ [            ] regulator: power-test-1: 0 &lt;--&gt; 2147483 mA fast normal 
+ [            ] regulator: cpufreq-1: 0 &lt;--&gt; 2147483 mA fast normal 
+-[            ] stmp378x_devb.c - stmp378x_devb_init():388 - Adding 15 platform-specific devices
++[            ] stmp378x_devb.c - stmp378x_devb_init():353 - Adding 13 platform-specific devices
+ [            ] Initialized chumby GPIO IRQ router
+ [            ] chumbyfbfw.c - chumbyfwfb_probe():1255 - resolution 720x480, bpp 2
+ [            ] chumbyfbfw.c - get_max_memsize():1060 - get_max_memsize: mem_size now 1382400 (720 x 480 x 16)
+@@ -173,10 +171,13 @@
+ [            ] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 1: 1658880
+ [            ] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ff92a000:0x43e00000
+ [            ] chumbyfbfw.c - chumbyfwfb_probe():1326 - memory to allocate for plane 2: 307200
+-[            ] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ffabf000:0x43900000
++[            ] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ffabf000:0x43880000
+ [            ] Going to copy splash image from 44844000 (153600 bytes) to ff600000 (not 43a00000)
+ [            ] chumbyfbfw.c - pxp_setup():1124 - Pointing S0 at 43c00000
+ [            ] stmp37xx-dbguart.0: ttyAM0 at MMIO 0xf0070000 (irq = 0) is a Debug UART
++[            ] usbcore: registered new interface driver usbfs
++[            ] usbcore: registered new interface driver hub
++[            ] usbcore: registered new device driver usb
+ [            ] NET: Registered protocol family 2
+ [            ] IP route cache hash table entries: 1024 (order: 0, 4096 bytes)
+ [            ] TCP established hash table entries: 2048 (order: 2, 16384 bytes)
+@@ -184,22 +185,37 @@
+ [            ] TCP: Hash tables configured (established 2048 bind 2048)
+ [            ] TCP reno registered
+ [            ] NET: Registered protocol family 1
++[            ] usb: DR gadget (utmi) registered
+ [            ] ashmem: initialized
+ [            ] Registering unionfs 2.5.2 (for 2.6.28.10)
+ [            ] NTFS driver 2.1.29 [Flags: R/O].
+ [            ] fuse init (API version 7.10)
+-[            ] msgmni has been set to 117
++[            ] msgmni has been set to 116
+ [            ] alg: No test for stdrng (krng)
+ [            ] cryptodev: driver loaded.
++[            ] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+ [            ] io scheduler noop registered (default)
+ [            ] logger: created 64K log 'log_main'
+ [            ] logger: created 256K log 'log_events'
+ [            ] logger: created 64K log 'log_radio'
++[            ] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
++[            ] fsl-ehci fsl-ehci.0: Freescale On-Chip EHCI Host Controller
++[            ] fsl-ehci fsl-ehci.0: new USB bus registered, assigned bus number 1
++[            ] fsl-ehci fsl-ehci.0: irq 11, io mem 0x80080000
++[            ] fsl-ehci fsl-ehci.0: USB 2.0 started, EHCI 1.00
++[            ] usb usb1: configuration #1 chosen from 1 choice
++[            ] hub 1-0:1.0: USB hub found
++[            ] hub 1-0:1.0: 1 port detected
++[            ] Chumby bend sensor driver version 2.3-Falconwing initializing (scross@chumby.com)...
++[            ] input: bend-sensor as /devices/platform/bend-sensor/input/input0
++[            ] input: STMP3XXX touchscreen as /devices/virtual/input/input1
++[            ] input: stmp3xxx-rotdec as /devices/virtual/input/input2
+ [            ] STMP3xxx RTC driver v1.0 hardware v2.0.0
+ [            ] stmp3xxx-rtc stmp3xxx-rtc: rtc core: registered stmp3xxx-rtc as rtc0
++[            ] i2c /dev entries driver
+ [            ] ddi_bc_Init: success
+ [            ] stmp3xxx-battery stmp3xxx-battery.0: bc_sm_restart: no battery present
+-[            ] power/linux.c - bc_sm_restart():982 - Returning from sm_restart()
++[            ] power/linux.c - bc_sm_restart():987 - Returning from sm_restart()
+ [            ] stmp3xxx-dcp stmp3xxx-dcp: DCP crypto enabled.!
+ [            ] Advanced Linux Sound Architecture Driver Version 1.0.18rc3.
+ [            ] ASoC version 0.13.2
+@@ -216,114 +232,80 @@
+ [            ] arp_tables: (C) 2002 David S. Miller
+ [            ] TCP cubic registered
+ [            ] NET: Registered protocol family 17
+-[            ] mmc0: new SD card at address 0002
+ [            ] RPC: Registered udp transport module.
+ [            ] RPC: Registered tcp transport module.
++[            ] stmp3xxx-rtc stmp3xxx-rtc: setting system clock to 1970-01-01 00:00:13 UTC (13)
++[            ] Waiting for root device /dev/mmcblk0p2...
++[            ] mmc0: new SD card at address 0002
++[            ] usb 1-1: new high speed USB device using fsl-ehci and address 2
+ [            ] mmcblk0: mmc0:0002 00000 971 MiB 
+-[            ]  mmcblk0: p1 p2 p3 p4 &lt; p5 p6 &gt;
+-[            ] stmp3xxx-rtc stmp3xxx-rtc: setting system clock to 1970-01-01 00:02:20 UTC (140)
++[            ]  mmcblk0: p1 p2
++[            ] NILFS: Can't find nilfs on dev mmcblk0p2.
+ [            ] EXT3-fs warning: feature flags set on rev 0 fs, running e2fsck is recommended
+-[            ] EXT3-fs: mounted filesystem with ordered data mode.
+-[            ] VFS: Mounted root (ext3 filesystem) readonly.
+-[            ] Freeing init memory: 120K
+-[            ] kjournald starting.  Commit interval 5 seconds
+-/linuxrc v0.42 $Rev: 23680 $ pid=1
+-Parsing /etc/init.d/linuxrc.config
+-Executing scripted actions (including 11 setenv statements)
+-[MOUNT] tmpfs (type tmpfs) on /tmp (mode=755)
+-[MOUNT] proc (type proc) on /proc
+-[MOUNT] sysfs (type sysfs) on /sys
+-Scripted execution complete, 3 actions with 0 failures
+-environ[0]: HOME=/
+-environ[1]: TERM=linux
+-environ[2]: ssp1=mmc
+-Adding /psp/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/chumby/scripts
+-[SETENV] PATH=/usr/bin:/bin:/usr/sbin:/usr/local/sbin:/sbin:/usr/chumby/scripts
+-[SETENV] CNPLATFORM=falconwing
+-[SETENV] CONFIGNAME=falconwing
+-[SETENV] VIDEO_RES=320x240
+-[SETENV] VIDEO_X_RES=320
+-[SETENV] VIDEO_Y_RES=240
+-[SETENV] HAS_CP=1
+-[SETENV] LANGUAGE=en_US
+-[SETENV] GST_PLUGIN_PATH=/lib/gstreamer-0.10/
+-[SETENV] CAMLIBS=/lib/libgphoto2-2.4.3
+-[SETENV] IOLIBS=/lib/libgphoto2_port-0.8.0
+-Starting /sbin/init (cwd=/) (envcount=15)
+-init started: BusyBox v1.16.0 (2010-07-28 15:14:10 PDT)
+-imgtool 1.22 (built for falconwing)
+-Drawing image /bitmap/320x240/chumby_logo.bin.jpg
+-Opening output /dev/fb0 fmt=0
+-fb handle = 4
+-Displaying rows from 0 to 239 inclusive
+-Closing frame buffer
+-Welcome to Falconwing
+-
+-can't open /dev/tty0: No such file or directory
+-/etc/init.d/rcS.background: line 18: can't create /psp/branding: Read-only file system
+-Setting 0x8005c078: 0x80000000 -&gt; 0x80000000 ok
+-e2fsck 1.41.5 (23-Apr-2009)
+-/dev/mmcblk0p5: clean, 48/256 files, 10533/124997 blocks
+-[            ] kjournald starting.  Commit interval 5 seconds
+-[            ] EXT3 FS on mmcblk0p5, internal journal
+-[            ] EXT3-fs: mounted filesystem with journal data mode.
+-e2fsck 1.41.5 (23-Apr-2009)
+-/dev/mmcblk0p6: clean, 12/37520 files, 6577/150022 blocks
+ [            ] kjournald starting.  Commit interval 5 seconds
+-[            ] EXT3 FS on mmcblk0p6, internal journal
+-[            ] EXT3-fs: mounted filesystem with ordered data mode.
+-can't open /dev/tty0: No such file or directory
+-can't open /dev/tty0: No such file or directory
+-[            ] Chumby bend sensor driver version 2.3-Falconwing initializing (scross@chumby.com)...
+-[            ] input: bend-sensor as /devices/platform/bend-sensor/input/input0
+-can't open /dev/tty0: No such file or directory
+-can't open /dev/tty0: No such file or directory
+-can't open /dev/tty0: No such file or directory
+-[            ] input: STMP3XXX touchscreen as /devices/virtual/input/input1
+-can't open /dev/tty0: No such file or directory
+-[            ] mice: PS/2 mouse device common for all mice
+-Setting 0x80018508: 0x24011000 -&gt; 0x20011000 ok
+-Setting 0x80018504: 0x20011000 -&gt; 0x24011000 ok
+-[            ] usbcore: registered new interface driver usbfs
+-[            ] usbcore: registered new interface driver hub
+-[            ] usbcore: registered new device driver usb
+-[            ] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+-[            ] fsl-ehci fsl-ehci: Freescale On-Chip EHCI Host Controller
+-[            ] fsl-ehci fsl-ehci: new USB bus registered, assigned bus number 1
+-[            ] fsl-ehci fsl-ehci: irq 11, io mem 0xf0080000
+-[            ] fsl-ehci fsl-ehci: USB 2.0 started, EHCI 1.00
+-[            ] usb usb1: configuration #1 chosen from 1 choice
+-[            ] hub 1-0:1.0: USB hub found
+-[            ] hub 1-0:1.0: 1 port detected
+-[            ] usb 1-1: new high speed USB device using fsl-ehci and address 2
++[            ] EXT3-fs warning (device mmcblk0p2): ext3_update_dynamic_rev: updating to rev 1 because of new feature flag, running e2fsck is recommended
+ [            ] usb 1-1: configuration #1 chosen from 1 choice
++[            ] EXT3 FS on mmcblk0p2, internal journal
++[            ] EXT3-fs: mounted filesystem with ordered data mode.
++[            ] VFS: Mounted root (ext3 filesystem).
++[            ] Freeing init memory: 116K
+ [            ] hub 1-1:1.0: USB hub found
+-[            ] hub 1-1:1.0: 4 ports detected
+-Setting 0x80018200: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018210: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018220: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018230: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018240: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018250: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018260: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018270: 0x00000000 -&gt; 0x00000000 ok
+-Setting 0x80018280: 0x01111111 -&gt; 0x00000000 ok
+-Setting 0x80018290: 0x33333330 -&gt; 0x11111110 ok
+-Setting 0x800182a0: 0x33333333 -&gt; 0x11111111 ok
+-Setting 0x800182b0: 0x33300333 -&gt; 0x11111111 ok
+-Setting 0x800182c0: 0x33333333 -&gt; 0x11111111 ok
+-Setting 0x800182d0: 0x33333333 -&gt; 0x11111111 ok
+-Setting 0x800182e0: 0x00333333 -&gt; 0x00111111 ok
+-[            ] i2c /dev entries driver
+-FATAL: Module snd_soc_stmp3780_devb not found.
+-[            ] Chumby timerx[2] driver version 3.0-Falconwing initializing (bunnie@chumby.com)... show me your jiffies!!!
+-[            ] input: stmp3xxx-rotdec as /devices/virtual/input/input2
++[            ] hub 1-1:1.0: config failed, hub has too many ports! (err -19)
++INIT: version 2.86 booting
++Please wait: booting...
++Starting udev
++[            ] mice: PS/2 mouse device common for all mice
++Remounting root file system...
++Caching udev devnodes
++Populating dev cache
++ALSA: Restoring mixer settings...
++No state is present for card Devb
++/usr/sbin/alsactl: parse:1655: Unable to open file '/usr/share/alsa/init/00main': No such file or directory
++No state is present for card Devb
++Configuring update-modules.
++Configuring ppp.
++Configuring ppp-dialin.
++Configuring e2fsprogs.
++update-alternatives: Error: cannot register alternative chattr to /usr/bin/chattr since it is already registered to /bin/chattr
++update-alternatives: Linking //sbin/uuidd to uuidd.util-linux-ng
++Configuring dbus.
++ Adding system startup for /etc/init.d/dbus-1.
++Configuring angstrom-libc-fixup-hack.
++Configuring libnss-mdns.
++Configuring avahi-daemon.
++ Adding system startup for /etc/init.d/avahi-daemon.
++Configuring avahi-autoipd.
+ [            ] NET: Registered protocol family 10
+-Starting chumbhowld service
+-Started chumbhowld 
+-Adobe FlashLite 3.1.7 Release (Version 9,1,122,0)- Chumby Industries (version 9 build 112-3320 [GCC 4.3.2])
+-Portions copyright (C) 2005-2010 Chumby Industries, Inc.
+-Built for: falconwing; Features: Video ALSA ARM-optimizations
+-Build time: Wed 28Jul2010 1454
+-GetRegisteredInstancePid(/var/run/chumbyflashplayer.pid) returned 0 - no other instance is running
+-rcS completed at Wed Dec 31 16:02:48 PST 1969
++Configuring network interfaces... ifconfig: SIOCGIFFLAGS: No such device
++done.
++Starting portmap daemon: portmap.
++net.ipv4.conf.default.rp_filter = 1
++net.ipv4.conf.all.rp_filter = 1
++Thu Feb 16 23:57:00 UTC 2012
++INIT: Entering runlevel: 5
++Starting system message bus: dbus.
++Creating Dropbear SSH server RSA host key.
++Will output 1024 bit rsa secret key to '/etc/dropbear/dropbear_rsa_host_key'
++Generating key, this may take a while...
++Public key portion is:
++ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgwDMAHLVuprK4TDNbqQwmR5TX2J9gTzW+6m9M+hEDqzihheHcmhiNi9lRdj2SRqg3OXMIFwdboT9RtJt2rxFtjJsA4GuSPOzGHa5sDq4uH2KfVtbnVlyHilF0HgpiGaN0UFbm72A/ocra3HmJf/MIJj7ImTuLihUV6zlet3GfSi9I7tX root@chumby-falconwing
++Fingerprint: md5 83:9c:8d:c8:c5:fa:d5:c9:ee:92:78:21:9c:2e:e7:40
++Starting Dropbear SSH server: dropbear.
++Starting syslogd/klogd: done
++ * Starting Avahi mDNS/DNS-SD Daemon: avahi-daemon
++   ...done.
++
++.---O---.                                           
++|       |                  .-.           o o        
++|   |   |-----.-----.-----.| |   .----..-----.-----.
++|       |     | __  |  ---'| '--.|  .-'|     |     |
++|   |   |  |  |     |---  ||  --'|  |  |  '  | | | |
++'---'---'--'--'--.  |-----''----''--'  '-----'-'-'-'
++                -'  |
++                '---'
++
++The Angstrom Distribution chumby-falconwing ttyAM0
++
++Angstrom v20120216 chumby-falconwing ttyAM0
++
++chumby-falconwing login: </code></pre></noscript></div>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -992,6 +2045,10 @@ stock kernel image provided on a 1GB microSD card.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/">OpenEmbedded 2.6.28 Boot Log</a>
+      </li>
     
       <li class="post">
         <a href="/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/">Installing a Kernel Image with OSX</a>
