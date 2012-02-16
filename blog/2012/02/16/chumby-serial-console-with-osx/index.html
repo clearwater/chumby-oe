@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Test - OpenEmbedded for the Chumby</title>
+  <title>Chumby Serial Console Under OSX - OpenEmbedded for the Chumby</title>
   <meta name="author" content="Guy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="This assumes you already have a 3.3v FTDI cable from AdaFruit
+modified the cable as per the AdaFruit tutorial.
+connected it to the OSX machine To &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/01/17/test">
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx">
   <link href="/chumby-oe/favicon.png" rel="icon">
   <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Test</h1>
+      <h1 class="entry-title">Chumby Serial Console Under OSX</h1>
     
     
       <p class="meta">
@@ -84,14 +85,41 @@
   
 
 
-<time datetime="2012-01-17T11:42:00+10:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>This assumes you already have</p>
+
+<ul>
+<li>a <a href="http://www.adafruit.com/products/70">3.3v FTDI cable</a> from AdaFruit</li>
+<li>modified the cable as per <a href="http://www.ladyada.net/learn/chumby/serial.html">the AdaFruit tutorial</a>.</li>
+<li>connected it to the OSX machine</li>
+</ul>
+
+
+<p>To determine the device name:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls /dev/tty.*
+</span><span class='line'>/dev/tty.Bluetooth-Modem        /dev/tty.iphone-SerialPort1
+</span><span class='line'>/dev/tty.Bluetooth-PDA-Sync     /dev/tty.usbserial-FTF7VKP4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The device name starting with <code>tty.usbserial</code> is the one we are looking for.</p>
+
+<p>To make a connection using <code>screen</code> at 152000 baud:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>screen /dev/tty.usbserial-FTF7VKP4 115200</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should now have a full-screen console.  To exit, type <code>ctrl-a ctrl-k</code>.  When you are asked <code>Really kill this window [y/n]</code> type <code>y</code>.</p>
 </div>
 
 
@@ -114,7 +142,7 @@
   
 
 
-<time datetime="2012-01-17T11:42:00+10:00" pubdate data-updated="true">Jan 17<span>th</span>, 2012</time>
+<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
       
 
 
@@ -122,7 +150,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/01/17/test/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/01/17/test/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" >Tweet</a>
   
   
   
@@ -130,6 +158,8 @@
 
     
     <p class="meta">
+      
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/" title="Previous Post: Stock Firmware Boot Log">&laquo; Stock Firmware Boot Log</a>
       
       
     </p>
@@ -145,7 +175,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/chumby-oe/blog/2012/01/17/test/">Test</a>
+        <a href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/">Chumby Serial Console Under OSX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/">Stock Firmware Boot Log</a>
       </li>
     
   </ul>

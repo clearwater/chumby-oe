@@ -1,60 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[OpenEmbedded for the Chumby]]></title>
-  <link href="http://clearwater.github.com/chumby-oe/atom.xml" rel="self"/>
-  <link href="http://clearwater.github.com/chumby-oe/"/>
-  <updated>2012-02-16T15:26:25+10:00</updated>
-  <id>http://clearwater.github.com/chumby-oe/</id>
-  <author>
-    <name><![CDATA[Guy]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Stock Firmware Boot Log - OpenEmbedded for the Chumby</title>
+  <meta name="author" content="Guy">
 
   
-  <entry>
-    <title type="html"><![CDATA[Chumby Serial Console Under OSX]]></title>
-    <link href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/"/>
-    <updated>2012-02-16T15:06:00+10:00</updated>
-    <id>http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx</id>
-    <content type="html"><![CDATA[<p>This assumes you already have</p>
+  <meta name="description" content="For reference, this is a log of the console output when booting a CHB from the
+stock kernel image provided on a 2GB microSD card. 1
+2
+3
+4
+5
+6
+7
+8
+9 &hellip;">
+  
 
-<ul>
-<li>a <a href="http://www.adafruit.com/products/70">3.3v FTDI cable</a> from AdaFruit</li>
-<li>modified the cable as per <a href="http://www.ladyada.net/learn/chumby/serial.html">the AdaFruit tutorial</a>.</li>
-<li>connected it to the OSX machine</li>
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/stock-firmware-boot-log">
+  <link href="/chumby-oe/favicon.png" rel="icon">
+  <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
+  <script src="/chumby-oe/javascripts/ender.js"></script>
+  <script src="/chumby-oe/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/chumby-oe/atom.xml" rel="alternate" title="OpenEmbedded for the Chumby" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/chumby-oe/">OpenEmbedded for the Chumby</a></h1>
+  
+    <h2>Resources for running OpenEmbedded on the Chumby Hackers Board</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/chumby-oe/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:clearwater.github.com/chumby-oe" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/chumby-oe/">Blog</a></li>
+  <li><a href="/chumby-oe/blog/archives">Archives</a></li>
 </ul>
 
-
-<p>To determine the device name:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls /dev/tty.*
-</span><span class='line'>/dev/tty.Bluetooth-Modem        /dev/tty.iphone-SerialPort1
-</span><span class='line'>/dev/tty.Bluetooth-PDA-Sync     /dev/tty.usbserial-FTF7VKP4</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The device name starting with <code>tty.usbserial</code> is the one we are looking for.</p>
-
-<p>To make a connection using <code>screen</code> at 152000 baud:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>screen /dev/tty.usbserial-FTF7VKP4 115200</span></code></pre></td></tr></table></div></figure>
-
-
-<p>You should now have a full-screen console.  To exit, type <code>ctrl-a ctrl-k</code>.  When you are asked <code>Really kill this window [y/n]</code> type <code>y</code>.</p>
-]]></content>
-  </entry>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
   
-  <entry>
-    <title type="html"><![CDATA[Stock Firmware Boot Log]]></title>
-    <link href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/"/>
-    <updated>2012-02-16T15:05:00+10:00</updated>
-    <id>http://clearwater.github.com/chumby-oe/blog/2012/02/16/stock-firmware-boot-log</id>
-    <content type="html"><![CDATA[<p>For reference, this is a log of the console output when booting a CHB from the
+  <header>
+    
+      <h1 class="entry-title">Stock Firmware Boot Log</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-16T15:05:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For reference, this is a log of the console output when booting a CHB from the
 stock kernel image provided on a 2GB microSD card.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -722,7 +767,109 @@ stock kernel image provided on a 2GB microSD card.</p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chumby-:/ # </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-</feed>
+
+<span class="byline author vcard">Posted by <span class="fn">Guy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-02-16T15:05:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" title="next Post: Chumby Serial Console Under OSX">Chumby Serial Console Under OSX &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/">Chumby Serial Console Under OSX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/">Stock Firmware Boot Log</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Guy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
