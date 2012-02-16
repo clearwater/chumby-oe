@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="For reference, this is a log of the console output when booting a CHB from the
-stock kernel image provided on a 2GB microSD card. 1
+stock kernel image provided on a 1GB microSD card. 1
 2
 3
 4
@@ -100,7 +100,7 @@ stock kernel image provided on a 2GB microSD card. 1
 
 
 <div class="entry-content"><p>For reference, this is a log of the console output when booting a CHB from the
-stock kernel image provided on a 2GB microSD card.</p>
+stock kernel image provided on a 1GB microSD card.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -767,6 +767,68 @@ stock kernel image provided on a 2GB microSD card.</p>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chumby-:/ # </span></code></pre></td></tr></table></div></figure>
 
+
+<p>Here&#8217;s a dump of the shutdown output:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chumby-:/ # shutdown -h now
+</span><span class='line'>System is shutting down now
+</span><span class='line'>root: Created /tmp/flashplayer_notrunning_once script
+</span><span class='line'>Switching to fb0
+</span><span class='line'>killall: headphone_mgr: no process killed
+</span><span class='line'>root: shutting down via cpi.sh
+</span><span class='line'>cpi.sh -s failed - use reset switch to power down
+</span><span class='line'>chumby-:/ # killall: ntpd: no process killed
+</span><span class='line'>umount: none busy - remounted read-only
+</span><span class='line'>umount: can't remount none read-only
+</span><span class='line'>umount: /etc/mtab: No such file or directory
+</span><span class='line'>umount: tmpfs busy - remounted read-only
+</span><span class='line'>umount: /etc/mtab: No such file or directory
+</span><span class='line'>umount: /etc/mtab: No such file or directory
+</span><span class='line'>The system is going down NOW!
+</span><span class='line'>Sent SIGTERM to all processes
+</span><span class='line'>Sent SIGKILL to all processes
+</span><span class='line'>Requesting system poweroff
+</span><span class='line'>[ 1807.570000] power/linux.c - stmp3xxx_bat_shutdown():1450 - Not shutting down battery.  Letting the battery charger run.
+</span><span class='line'>[ 1807.580000] Power down.
+</span><span class='line'>[ 1807.580000] &gt;&gt;&gt; Detected power switch pressed.  Turning off.
+</span><span class='line'>[ 1807.590000] &gt;&gt;&gt; A note to those of you watching at home:
+</span><span class='line'>[ 1807.590000] &gt;&gt;&gt; We're going to kill all processes and unmount all filesystems.
+</span><span class='line'>[ 1807.600000] &gt;&gt;&gt; Then we'll sit here charging the battery.
+</span><span class='line'>[ 1807.610000] &gt;&gt;&gt; If you press the power button again, we'll reboot.
+</span><span class='line'>[ 1807.610000] &gt;&gt;&gt; If you unplug this device, we'll power off for real.
+</span><span class='line'>[ 1807.620000] &gt;&gt;&gt; But for now, we'll just make the device look like it's off.
+</span><span class='line'>[ 1808.730000] Error unmounting /mnt/storage: -2
+</span><span class='line'>[ 1808.730000] Error unmounting /psp: -22</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -820,6 +882,10 @@ stock kernel image provided on a 2GB microSD card.</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/">Installing a Kernel Image with OSX</a>
+      </li>
     
       <li class="post">
         <a href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/">Chumby Serial Console Under OSX</a>

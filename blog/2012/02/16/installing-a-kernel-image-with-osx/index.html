@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Chumby Serial Console Under OSX - OpenEmbedded for the Chumby</title>
+  <title>Installing a Kernel Image with OSX - OpenEmbedded for the Chumby</title>
   <meta name="author" content="Guy">
 
   
-  <meta name="description" content="This assumes you already have a 3.3v FTDI cable from AdaFruit
-modified the cable as per the AdaFruit tutorial.
-connected it to the OSX machine To &hellip;">
+  <meta name="description" content="Insert the microSD in the SD adaptor and insert it into the SD
+slot on your Mac. You will get a popup warning saying The disk you
+inserted was not &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ connected it to the OSX machine To &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx">
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx">
   <link href="/chumby-oe/favicon.png" rel="icon">
   <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
@@ -69,7 +69,7 @@ connected it to the OSX machine To &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Chumby Serial Console Under OSX</h1>
+      <h1 class="entry-title">Installing a Kernel Image With OSX</h1>
     
     
       <p class="meta">
@@ -85,41 +85,64 @@ connected it to the OSX machine To &hellip;">
   
 
 
-<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-02-16T15:29:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This assumes you already have</p>
+<div class="entry-content"><p>Insert the microSD in the SD adaptor and insert it into the SD
+slot on your Mac.  You will get a popup warning saying <code>The disk you
+inserted was not readable by this computer.</code>  Click Ignore.</p>
 
-<ul>
-<li>a <a href="http://www.adafruit.com/products/70">3.3v FTDI cable</a> from AdaFruit</li>
-<li>modified the cable as per <a href="http://www.ladyada.net/learn/chumby/serial.html">the AdaFruit tutorial</a>.</li>
-<li>connected it to the OSX machine</li>
-</ul>
-
-
-<p>To determine the device name:</p>
+<p>Use diskutil to find the device name.  Look for the 1GB disk
+with 4 Linux partitions.  If you missed the instructions above and
+clicked Eject instead, it will not be listed here.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls /dev/tty.*
-</span><span class='line'>/dev/tty.Bluetooth-Modem        /dev/tty.iphone-SerialPort1
-</span><span class='line'>/dev/tty.Bluetooth-PDA-Sync     /dev/tty.usbserial-FTF7VKP4</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ diskutil list
+</span><span class='line'>/dev/disk0
+</span><span class='line'>   #:                       TYPE NAME                    SIZE       IDENTIFIER
+</span><span class='line'>   0:     FDisk_partition_scheme                        *1.0 GB     disk0
+</span><span class='line'>   1:                       0x53                         150.2 MB   disk0s1
+</span><span class='line'>   2:                      Linux                         128.0 MB   disk0s2
+</span><span class='line'>   3:                      Linux                         128.0 MB   disk0s3
+</span><span class='line'>   4:                      Linux                         128.0 MB   disk0s5
+</span><span class='line'>   5:                      Linux                         614.5 MB   disk0s6
+</span><span class='line'>/dev/disk1
+</span><span class='line'>   #:                       TYPE NAME                    SIZE       IDENTIFIER
+</span><span class='line'>   0:      GUID_partition_scheme                        *320.1 GB   disk1
+</span><span class='line'>   1:                        EFI                         209.7 MB   disk1s1
+</span><span class='line'>   2:                  Apple_HFS Macintosh HD            319.7 GB   disk1s2</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The device name starting with <code>tty.usbserial</code> is the one we are looking for.</p>
-
-<p>To make a connection using <code>screen</code> at 152000 baud:</p>
+<p>In my case this identifies the device as <code>/dev/disk0</code>.  Unmount the disk.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>screen /dev/tty.usbserial-FTF7VKP4 115200</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ diskutil unmountDisk /dev/disk0
+</span><span class='line'>Unmount of all volumes on disk0 was successful</span></code></pre></td></tr></table></div></figure>
 
 
-<p>You should now have a full-screen console.  To exit, type <code>ctrl-a ctrl-k</code>.  When you are asked <code>Really kill this window [y/n]</code> type <code>y</code>.</p>
+<p>Copy the ROM image to the SD as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo dd if=rom-chumby-silvermoon-chumby-starter-image.img of=/dev/disk0 bs=8m</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -142,7 +165,7 @@ connected it to the OSX machine To &hellip;">
   
 
 
-<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-02-16T15:29:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
       
 
 
@@ -150,7 +173,7 @@ connected it to the OSX machine To &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" >Tweet</a>
   
   
   
@@ -159,10 +182,8 @@ connected it to the OSX machine To &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/" title="Previous Post: Stock Firmware Boot Log">&laquo; Stock Firmware Boot Log</a>
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" title="Previous Post: Chumby Serial Console Under OSX">&laquo; Chumby Serial Console Under OSX</a>
       
-      
-        <a class="basic-alignment right" href="/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" title="next Post: Installing a Kernel Image with OSX">Installing a Kernel Image with OSX &raquo;</a>
       
     </p>
   </footer>
