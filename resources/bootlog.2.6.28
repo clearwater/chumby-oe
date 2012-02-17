@@ -63,7 +63,7 @@ boot> regutil -w HW_EMI_CTRL 0x1c574040
 Setting 0x80020000: 0x1c884040 -> 0x1c574040 ok
 
 boot> regutil -w HW_POWER_BATTMONITOR 0x01ec0414
-Setting 0x800440e0: 0x01c30600 -> 0x01ec0414 ok
+Setting 0x800440e0: 0x01ce0600 -> 0x01ec0414 ok
 
 boot> regutil -w HW_POWER_5VCTRL_CLR 0x00000080
 Setting 0x80044018: 0x0403f193 -> 0x0403f113 ok
@@ -174,6 +174,7 @@ Uncompressing Linux.............................................................
 [    0.510000] chumbyfbfw.c - chumbyfwfb_probe():1336 - allocated at ffabf000:0x43880000
 [    0.520000] Going to copy splash image from 44844000 (153600 bytes) to ff600000 (not 43a00000)
 [    0.530000] chumbyfbfw.c - pxp_setup():1124 - Pointing S0 at 43c00000
+[    0.530000] chumbyfbfw.c - lcd_irq_handler():204 - lcd_irq_handler: underflow irq
 [    0.540000] stmp37xx-dbguart.0: ttyAM0 at MMIO 0xf0070000 (irq = 0) is a Debug UART
 [    0.550000] usbcore: registered new interface driver usbfs
 [    0.550000] usbcore: registered new interface driver hub
@@ -192,13 +193,13 @@ Uncompressing Linux.............................................................
 [    0.780000] fuse init (API version 7.10)
 [    0.790000] msgmni has been set to 116
 [    0.800000] alg: No test for stdrng (krng)
-[    0.810000] cryptodev: driver loaded.
+[    0.800000] cryptodev: driver loaded.
 [    0.810000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
 [    0.820000] io scheduler noop registered (default)
 [    0.850000] logger: created 64K log 'log_main'
 [    0.850000] logger: created 256K log 'log_events'
 [    0.860000] logger: created 64K log 'log_radio'
-[    0.870000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.860000] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
 [    0.870000] fsl-ehci fsl-ehci.0: Freescale On-Chip EHCI Host Controller
 [    0.880000] fsl-ehci fsl-ehci.0: new USB bus registered, assigned bus number 1
 [    2.010000] fsl-ehci fsl-ehci.0: irq 11, io mem 0x80080000
@@ -214,12 +215,12 @@ Uncompressing Linux.............................................................
 [    2.120000] stmp3xxx-rtc stmp3xxx-rtc: rtc core: registered stmp3xxx-rtc as rtc0
 [    2.120000] i2c /dev entries driver
 [    2.140000] ddi_bc_Init: success
-[    2.150000] stmp3xxx-battery stmp3xxx-battery.0: bc_sm_restart: no battery present
+[    2.140000] stmp3xxx-battery stmp3xxx-battery.0: bc_sm_restart: no battery present
 [    2.150000] power/linux.c - bc_sm_restart():987 - Returning from sm_restart()
 [    2.280000] stmp3xxx-dcp stmp3xxx-dcp: DCP crypto enabled.!
 [    2.280000] Advanced Linux Sound Architecture Driver Version 1.0.18rc3.
 [    2.290000] ASoC version 0.13.2
-[    2.290000] STMP378X ADC/DAC Audio Codec 0.1
+[    2.300000] STMP378X ADC/DAC Audio Codec 0.1
 [    2.300000] asoc: stmp378x adc/dac <-> stmp3xxx adc/dac mapping ok
 [    2.310000] ALSA device list:
 [    2.320000]   #0: STMP3780 Devb (stmp378x adc/dac)
@@ -241,55 +242,34 @@ Uncompressing Linux.............................................................
 [    2.440000] mmcblk0: mmc0:0002 00000 971 MiB 
 [    2.450000]  mmcblk0: p1 p2
 [    2.520000] NILFS: Can't find nilfs on dev mmcblk0p2.
-[    2.520000] EXT3-fs warning: feature flags set on rev 0 fs, running e2fsck is recommended
-[    2.540000] kjournald starting.  Commit interval 5 seconds
-[    2.540000] EXT3-fs warning (device mmcblk0p2): ext3_update_dynamic_rev: updating to rev 1 because of new feature flag, running e2fsck is recommended
-[    2.590000] usb 1-1: configuration #1 chosen from 1 choice
-[    2.590000] EXT3 FS on mmcblk0p2, internal journal
-[    2.600000] EXT3-fs: mounted filesystem with ordered data mode.
-[    2.600000] VFS: Mounted root (ext3 filesystem).
-[    2.610000] Freeing init memory: 116K
-[    2.610000] hub 1-1:1.0: USB hub found
-[    2.620000] hub 1-1:1.0: config failed, hub has too many ports! (err -19)
+[    2.600000] usb 1-1: configuration #1 chosen from 1 choice
+[    2.600000] hub 1-1:1.0: USB hub found
+[    2.610000] hub 1-1:1.0: 4 ports detected
+[    7.060000] kjournald starting.  Commit interval 5 seconds
+[    7.160000] EXT3 FS on mmcblk0p2, internal journal
+[    7.160000] EXT3-fs: recovery complete.
+[    7.170000] EXT3-fs: mounted filesystem with ordered data mode.
+[    7.170000] VFS: Mounted root (ext3 filesystem).
+[    7.180000] Freeing init memory: 116K
 INIT: version 2.86 booting
 Please wait: booting...
 Starting udev
-[    6.160000] mice: PS/2 mouse device common for all mice
+[    9.110000] udev[85]: starting version 165
+[   10.260000] mice: PS/2 mouse device common for all mice
 Remounting root file system...
 Caching udev devnodes
 Populating dev cache
+[   15.610000] NET: Registered protocol family 10
 ALSA: Restoring mixer settings...
-No state is present for card Devb
-/usr/sbin/alsactl: parse:1655: Unable to open file '/usr/share/alsa/init/00main': No such file or directory
-No state is present for card Devb
-Configuring update-modules.
-Configuring ppp.
-Configuring ppp-dialin.
-Configuring e2fsprogs.
-update-alternatives: Error: cannot register alternative chattr to /usr/bin/chattr since it is already registered to /bin/chattr
-update-alternatives: Linking //sbin/uuidd to uuidd.util-linux-ng
-Configuring dbus.
- Adding system startup for /etc/init.d/dbus-1.
-Configuring angstrom-libc-fixup-hack.
-Configuring libnss-mdns.
-Configuring avahi-daemon.
- Adding system startup for /etc/init.d/avahi-daemon.
-Configuring avahi-autoipd.
-[   17.610000] NET: Registered protocol family 10
+/usr/sbin/alsactl: set_control:1403: Cannot write control '2:0:0:DAC Playback Volume:0' : No such file or directory
 Configuring network interfaces... ifconfig: SIOCGIFFLAGS: No such device
 done.
 Starting portmap daemon: portmap.
 net.ipv4.conf.default.rp_filter = 1
 net.ipv4.conf.all.rp_filter = 1
-Thu Feb 16 23:57:00 UTC 2012
+Sat Feb 18 00:16:00 UTC 2012
 INIT: Entering runlevel: 5
 Starting system message bus: dbus.
-Creating Dropbear SSH server RSA host key.
-Will output 1024 bit rsa secret key to '/etc/dropbear/dropbear_rsa_host_key'
-Generating key, this may take a while...
-Public key portion is:
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgwDMAHLVuprK4TDNbqQwmR5TX2J9gTzW+6m9M+hEDqzihheHcmhiNi9lRdj2SRqg3OXMIFwdboT9RtJt2rxFtjJsA4GuSPOzGHa5sDq4uH2KfVtbnVlyHilF0HgpiGaN0UFbm72A/ocra3HmJf/MIJj7ImTuLihUV6zlet3GfSi9I7tX root@chumby-falconwing
-Fingerprint: md5 83:9c:8d:c8:c5:fa:d5:c9:ee:92:78:21:9c:2e:e7:40
 Starting Dropbear SSH server: dropbear.
 Starting syslogd/klogd: done
  * Starting Avahi mDNS/DNS-SD Daemon: avahi-daemon
