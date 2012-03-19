@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Chumby Serial Console Under OSX - OpenEmbedded for the Chumby</title>
+  <title>Building a Development Image - OpenEmbedded for the Chumby</title>
   <meta name="author" content="Guy">
 
   
-  <meta name="description" content="This assumes you already have a 3.3v FTDI cable from AdaFruit
-modified the cable as per the AdaFruit tutorial.
-connected it to the OSX machine To &hellip;">
+  <meta name="description" content="The standard &#8220;chumby-starter-image&#8221; we&#8217;ve been building with the OE toolchain doesn&#8217;t include a development environment for &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ connected it to the OSX machine To &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx">
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/03/19/building-a-development-image">
   <link href="/chumby-oe/favicon.png" rel="icon">
   <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +79,7 @@ connected it to the OSX machine To &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Chumby Serial Console Under OSX</h1>
+      <h1 class="entry-title">Building a Development Image</h1>
     
     
       <p class="meta">
@@ -97,41 +95,63 @@ connected it to the OSX machine To &hellip;">
   
 
 
-<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-03-19T14:46:00+10:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>This assumes you already have</p>
+<div class="entry-content"><p>The standard &#8220;chumby-starter-image&#8221; we&#8217;ve been building with the OE toolchain doesn&#8217;t include a development environment for compiling and linking on the device itself.  In response to <a href="http://forum.chumby.com/viewtopic.php?pid=41604">this question</a> in the forums I&#8217;ve added a new recipe file &#8220;chumby-dev-image&#8221; which bakes in the compiler and linker and friends by incorporating the OE task-native-sdk package.  This in turn pulls in these packages:</p>
 
 <ul>
-<li>a <a href="http://www.adafruit.com/products/70">3.3v FTDI cable</a> from AdaFruit</li>
-<li>modified the cable as per <a href="http://www.ladyada.net/learn/chumby/serial.html">the AdaFruit tutorial</a>.</li>
-<li>connected it to the OSX machine</li>
+<li>gcc-symlinks</li>
+<li>g++-symlinks</li>
+<li>cpp</li>
+<li>cpp-symlinks</li>
+<li>binutils-symlinks</li>
+<li>make</li>
+<li>virtual-libc-dev</li>
+<li>task-proper-tools</li>
+<li>perl-modules</li>
+<li>flex</li>
+<li>flex-dev</li>
+<li>bison</li>
+<li>gawk</li>
+<li>sed</li>
+<li>grep</li>
+<li>autoconf</li>
+<li>automake</li>
+<li>make</li>
+<li>patch</li>
+<li>patchutils</li>
+<li>diffstat</li>
+<li>diffutils</li>
+<li>libstdc++-dev</li>
+<li>libtool</li>
+<li>libtool-dev</li>
+<li>libltdl-dev</li>
+<li>pkgconfig</li>
 </ul>
 
 
-<p>To determine the device name:</p>
+<p>I have a feeling most people will probably prefer this image over the old chumby-starter-image, so I&#8217;ve made chumby-dev-image the default make target.  You can change the default target by modifying this line in the Makefile: <code>export CHUMBY_IMAGE:=chumby-dev-image</code>.</p>
+
+<h2>Errata</h2>
+
+<p>There seems to be an issue with library soft-links on this build.  If you see an error like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls /dev/tty.*
-</span><span class='line'>/dev/tty.Bluetooth-Modem        /dev/tty.iphone-SerialPort1
-</span><span class='line'>/dev/tty.Bluetooth-PDA-Sync     /dev/tty.usbserial-FTF7VKP4</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/usr/lib/gcc/arm-angstrom-linux-gnueabi/4.5.3/../../../../arm-angstrom-linux-gnueabi/bin/ld: cannot find -lgcc_s
+</span><span class='line'>collect2: ld returned 1 exit status</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The device name starting with <code>tty.usbserial</code> is the one we are looking for.</p>
-
-<p>To make a connection using <code>screen</code> at 152000 baud:</p>
+<p>you need to create a soft link as follows:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>screen /dev/tty.usbserial-FTF7VKP4 115200</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /lib/libgcc_s.so.1 /lib/libgcc_s.so</span></code></pre></td></tr></table></div></figure>
 
-
-<p>You should now have a full-screen console.  To exit, type <code>ctrl-a ctrl-k</code>.  When you are asked <code>Really kill this window [y/n]</code> type <code>y</code>.</p>
 </div>
 
 
@@ -154,7 +174,7 @@ connected it to the OSX machine To &hellip;">
   
 
 
-<time datetime="2012-02-16T15:06:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-03-19T14:46:00+10:00" pubdate data-updated="true">Mar 19<span>th</span>, 2012</time>
       
 
 
@@ -162,7 +182,7 @@ connected it to the OSX machine To &hellip;">
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/03/19/building-a-development-image/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/03/19/building-a-development-image/" >Tweet</a>
   
   
   
@@ -171,10 +191,8 @@ connected it to the OSX machine To &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/stock-firmware-boot-log/" title="Previous Post: Stock Firmware Boot Log">&laquo; Stock Firmware Boot Log</a>
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/" title="Previous Post: OpenEmbedded 2.6.28 Boot Log">&laquo; OpenEmbedded 2.6.28 Boot Log</a>
       
-      
-        <a class="basic-alignment right" href="/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" title="next Post: Installing a Kernel Image with OSX">Installing a Kernel Image with OSX &raquo;</a>
       
     </p>
   </footer>
@@ -241,8 +259,8 @@ connected it to the OSX machine To &hellip;">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/';
-        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/';
+        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/03/19/building-a-development-image/';
+        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/03/19/building-a-development-image/';
         var disqus_script = 'embed.js';
       
     (function () {
