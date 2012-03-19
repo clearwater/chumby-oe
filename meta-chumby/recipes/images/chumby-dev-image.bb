@@ -18,6 +18,10 @@ IMAGE_INSTALL = "task-base \
 	    ${ZZAPSPLASH} \
 	    config-util regutil-${CNPLATFORM} \
 	    task-native-sdk \
+	    libgcc-dev \
+	    ldd \
+	    i2c-tools \
+	    i2c \
 	    "
 
 IMAGE_LINGUAS = ""
