@@ -9,7 +9,7 @@
 export CHUMBY_HOME:=$(shell pwd)
 # You can set CHUMBY_HOME explicity like this:
 # export CHUMBY_HOME:=/home/guy/chumby-oe
-export CHUMBY_IMAGE:=chumby-starter-image
+export CHUMBY_IMAGE:=chumby-dev-image
 export PATH:=${CHUMBY_HOME}/bitbake/bin:${PATH}
 export MACHINE:=chumby-falconwing
 export BBPATH:=${CHUMBY_HOME}/meta-chumby:${CHUMBY_HOME}/openembedded
