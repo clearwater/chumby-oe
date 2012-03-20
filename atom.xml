@@ -4,10 +4,10 @@
   <title><![CDATA[OpenEmbedded for the Chumby]]></title>
   <link href="http://clearwater.github.com/chumby-oe/atom.xml" rel="self"/>
   <link href="http://clearwater.github.com/chumby-oe/"/>
-  <updated>2012-03-20T15:45:23+10:00</updated>
+  <updated>2012-03-20T16:19:02+10:00</updated>
   <id>http://clearwater.github.com/chumby-oe/</id>
   <author>
-    <name><![CDATA[Guy]]></name>
+    <name><![CDATA[Guy Carpenter]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
