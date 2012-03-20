@@ -4,7 +4,7 @@
   <title><![CDATA[OpenEmbedded for the Chumby]]></title>
   <link href="http://clearwater.github.com/chumby-oe/atom.xml" rel="self"/>
   <link href="http://clearwater.github.com/chumby-oe/"/>
-  <updated>2012-03-20T15:12:15+10:00</updated>
+  <updated>2012-03-20T15:21:51+10:00</updated>
   <id>http://clearwater.github.com/chumby-oe/</id>
   <author>
     <name><![CDATA[Guy]]></name>
@@ -194,9 +194,9 @@ Say woo-hoo.</p>
 
 <p>I have a feeling most people will probably prefer this image over the old chumby-starter-image, so I&#8217;ve made chumby-dev-image the default make target.  You can change the default target by modifying this line in the Makefile: <code>export CHUMBY_IMAGE:=chumby-dev-image</code>.</p>
 
-<h2>Errata</h2>
+<h2>And Another Thing</h2>
 
-<p>There seems to be an issue with library soft-links on this build.  If you see an error like this:</p>
+<p>It turns out that we also need to add libgcc-dev to the list of packages.  Without it <code>libgcc_s.so</code> will not be created and you will see errors like this when you compile:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -204,10 +204,16 @@ Say woo-hoo.</p>
 </span><span class='line'>collect2: ld returned 1 exit status</span></code></pre></td></tr></table></div></figure>
 
 
-<p>you need to create a soft link as follows:</p>
+<p>By adding the libgcc-dev package, we get <code>/usr/lib/libgcc_s.so</code>, which interestingly is an ld script file with the following contents:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /lib/libgcc_s.so.1 /lib/libgcc_s.so</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/* GNU ld script
+</span><span class='line'>   Use the shared library, but some functions are only in
+</span><span class='line'>   the static library.  */
+</span><span class='line'>GROUP ( libgcc_s.so.1 libgcc.a )</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
