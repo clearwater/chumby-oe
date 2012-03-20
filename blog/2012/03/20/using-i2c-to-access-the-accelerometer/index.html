@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Reading the Accelerometer With I²C - OpenEmbedded for the Chumby</title>
+  <meta name="author" content="Guy">
+
+  
+  <meta name="description" content="The CHB has an on-board Freescale MMA7455L 3-axis accelerometer, datasheet here, which can be accessed over the I²C bus.
+Not long after the Chumby &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer">
+  <link href="/chumby-oe/favicon.png" rel="icon">
+  <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
+  <script src="/chumby-oe/javascripts/ender.js"></script>
+  <script src="/chumby-oe/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/chumby-oe/atom.xml" rel="alternate" title="OpenEmbedded for the Chumby" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28552776-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/chumby-oe/">OpenEmbedded for the Chumby</a></h1>
+  
+    <h2>Resources for running OpenEmbedded on the Chumby Hackers Board</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/chumby-oe/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:clearwater.github.com/chumby-oe" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/chumby-oe/">Blog</a></li>
+  <li><a href="/chumby-oe/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Reading the Accelerometer With I²C</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T13:47:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The CHB has an on-board Freescale MMA7455L 3-axis accelerometer, <a href="www.freescale.com/files/sensors/doc/data_sheet/MMA7455L.pdf">datasheet here</a>, which can be accessed over the <a href="http://en.wikipedia.org/wiki/I2C">I²C</a> bus.
+Not long after the Chumby Hackers Board was released
+Adafruit published <a href="http://www.ladyada.net/learn/chumby/i2c.html">a tutorial</a>
+explaining how to access the accelerometer over i2c.</p>
+
+<p>I&#8217;ve added some i2c tools to the OpenEmbedded image, so as well
+as compiling the tools in the Adafruit tutorial,
+you can use the packaged i2c tools (i2cdetect, i2cget, i2cset, i2c)
+to talk to the accelerometer.</p>
+
+<h2>i2cdetect</h2>
+
+<p>The <code>i2cdetect</code> tool will give you information about
+the i2c bus device:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# i2cdetect -l
+</span><span class='line'>i2c-0   i2c             378x I2C adapter                        I2C adapter</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# i2cdetect -F 0
+</span><span class='line'>Functionalities implemented by /dev/i2c-0:
+</span><span class='line'>I2C                              yes
+</span><span class='line'>SMBus Quick Command              no
+</span><span class='line'>SMBus Send Byte                  yes
+</span><span class='line'>SMBus Receive Byte               yes
+</span><span class='line'>SMBus Write Byte                 yes
+</span><span class='line'>SMBus Read Byte                  yes
+</span><span class='line'>SMBus Write Word                 yes
+</span><span class='line'>SMBus Read Word                  yes
+</span><span class='line'>SMBus Process Call               yes
+</span><span class='line'>SMBus Block Write                yes
+</span><span class='line'>SMBus Block Read                 no
+</span><span class='line'>SMBus Block Process Call         no
+</span><span class='line'>SMBus PEC                        yes
+</span><span class='line'>I2C Block Write                  yes
+</span><span class='line'>I2C Block Read                   yes</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Enable the Accelerometer</h2>
+
+<p>The accelerometer is at bus address $1d (decimal 29).  The
+Adafruit tutorial explains that i2c encodes
+7-bit addresses in the high 7 bits, so we shift this up 1 bit
+giving an effective address of 58.</p>
+
+<p>Register $16 (decimal 22) controls the mode of the accelerometer
+and at power-up it is in standby mode.  The lower two
+bits set the mode as follows:</p>
+
+<ul>
+<li>00 : standby mode</li>
+<li>01 : measurement mode</li>
+<li>10 : level detection mode</li>
+<li>11 : pulse detection mode</li>
+</ul>
+
+
+<p>The next two bits define the sensitivity:</p>
+
+<ul>
+<li>00 : 8g range, 16 LSB/g</li>
+<li>01 : 2g range, 64 LSB/g</li>
+<li>10 : 4g range, 32 LSB/g</li>
+</ul>
+
+
+<p>So put it into measurement mode, 2g range, we write
+0000 0101 binary (5 decimal) to register $16 (decimal 22)
+at bus address 58.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# i2c 58 wb 22 5</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The easiest way to read the accelerometer data is
+to use the mma7455.c example from the Adafruit tutorial.
+For convenience you can download the file from <a href="https://raw.github.com/gist/2131304/8ccc68a8725347e2a5fcebaf259ac75eb2d0113b/mma7455.c">here</a>.</p>
+
+<script src="https://gist.github.com/2131304.js?file=mma7455.c"></script>
+
+
+<p>Save that file as <code>mma7455.c</code>, and Compile it as follows:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# gcc -o mma7455 mma7455.c</span></code></pre></td></tr></table></div></figure>
+
+
+<p>When you run the compiled binary, you should see something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# ./mma7455
+</span><span class='line'>X = -5  Y = -15 Z = 67
+</span><span class='line'>X = -6  Y = -15 Z = 65
+</span><span class='line'>X = -6  Y = -15 Z = 65
+</span><span class='line'>X = -6  Y = -15 Z = 65
+</span><span class='line'>X = -6  Y = -15 Z = 65
+</span><span class='line'>X = -6  Y = -15 Z = 65
+</span><span class='line'>X = -5  Y = -15 Z = 68
+</span><span class='line'>X = -5  Y = -15 Z = 68</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now pick up the device and wave it at your
+office-mates.  Watch the numbers change.
+Say woo-hoo.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Guy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T13:47:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/03/19/building-a-development-image/" title="Previous Post: Building a Development Image">&laquo; Building a Development Image</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer/">Reading the Accelerometer With I²C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/19/building-a-development-image/">Building a Development Image</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/">OpenEmbedded 2.6.28 Boot Log</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/">Installing a Kernel Image with OSX</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/">Chumby Serial Console Under OSX</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Guy -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'chumby-oe';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer/';
+        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/03/20/using-i2c-to-access-the-accelerometer/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
