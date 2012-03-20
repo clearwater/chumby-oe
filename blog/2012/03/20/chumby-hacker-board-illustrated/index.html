@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>resources - OpenEmbedded for the Chumby</title>
+  <title>Chumby Hacker Board Illustrated - OpenEmbedded for the Chumby</title>
   <meta name="author" content="Guy">
 
   
-  <meta name="description" content="Resources Mar 20th, 2012 Community Chumby Forum Data Sheets MMA7455L Accelerometer Datasheet Schematics Version 1.0 Schematics CHB Illustrated Mar &hellip;">
+  <meta name="description" content="Note that connection labels correspond to the identifiers on the Version 1.0 schematics. Front of Board JP300 5VDC Power : Requires a regulated 5VDC &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/resources">
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated">
   <link href="/chumby-oe/favicon.png" rel="icon">
   <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
@@ -76,55 +76,15 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Resources</h1>
-    <p class="meta">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-20T14:58:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time></p>
-  </header>
-  
-  <h2>Community</h2>
-
-<ul>
-<li><a href="http://forum.chumby.com/viewforum.php?id=20">Chumby Forum</a></li>
-</ul>
-
-
-<h2>Data Sheets</h2>
-
-<ul>
-<li><a href="/chumby-oe/resources/MMA7455L.pdf">MMA7455L Accelerometer Datasheet</a></li>
-</ul>
-
-
-<h2>Schematics</h2>
-
-<ul>
-<li><a href="/chumby-oe/resources/falconwing_oem3.pdf">Version 1.0 Schematics</a></li>
-</ul>
-
-
-<h2>CHB Illustrated </h2>
-
-<p><img src="/chumby-oe/resources/chumbyhackerboardfront.jpg"></p>
-
-  
-    <footer>
+    
+      <h1 class="entry-title">Chumby Hacker Board Illustrated</h1>
+    
+    
       <p class="meta">
         
-        
 
 
 
@@ -136,21 +96,174 @@
   
 
 
-<time datetime="2012-03-20T14:58:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+<time datetime="2012-03-20T15:33:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
         
       </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Note that connection labels correspond to the identifiers on the <a href="http://files.chumby.com/hackerboard/falconwing_oem3.pdf">Version 1.0 schematics</a>.</p>
+
+<h1>Front of Board</h1>
+
+<p><img src="/chumby-oe/resources/chumbyhackerboardfront.jpg" alt="Chumby Hackers Board Front" /></p>
+
+<h2>JP300</h2>
+
+<p>5VDC Power : Requires a regulated 5VDC power supply, positive tip,
+3.5mm OD, 1.4mm ID barrel jack (aka a 3.8mm or 4mm connector).</p>
+
+<p>Schematics indicate 2A peak.  According to <a href="http://wiki.ladyada.net/chumbyhackerboard/power">AdaFruit</a> the power draw for the subsystems is roughly:</p>
+
+<ul>
+<li>300 mA for the base hardware (processor, RAM, SD card),</li>
+<li>200 mA for the USB hub (not including power to the USB devices),</li>
+<li>300 mA for a speaker plugged into the 2W output,</li>
+<li>500 mA max for charging a Lipoly battery.</li>
+</ul>
+
+
+<h2>P102</h2>
+
+<p>Serial JTAG header - 0.1&#8221; male header (DNP)</p>
+
+<ul>
+<li>Pin 1 : 3.3v</li>
+<li>Pin 2 : DEBUG</li>
+<li>Pin 3 : PSWITCH</li>
+<li>Pin 4 : GND</li>
+</ul>
+
+
+<h2>P406</h2>
+
+<p>PWM2 : Pulse Width Modulation</p>
+
+<ul>
+<li>Pin 1 : GND</li>
+<li>Pin 2 : PWM2 (CPU)</li>
+</ul>
+
+
+<h2>P400</h2>
+
+<p>LRADC1 : Low Resolution Analog to Digital Converter</p>
+
+<ul>
+<li>Pin 1 : LRADC1 (CPU)</li>
+<li>Pin 2 : connected to pin 39 of P401 (why?)</li>
+</ul>
+
+
+<h2>P104</h2>
+
+<p>Rotary Quadrature Encoder (no connector, solder points only)</p>
+
+<ul>
+<li>Pin 1 : ROTARYA</li>
+<li>Pin 2 : GND</li>
+<li>Pin 3 : ROTARYB</li>
+</ul>
+
+
+<h2>P200</h2>
+
+<p>9x2 header : USB, I2C and GPMI</p>
+
+<p>The following signals are available (by pin number)</p>
+
+<ul>
+<li>1 - 5V</li>
+<li>3 - USBC1 N</li>
+<li>5 - USBC1 P</li>
+<li>7 - GND</li>
+<li>9 - Vid to Ext</li>
+<li>10 - i2C SCL</li>
+<li>11 - i2C SDA</li>
+<li>15 - 3.3V</li>
+<li>17 - LCD XP</li>
+<li>19 - LCD YP</li>
+<li>21 - LCD XM</li>
+<li>23 - LCD YM</li>
+<li><p>25 - HOST TO CP UART</p></li>
+<li><p>2 - GPMI D00</p></li>
+<li>4 - GPMI D01</li>
+<li>6 - GPMI D02</li>
+<li>8 - GPMI D03</li>
+<li>10 - GPMI D04</li>
+<li>12 - GPMI D05</li>
+<li>14 - GPMI D07</li>
+<li>16 - GPMI D06</li>
+<li>18 - OSC TO FM</li>
+<li>20 - PWM2</li>
+<li>22 - CHUMBY BEND</li>
+<li>26 - CP TO HOST UART</li>
+</ul>
+
+
+<h2>P100</h2>
+
+<p>Li-poly battery connector : JST B3B-EH-A connector.</p>
+
+<p>If powering from a Li-poly, USB0 will be powered, 1 and 2 will not.<br/>
+There is a fourth USB connection on the GPIO header which is
+also powered by the Li-poly boost system.
+<a href="http://wiki.ladyada.net/chumbyhackerboard/power#lithium_battery">ref</a></p>
+
+<h2>P500</h2>
+
+<p>USB2 : USB Type A Female</p>
+
+<h2>P503</h2>
+
+<p>USB1 : USB Type A Female (is this really USB4?)</p>
+
+<p>Note that the power to this port (and P500?) is software controlled and may be off at power-up.  It can be enabled as explained <a href="http://forum.chumby.com/viewtopic.php?pid=36906#p36906">here.</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
       
-        <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/resources/index.html" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/resources/index.html" >Tweet</a>
+
+<span class="byline author vcard">Posted by <span class="fn">Guy</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-20T15:33:00+10:00" pubdate data-updated="true">Mar 20<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/" >Tweet</a>
   
   
   
 </div>
 
+    
+    <p class="meta">
       
-    </footer>
-  
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/03/20/reading-the-accelerometer-with-i2c/" title="Previous Post: Reading the Accelerometer With I²C">&laquo; Reading the Accelerometer With I²C</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
   <section>
@@ -214,8 +327,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/resources/index.html';
-        var disqus_url = 'http://clearwater.github.com/chumby-oe/resources/index.html';
+        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/';
+        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/';
         var disqus_script = 'embed.js';
       
     (function () {
