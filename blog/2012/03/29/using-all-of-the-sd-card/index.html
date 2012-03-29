@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using All of the SD Card - OpenEmbedded for the Chumby</title>
+  <meta name="author" content="Guy Carpenter">
+
+  
+  <meta name="description" content="Option 1: Set IMAGE_ROOTFS_SIZE Before You Build The SD card images created by chumby-oe are designed to fit on a 512Mb SD card.
+The image size is &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card">
+  <link href="/chumby-oe/favicon.png" rel="icon">
+  <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
+  <script src="/chumby-oe/javascripts/ender.js"></script>
+  <script src="/chumby-oe/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/chumby-oe/atom.xml" rel="alternate" title="OpenEmbedded for the Chumby" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28552776-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/chumby-oe/">OpenEmbedded for the Chumby</a></h1>
+  
+    <h2>Resources for running OpenEmbedded on the Chumby Hackers Board</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/chumby-oe/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:clearwater.github.com/chumby-oe" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/chumby-oe/">Blog</a></li>
+  <li><a href="/chumby-oe/blog/archives">Archives</a></li>
+  <li><a href="/chumby-oe/resources">Resources</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using All of the SD Card</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-29T11:58:00+10:00" pubdate data-updated="true">Mar 29<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Option 1: Set IMAGE_ROOTFS_SIZE Before You Build</h2>
+
+<p>The SD card images created by chumby-oe are designed to fit on a 512Mb SD card.
+The image size is set in <code>chumby-oe/meta-chumby/conf/machine/chumby-falconwing.conf</code>
+with this line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>IMAGE_ROOTFS_SIZE = "450000"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The size is in Kbytes and is set a little smaller than the final card size to allow for
+overheads like the boot loader.</p>
+
+<h2>Option 2: Add a New Partition</h2>
+
+<p>You can add a new partition to fill any unused space on your SD card.
+The default 512Mb disk image contains two partitions:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:/media/card# fdisk -l /dev/mmcblk0
+</span><span class='line'>
+</span><span class='line'>Disk /dev/mmcblk0: 1018 MB, 1018691584 bytes
+</span><span class='line'>1 heads, 16 sectors/track, 124352 cylinders, total 1989632 sectors
+</span><span class='line'>Units = sectors of 1 * 512 = 512 bytes
+</span><span class='line'>Sector size (logical/physical): 512 bytes / 512 bytes
+</span><span class='line'>I/O size (minimum/optimal): 512 bytes / 512 bytes
+</span><span class='line'>Disk identifier: 0x00000000
+</span><span class='line'>
+</span><span class='line'>        Device Boot      Start         End      Blocks   Id  System
+</span><span class='line'>/dev/mmcblk0p1   *           4       32771       16384   53  OnTrack DM6 Aux3
+</span><span class='line'>/dev/mmcblk0p2           32772      932771      450000   83  Linux</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the chumby itself you can add a new partition in the unused space,
+format it, and mount it.  The steps are as follows:</p>
+
+<h3>Step 1. Edit the Partition Table</h3>
+
+<p>cfdisk is available on the default chumby-oe image, and provides a reasonably
+friendly interface for adding a partition.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cfdisk /dev/mmcblk0</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>                      cfdisk (util-linux-ng 2.18)
+</span><span class='line'>
+</span><span class='line'>                        Disk Drive: /dev/mmcblk0
+</span><span class='line'>                    Size: 1018691584 bytes, 1018 MB
+</span><span class='line'>          Heads: 1   Sectors per Track: 16   Cylinders: 124352
+</span><span class='line'>
+</span><span class='line'>Name        Flags      Part Type  FS Type          [Label]        Size (MB)
+</span><span class='line'> ------------------------------------------------------------------------------
+</span><span class='line'>mmcblk0p1   Boot, NC    Primary   OnTrack DM6 Aux3                    16.78*
+</span><span class='line'>mmcblk0p2               Primary   ext3                               460.80*
+</span><span class='line'>                        Pri/Log   Free Space                         541.12*
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> [   Help   ]  [   New    ]  [  Print   ]  [   Quit   ]  [  Units   ]
+</span><span class='line'> [  Write   ]
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Move the cursor to the free space</li>
+<li>Select <code>New</code></li>
+<li>Select <code>Primary</code></li>
+<li>Accept the default size (541.11MB for my 1Gb SD card)</li>
+<li>Select <code>Write</code></li>
+<li>Type <code>yes</code> in response to <code>Warning!!  This may destroy data on your disk!</code></li>
+<li>Select <code>Quit</code></li>
+</ul>
+
+
+<h3>Step 2. Format the Partition</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# mkfs.ext3 -b 4096 /dev/mmcblk0p3 
+</span><span class='line'>mke2fs 1.41.14 (22-Dec-2010)
+</span><span class='line'>warning: Unable to get device geometry for /dev/mmcblk0p3
+</span><span class='line'>Filesystem label=
+</span><span class='line'>OS type: Linux
+</span><span class='line'>Block size=4096 (log=2)
+</span><span class='line'>Fragment size=4096 (log=2)
+</span><span class='line'>Stride=0 blocks, Stripe width=0 blocks
+</span><span class='line'>33040 inodes, 132107 blocks
+</span><span class='line'>6605 blocks (5.00%) reserved for the super user
+</span><span class='line'>First data block=0
+</span><span class='line'>Maximum filesystem blocks=138412032
+</span><span class='line'>5 block groups
+</span><span class='line'>32768 blocks per group, 32768 fragments per group
+</span><span class='line'>6608 inodes per group
+</span><span class='line'>Superblock backups stored on blocks: 
+</span><span class='line'>        32768, 98304
+</span><span class='line'>
+</span><span class='line'>Writing inode tables: done                            
+</span><span class='line'>Creating journal (4096 blocks): done
+</span><span class='line'>Writing superblocks and filesystem accounting information: done
+</span><span class='line'>
+</span><span class='line'>This filesystem will be automatically checked every 22 mounts or
+</span><span class='line'>180 days, whichever comes first.  Use tune2fs -c or -i to override.</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Step 3. Add the Parition to /etc/fstab</h3>
+
+<p>Edit fstab.  The example below will mount the new partition
+as <code>/media/card</code>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:~# vi /etc/fstab 
+</span><span class='line'>
+</span><span class='line'># stock fstab - you probably want to override this with a machine specific one
+</span><span class='line'>
+</span><span class='line'>rootfs               /                    auto       defaults              1  1
+</span><span class='line'>proc                 /proc                proc       defaults              0  0
+</span><span class='line'>devpts               /dev/pts             devpts     mode=0620,gid=5       0  0
+</span><span class='line'>usbfs                /proc/bus/usb        usbfs      defaults              0  0
+</span><span class='line'>tmpfs                /var/volatile        tmpfs      defaults              0  0
+</span><span class='line'>tmpfs                /dev/shm             tmpfs      mode=0777             0  0
+</span><span class='line'>tmpfs                /media/ram           tmpfs      defaults              0  0
+</span><span class='line'>
+</span><span class='line'># add this line to mount the new partition at /media/card
+</span><span class='line'>/dev/mmcblk0p3       /media/card          auto       defaults,sync         0  2</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Step 4. Mount the Partition</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root@chumby-falconwing:/media/card# mount -a</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Option 3: Expand the Partition to Fill the Disk</h2>
+
+<p>This is possible by
+ - use cfdisk resize partition 2 to fill the disk
+ - use resize2fs to expand the ext3 partition to fill the partition</p>
+
+<p>You cannot run this procedure while the device is mounted, so you will need to
+run this process on another machine (or on a USB SD adaptor on your chumby).</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Guy Carpenter</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-29T11:58:00+10:00" pubdate data-updated="true">Mar 29<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/" title="Previous Post: Chumby Hacker Board Illustrated">&laquo; Chumby Hacker Board Illustrated</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/">Using All of the SD Card</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/">Chumby Hacker Board Illustrated</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/20/reading-the-accelerometer-with-i2c/">Reading the Accelerometer With I²C</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/03/19/building-a-development-image/">Building a Development Image</a>
+      </li>
+    
+      <li class="post">
+        <a href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/">OpenEmbedded 2.6.28 Boot Log</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Guy Carpenter -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'chumby-oe';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/';
+        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
