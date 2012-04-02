@@ -4,7 +4,7 @@
   <title><![CDATA[OpenEmbedded for the Chumby]]></title>
   <link href="http://clearwater.github.com/chumby-oe/atom.xml" rel="self"/>
   <link href="http://clearwater.github.com/chumby-oe/"/>
-  <updated>2012-04-02T17:48:20+10:00</updated>
+  <updated>2012-04-02T17:53:07+10:00</updated>
   <id>http://clearwater.github.com/chumby-oe/</id>
   <author>
     <name><![CDATA[Guy Carpenter]]></name>
@@ -444,6 +444,8 @@ at device address 0x1D.</p>
 
 <p>The <a href="http://clearwater.github.com/chumby-oe/resources/MMA7455L.pdf">Datasheet</a> is available, <a href="https://github.com/clearwater/chumby-sampler/tree/master/accel">sample code</a> is available.</p>
 
+<p><img src="https://github.com/clearwater/chumby-sampler/raw/master/images/accel-schematics.png" alt="Schematic" /></p>
+
 <h2>Green LEDs</h2>
 
 <p>The 4 green LEDs are connected to the following GPIO pins:</p>
@@ -460,6 +462,8 @@ at device address 0x1D.</p>
 ground the LEDs.</p>
 
 <p><a href="https://github.com/clearwater/chumby-sampler/tree/master/leds">Sample code</a> is available.</p>
+
+<p><img src="https://github.com/clearwater/chumby-sampler/raw/master/images/led-schematics.png" alt="Schematic" /></p>
 ]]></content>
   </entry>
   
