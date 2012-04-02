@@ -368,6 +368,15 @@ run this process on another machine (or on a USB SD adaptor on your chumby).</p>
 </ul>
 
 
+<h2>P100</h2>
+
+<p>Li-poly battery connector : JST B3B-EH-A connector.</p>
+
+<p>If powering from a Li-poly, USB0 will be powered, 1 and 2 will not.<br/>
+There is a fourth USB connection on the GPIO header which is
+also powered by the Li-poly boost system.
+<a href="http://wiki.ladyada.net/chumbyhackerboard/power#lithium_battery">ref</a></p>
+
 <h2>P102</h2>
 
 <p>Serial JTAG header - 0.1&#8221; male header (DNP)</p>
@@ -377,26 +386,6 @@ run this process on another machine (or on a USB SD adaptor on your chumby).</p>
 <li>Pin 2 : DEBUG</li>
 <li>Pin 3 : PSWITCH</li>
 <li>Pin 4 : GND</li>
-</ul>
-
-
-<h2>P406</h2>
-
-<p>PWM2 : Pulse Width Modulation</p>
-
-<ul>
-<li>Pin 1 : GND</li>
-<li>Pin 2 : PWM2 (CPU)</li>
-</ul>
-
-
-<h2>P400</h2>
-
-<p>LRADC1 : Low Resolution Analog to Digital Converter</p>
-
-<ul>
-<li>Pin 1 : LRADC1 (CPU)</li>
-<li>Pin 2 : connected to pin 39 of P401 (why?)</li>
 </ul>
 
 
@@ -417,6 +406,8 @@ run this process on another machine (or on a USB SD adaptor on your chumby).</p>
 
 <p>The following signals are available (by pin number)</p>
 
+<h4>Bottom Row, Left to Right</h4>
+
 <ul>
 <li>1 - 5V</li>
 <li>3 - USBC1 N</li>
@@ -430,8 +421,14 @@ run this process on another machine (or on a USB SD adaptor on your chumby).</p>
 <li>19 - LCD YP</li>
 <li>21 - LCD XM</li>
 <li>23 - LCD YM</li>
-<li><p>25 - HOST TO CP UART</p></li>
-<li><p>2 - GPMI D00</p></li>
+<li>25 - HOST TO CP UART</li>
+</ul>
+
+
+<h4>Top Row, Left to Right</h4>
+
+<ul>
+<li>2 - GPMI D00</li>
 <li>4 - GPMI D01</li>
 <li>6 - GPMI D02</li>
 <li>8 - GPMI D03</li>
@@ -446,14 +443,85 @@ run this process on another machine (or on a USB SD adaptor on your chumby).</p>
 </ul>
 
 
-<h2>P100</h2>
+<h2>P400</h2>
 
-<p>Li-poly battery connector : JST B3B-EH-A connector.</p>
+<p>LRADC1 : Low Resolution Analog to Digital Converter</p>
 
-<p>If powering from a Li-poly, USB0 will be powered, 1 and 2 will not.<br/>
-There is a fourth USB connection on the GPIO header which is
-also powered by the Li-poly boost system.
-<a href="http://wiki.ladyada.net/chumbyhackerboard/power#lithium_battery">ref</a></p>
+<ul>
+<li>Pin 1 : LRADC1 (CPU)</li>
+<li>Pin 2 : connected to pin 39 of P401 (why?)</li>
+</ul>
+
+
+<h2>P401</h2>
+
+<p>22x2 Header, LCD Connector</p>
+
+<h3>Top Row, Right to Left</h3>
+
+<ul>
+<li>1 : GND</li>
+<li>3 : LCD T B1</li>
+<li>5 : LCD T B3</li>
+<li>7 : LCD T B5</li>
+<li>9 : LCD T G0</li>
+<li>11 : LCD T G2</li>
+<li>13 : LCD T G4</li>
+<li>15 : GND</li>
+<li>17 : LCD T R1</li>
+<li>19 : LCD T R3</li>
+<li>21 : LCD T R5</li>
+<li>23 : LCD VSYNC T</li>
+<li>25 : LCD DOTCLK</li>
+<li>27 : LCD ENABLE T</li>
+<li>29 : LED A</li>
+<li>31 : LCD WR E</li>
+<li>33 : LCD CS</li>
+<li>35 : LINE1 INL</li>
+<li>37 : GND</li>
+<li>39 : LRADC1 EXT</li>
+<li>41 : LCD XP</li>
+<li>43 : LCD XM</li>
+</ul>
+
+
+<h4>Bottom Row, Right to Left</h4>
+
+<ul>
+<li>2 : LCD T B0</li>
+<li>4 : LCD T B2</li>
+<li>6 : LCD T B4</li>
+<li>8 : GND</li>
+<li>10 : LCD T G1</li>
+<li>12 : LCD T G3</li>
+<li>14 : LCD T G5</li>
+<li>16 : LCD T R0</li>
+<li>18 : LCD T R2</li>
+<li>20 : LCD T R4</li>
+<li>22 : P 3.3V</li>
+<li>24 : LCD HSYNC T</li>
+<li>26 : GND</li>
+<li>28 : LCD RESET</li>
+<li>30 : LED K</li>
+<li>32 : LCD RS</li>
+<li>34 : LCD DET</li>
+<li>36 : LINE1 INR</li>
+<li>38 : VDDA</li>
+<li>40 : LRADC0</li>
+<li>42 : LCD YP</li>
+<li>44 : LCD YM</li>
+</ul>
+
+
+<h2>P406</h2>
+
+<p>PWM2 : Pulse Width Modulation</p>
+
+<ul>
+<li>Pin 1 : GND</li>
+<li>Pin 2 : PWM2 (CPU)</li>
+</ul>
+
 
 <h2>P500</h2>
 
@@ -464,6 +532,50 @@ also powered by the Li-poly boost system.
 <p>USB1 : USB Type A Female (is this really USB4?)</p>
 
 <p>Note that the power to this port (and P500?) is software controlled and may be off at power-up.  It can be enabled as explained <a href="http://forum.chumby.com/viewtopic.php?pid=36906#p36906">here.</a></p>
+
+<h2>SW400</h2>
+
+<p>DPad switch type EVQQ7.
+The <a href="/chumby-oe/resources/ATR0000CE9.pdf">Data sheet</a> is available.
+<a href="https://github.com/clearwater/chumby-sampler/tree/master/dpad">Sample code</a> is available.</p>
+
+<ul>
+<li>A : GPMI CE0n : BANK2_PIN28</li>
+<li>B : GPMI WPn : BANK0_PIN23</li>
+<li>C : GPMI WRn : BANK0_PIN24</li>
+<li>D : GPMI RDn : BANK0_PIN25</li>
+<li>E : PWM4 : BANK_1_PIN30 (aka CHUMBY BEND)</li>
+</ul>
+
+
+<p><img src="/chumby-oe/resources/evqq7.png"></p>
+
+<p><img src="/chumby-oe/resources/sw400.png"></p>
+
+<h2>Accelerometer</h2>
+
+<p>A Freescale MMA7455L 3-axis accelerometer
+with adjustable sensitivity from +-2G to +-8G is accessible over I2C
+at device address 0x1D.</p>
+
+<p>The <a href="/chumby-oe/resources/MMA7455L.pdf">Datasheet</a> is available, <a href="https://github.com/clearwater/chumby-sampler/tree/master/accel">sample code</a> is available.</p>
+
+<h2>Green LEDs</h2>
+
+<p>The 4 green LEDs are connected to the following GPIO pins:</p>
+
+<ul>
+<li>GPMI_D00</li>
+<li>GPMI_D01</li>
+<li>GPMI_D02</li>
+<li>GPMI_D03</li>
+</ul>
+
+
+<p>Importantly, before any of the LEDs can be used, the transistor on GPMI_RDY0 must be turned on to
+ground the LEDs.</p>
+
+<p><a href="https://github.com/clearwater/chumby-sampler/tree/master/leds">Sample code</a> is available.</p>
 </div>
   
   
