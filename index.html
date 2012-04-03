@@ -9,7 +9,7 @@
   <meta name="author" content="Guy Carpenter">
 
   
-  <meta name="description" content="The Chumby Hacker Board has a 5-way (Panasonic EVQQ7)(/resources/ATR0000CE9.pdf) dpad joystick on one corner which is connected to the CPU&#8217;s &hellip;">
+  <meta name="description" content="The Chumby Hacker Board has a 5-way Panasonic EVQQ7(Datasheet) dpad joystick on one corner at SW400. This post explains how to read the state of this &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -49,7 +49,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/chumby-oe/">OpenEmbedded for the Chumby</a></h1>
   
-    <h2>Resources for running OpenEmbedded on the Chumby Hackers Board</h2>
+    <h2>Resources for running OpenEmbedded on the Chumby Hacker Board</h2>
   
 </hgroup>
 
@@ -106,13 +106,15 @@
   </header>
 
 
-  <div class="entry-content"><p>The Chumby Hacker Board has a 5-way (Panasonic EVQQ7)(/resources/ATR0000CE9.pdf) dpad joystick on one corner which is connected to the CPU&#8217;s GPIO lines.</p>
+  <div class="entry-content"><p>The Chumby Hacker Board has a 5-way Panasonic EVQQ7(<a href="/chumby-oe/resources/ATR0000CE9.pdf">Datasheet</a>) dpad joystick on one corner at SW400.  This post explains how to read the state of this switch via the GPIO interface.</p>
 
 <p><img src="/chumby-oe/resources/evqq7.png"></p>
 
-<p>The following table shows the signal names and pin addresses for each of the
-switch contacts A-E.  Holding the board such that the switch is in the south east
-corner <a href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/">as shown here</a>, A is east, B is south, C is north, D is west and E is depressed.</p>
+<p>Holding the CHB such that the switch is in the south east
+corner <a href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/">as pictured here</a>, switch A closes when the stick is pushed east, B is south, C is north, D is west and E closes when the stick is depressed.  Sad dpad is sad.</p>
+
+<p>The following table lists the signals and pin addresses for each of the
+switch contacts A-E.</p>
 
 <ul>
 <li>A : east : GPMI CE0n : BANK2_PIN28</li>
@@ -123,12 +125,12 @@ corner <a href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-ha
 </ul>
 
 
-<p>Each of these inputs is pulled high, and goes low when the switch is closed.
-Capacitors are used to prevent switch bounce.</p>
+<p>Each of these inputs is pulled high, and driven low when the switch is closed.
+1nF capacitors on each signal line prevent switch bounce.</p>
 
 <p><img src="/chumby-oe/resources/sw400.png"></p>
 
-<p>To read these inputs using GPIO you must</p>
+<p>To read these inputs using GPIO you must make 3 calls:</p>
 
 <ul>
 <li>set the associated pin to GPIO mode,</li>
@@ -137,8 +139,8 @@ Capacitors are used to prevent switch bounce.</p>
 </ul>
 
 
-<p>For example to read switch E using the GPIO library available
-in the <a href="https://github.com/clearwater/chumby-sampler">chumby-sampler</a> repo:</p>
+<p>For example to read switch E using the GPIO library from the
+<a href="https://github.com/clearwater/chumby-sampler">Chumby Sampler</a> code:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -179,8 +181,8 @@ in the <a href="https://github.com/clearwater/chumby-sampler">chumby-sampler</a>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>A complete example reading the state of all 5 switches
-is available <a href="https://github.com/clearwater/chumby-sampler/tree/master/dpad">here</a>.</p>
+<p>Complete sample code for reading the state of all 5 switches
+is available in the <a href="https://github.com/clearwater/chumby-sampler/">Chumby Sampler</a>.</p>
 </div>
   
   
