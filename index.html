@@ -9,8 +9,7 @@
   <meta name="author" content="Guy Carpenter">
 
   
-  <meta name="description" content="Option 1: Set IMAGE_ROOTFS_SIZE Before You Build The SD card images created by chumby-oe are designed to fit on a 512Mb SD card.
-The image size is &hellip;">
+  <meta name="description" content="The Chumby Hacker Board has a 5-way (Panasonic EVQQ7)(/resources/ATR0000CE9.pdf) dpad joystick on one corner which is connected to the CPU&#8217;s &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,116 @@ The image size is &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/chumby-oe/blog/2012/04/03/reading-joystick-inputs-with-gpio/">Reading Joystick Inputs With GPIO</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-03T11:04:00+10:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The Chumby Hacker Board has a 5-way (Panasonic EVQQ7)(/resources/ATR0000CE9.pdf) dpad joystick on one corner which is connected to the CPU&#8217;s GPIO lines.</p>
+
+<p><img src="/chumby-oe/resources/evqq7.png"></p>
+
+<p>The following table shows the signal names and pin addresses for each of the
+switch contacts A-E.  Holding the board such that the switch is in the south east
+corner <a href="http://clearwater.github.com/chumby-oe/blog/2012/03/20/chumby-hacker-board-illustrated/">as shown here</a>, A is east, B is south, C is north, D is west and E is depressed.</p>
+
+<ul>
+<li>A : east : GPMI CE0n : BANK2_PIN28</li>
+<li>B : south : GPMI WPn : BANK0_PIN23</li>
+<li>C : north : GPMI WRn : BANK0_PIN24</li>
+<li>D : west : GPMI RDn : BANK0_PIN25</li>
+<li>E : down : PWM4 : BANK_1_PIN30 (aka CHUMBY BEND)</li>
+</ul>
+
+
+<p>Each of these inputs is pulled high, and goes low when the switch is closed.
+Capacitors are used to prevent switch bounce.</p>
+
+<p><img src="/chumby-oe/resources/sw400.png"></p>
+
+<p>To read these inputs using GPIO you must</p>
+
+<ul>
+<li>set the associated pin to GPIO mode,</li>
+<li>disable output on the pin,</li>
+<li>read the associated GPIO register to get the value</li>
+</ul>
+
+
+<p>For example to read switch E using the GPIO library available
+in the <a href="https://github.com/clearwater/chumby-sampler">chumby-sampler</a> repo:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>GPIO gpio;
+</span><span class='line'>gpio.open();
+</span><span class='line'>
+</span><span class='line'>// E is on bank1, pin 30
+</span><span class='line'>
+</span><span class='line'>// Set GPIO mode for BANK1_PIN30
+</span><span class='line'>// See imx23 Table 37-14
+</span><span class='line'>gpio.set(HW_PINCTRL_MUXSEL3_SET, 0x30000000);
+</span><span class='line'>
+</span><span class='line'>// Disable output mode for BANK1_PIN30
+</span><span class='line'>// See imx23 Table 37-75
+</span><span class='line'>gpio.set(HW_PINCTRL_DOE1_CLR, 0x40000000);
+</span><span class='line'>
+</span><span class='line'>// read the value into bit 0
+</span><span class='line'>// See imx23 Table 37-75
+</span><span class='line'>// Note that the input is active-low but we invert it below so that
+</span><span class='line'>// value_E will be 0 if the switch is open, 1 if the switch is closed.
+</span><span class='line'>unsigned int value_E = (gpio.get(HW_PINCTRL_DIN1, 0x40000000) &gt;&gt; 30) ^ 0x1;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>A complete example reading the state of all 5 switches
+is available <a href="https://github.com/clearwater/chumby-sampler/tree/master/dpad">here</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2830,6 +2939,10 @@ stock kernel image provided on a 1GB microSD card.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/chumby-oe/blog/2012/04/03/reading-joystick-inputs-with-gpio/">Reading Joystick Inputs with GPIO</a>
+      </li>
+    
+      <li class="post">
         <a href="/chumby-oe/blog/2012/03/29/using-all-of-the-sd-card/">Using All of the SD Card</a>
       </li>
     
@@ -2843,10 +2956,6 @@ stock kernel image provided on a 1GB microSD card.</p>
     
       <li class="post">
         <a href="/chumby-oe/blog/2012/03/19/building-a-development-image/">Building a Development Image</a>
-      </li>
-    
-      <li class="post">
-        <a href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/">OpenEmbedded 2.6.28 Boot Log</a>
       </li>
     
   </ul>
