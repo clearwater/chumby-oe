@@ -5,7 +5,6 @@ LICENSE = "unknown"
 # for the ralink rt2870 USB wireless module.
 
 RDEPENDS = " \
-	 kernel-module-led-class \
 	 compat-wireless-rt2x00 \
 	 rt2870-firmware \
 "
