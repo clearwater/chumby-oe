@@ -5,13 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Installing a Kernel Image with OSX - OpenEmbedded for the Chumby</title>
+  <title>The Chumby Forums Are Gone? - OpenEmbedded for the Chumby</title>
   <meta name="author" content="Guy Carpenter">
 
   
-  <meta name="description" content="Insert the microSD in the SD adaptor and insert it into the SD
-slot on your Mac. You will get a popup warning saying The disk you
-inserted was not &hellip;">
+  <meta name="description" content="Following close on the news that Chumby Industries has stopped trading,
+their online forums have gone offline. That&#8217;s
+bad news for folks &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@ inserted was not &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx">
+  <link rel="canonical" href="http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline">
   <link href="/chumby-oe/favicon.png" rel="icon">
   <link href="/chumby-oe/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/chumby-oe/javascripts/modernizr-2.0.js"></script>
@@ -82,7 +82,7 @@ inserted was not &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Installing a Kernel Image With OSX</h1>
+      <h1 class="entry-title">The Chumby Forums Are Gone?</h1>
     
     
       <p class="meta">
@@ -98,66 +98,22 @@ inserted was not &hellip;">
   
 
 
-<time datetime="2012-02-16T15:29:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-05-06T12:23:00+10:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Insert the microSD in the SD adaptor and insert it into the SD
-slot on your Mac.  You will get a popup warning saying <code>The disk you
-inserted was not readable by this computer.</code>  Click Ignore.</p>
+<div class="entry-content"><p>Following close on the news that Chumby Industries has stopped trading,
+their online forums have gone offline.  That&#8217;s
+bad news for folks looking to keep their Chumby alive
+as the ecosystem shuts down, and for those of us who have
+been using the forums to collaborate on the OpenEmbedded image.</p>
 
-<p>Use diskutil to find the device name.  Look for the 1GB disk
-with 4 Linux partitions.  If you missed the instructions above and
-clicked Eject instead, it will not be listed here.</p>
+<p>Zurk&#8217;s offline firmware is available <a href="http://sourceforge.net/projects/zurk/files/">on sourceforge</a>.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ diskutil list
-</span><span class='line'>/dev/disk0
-</span><span class='line'>   #:                       TYPE NAME                    SIZE       IDENTIFIER
-</span><span class='line'>   0:     FDisk_partition_scheme                        *1.0 GB     disk0
-</span><span class='line'>   1:                       0x53                         150.2 MB   disk0s1
-</span><span class='line'>   2:                      Linux                         128.0 MB   disk0s2
-</span><span class='line'>   3:                      Linux                         128.0 MB   disk0s3
-</span><span class='line'>   4:                      Linux                         128.0 MB   disk0s5
-</span><span class='line'>   5:                      Linux                         614.5 MB   disk0s6
-</span><span class='line'>/dev/disk1
-</span><span class='line'>   #:                       TYPE NAME                    SIZE       IDENTIFIER
-</span><span class='line'>   0:      GUID_partition_scheme                        *320.1 GB   disk1
-</span><span class='line'>   1:                        EFI                         209.7 MB   disk1s1
-</span><span class='line'>   2:                  Apple_HFS Macintosh HD            319.7 GB   disk1s2</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In my case this identifies the device as <code>/dev/disk0</code>.  Unmount the disk.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ diskutil unmountDisk /dev/disk0
-</span><span class='line'>Unmount of all volumes on disk0 was successful</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Copy the ROM image to the SD as follows:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo dd if=rom-chumby-falconwing-chumby-starter-image.img of=/dev/disk0 bs=8m</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Be patient, this takes a while&#8230; like 6 and a half minutes in my case.  Perhaps you would like to amuse youself by looking at <a href="http://squee.icanhascheezburger.com/">pictures of cats</a>?</p>
+<p>At the moment the Chumby <a href="http://files.chumby.com/source">source files</a> are still available, but given where things seem to be headed, I&#8217;ve taken he precaution of taking a snapshot of that server.</p>
 </div>
 
 
@@ -180,7 +136,7 @@ clicked Eject instead, it will not be listed here.</p>
   
 
 
-<time datetime="2012-02-16T15:29:00+10:00" pubdate data-updated="true">Feb 16<span>th</span>, 2012</time>
+<time datetime="2012-05-06T12:23:00+10:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
       
 
 
@@ -188,7 +144,7 @@ clicked Eject instead, it will not be listed here.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline/" data-via="" data-counturl="http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline/" >Tweet</a>
   
   
   
@@ -197,10 +153,8 @@ clicked Eject instead, it will not be listed here.</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/chumby-oe/blog/2012/02/16/chumby-serial-console-with-osx/" title="Previous Post: Chumby Serial Console Under OSX">&laquo; Chumby Serial Console Under OSX</a>
+        <a class="basic-alignment left" href="/chumby-oe/blog/2012/04/03/reading-joystick-inputs-with-gpio/" title="Previous Post: Reading Joystick Inputs with GPIO">&laquo; Reading Joystick Inputs with GPIO</a>
       
-      
-        <a class="basic-alignment right" href="/chumby-oe/blog/2012/02/16/openembedded-2-dot-6-28-boot-log/" title="next Post: OpenEmbedded 2.6.28 Boot Log">OpenEmbedded 2.6.28 Boot Log &raquo;</a>
       
     </p>
   </footer>
@@ -296,8 +250,8 @@ clicked Eject instead, it will not be listed here.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/';
-        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/02/16/installing-a-kernel-image-with-osx/';
+        var disqus_identifier = 'http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline/';
+        var disqus_url = 'http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[OpenEmbedded for the Chumby]]></title>
   <link href="http://clearwater.github.com/chumby-oe/atom.xml" rel="self"/>
   <link href="http://clearwater.github.com/chumby-oe/"/>
-  <updated>2012-04-03T12:02:19+10:00</updated>
+  <updated>2012-05-06T12:38:51+10:00</updated>
   <id>http://clearwater.github.com/chumby-oe/</id>
   <author>
     <name><![CDATA[Guy Carpenter]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The Chumby Forums Are Gone?]]></title>
+    <link href="http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline/"/>
+    <updated>2012-05-06T12:23:00+10:00</updated>
+    <id>http://clearwater.github.com/chumby-oe/blog/2012/05/06/chumby-forums-offline</id>
+    <content type="html"><![CDATA[<p>Following close on the news that Chumby Industries has stopped trading,
+their online forums have gone offline.  That&#8217;s
+bad news for folks looking to keep their Chumby alive
+as the ecosystem shuts down, and for those of us who have
+been using the forums to collaborate on the OpenEmbedded image.</p>
+
+<p>Zurk&#8217;s offline firmware is available <a href="http://sourceforge.net/projects/zurk/files/">on sourceforge</a>.</p>
+
+<p>At the moment the Chumby <a href="http://files.chumby.com/source">source files</a> are still available, but given where things seem to be headed, I&#8217;ve taken he precaution of taking a snapshot of that server.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Reading Joystick Inputs with GPIO]]></title>

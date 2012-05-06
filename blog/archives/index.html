@@ -9,10 +9,10 @@
   <meta name="author" content="Guy Carpenter">
 
   
-  <meta name="description" content="Blog Archive 2012 Reading Joystick Inputs with GPIO
+  <meta name="description" content="Blog Archive 2012 The Chumby Forums Are Gone?
+May 06 2012 Reading Joystick Inputs with GPIO
 Apr 03 2012 Using All of the SD Card
-Mar 29 2012 Chumby Hacker Board Illustrated
-Mar 20 2012 &hellip;">
+Mar 29 2012 Chumby &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,6 +92,16 @@ Mar 20 2012 &hellip;">
 
   
   <h2>2012</h2>
+
+<article>
+  
+<h1><a href="/chumby-oe/blog/2012/05/06/chumby-forums-offline/">The Chumby Forums Are Gone?</a></h1>
+<time datetime="2012-05-06T12:23:00+10:00" pubdate><span class='month'>May</span> <span class='day'>06</span> <span class='year'>2012</span></time>
+
+
+</article>
+
+
 
 <article>
   
@@ -195,6 +205,10 @@ Mar 20 2012 &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/chumby-oe/blog/2012/05/06/chumby-forums-offline/">The Chumby Forums Are Gone?</a>
+      </li>
+    
+      <li class="post">
         <a href="/chumby-oe/blog/2012/04/03/reading-joystick-inputs-with-gpio/">Reading Joystick Inputs with GPIO</a>
       </li>
     
@@ -210,11 +224,36 @@ Mar 20 2012 &hellip;">
         <a href="/chumby-oe/blog/2012/03/20/reading-the-accelerometer-with-i2c/">Reading the Accelerometer With I²C</a>
       </li>
     
-      <li class="post">
-        <a href="/chumby-oe/blog/2012/03/19/building-a-development-image/">Building a Development Image</a>
-      </li>
-    
   </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/guyc">@guyc</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'guyc',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/chumby-oe/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 

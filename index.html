@@ -9,7 +9,9 @@
   <meta name="author" content="Guy Carpenter">
 
   
-  <meta name="description" content="The Chumby Hacker Board has a 5-way Panasonic EVQQ7(Datasheet) dpad joystick on one corner at SW400. This post explains how to read the state of this &hellip;">
+  <meta name="description" content="Following close on the news that Chumby Industries has stopped trading,
+their online forums have gone offline. That&#8217;s
+bad news for folks &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +79,50 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/chumby-oe/blog/2012/05/06/chumby-forums-offline/">The Chumby Forums Are Gone?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T12:23:00+10:00" pubdate data-updated="true">May 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Following close on the news that Chumby Industries has stopped trading,
+their online forums have gone offline.  That&#8217;s
+bad news for folks looking to keep their Chumby alive
+as the ecosystem shuts down, and for those of us who have
+been using the forums to collaborate on the OpenEmbedded image.</p>
+
+<p>Zurk&#8217;s offline firmware is available <a href="http://sourceforge.net/projects/zurk/files/">on sourceforge</a>.</p>
+
+<p>At the moment the Chumby <a href="http://files.chumby.com/source">source files</a> are still available, but given where things seem to be headed, I&#8217;ve taken he precaution of taking a snapshot of that server.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2941,6 +2987,10 @@ stock kernel image provided on a 1GB microSD card.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/chumby-oe/blog/2012/05/06/chumby-forums-offline/">The Chumby Forums Are Gone?</a>
+      </li>
+    
+      <li class="post">
         <a href="/chumby-oe/blog/2012/04/03/reading-joystick-inputs-with-gpio/">Reading Joystick Inputs with GPIO</a>
       </li>
     
@@ -2956,11 +3006,36 @@ stock kernel image provided on a 1GB microSD card.</p>
         <a href="/chumby-oe/blog/2012/03/20/reading-the-accelerometer-with-i2c/">Reading the Accelerometer With I²C</a>
       </li>
     
-      <li class="post">
-        <a href="/chumby-oe/blog/2012/03/19/building-a-development-image/">Building a Development Image</a>
-      </li>
-    
   </ul>
+</section>
+
+<section>
+  <h1>Github Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/guyc">@guyc</a> on Github
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'guyc',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/chumby-oe/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
